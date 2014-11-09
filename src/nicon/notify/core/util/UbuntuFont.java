@@ -21,7 +21,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package nicon.notify.core.font;
+package nicon.notify.core.util;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
