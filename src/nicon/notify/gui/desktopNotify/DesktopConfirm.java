@@ -23,9 +23,9 @@
 
 package nicon.notify.gui.desktopNotify;
 
+import nicon.notify.core.util.ControlNotify;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
-import nicon.notify.gui.desktopNotify.controller.DesktopConfirmController;
 
 /**
  *
@@ -64,6 +64,7 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
      * 
      * 0= respuesta negativa (Cancel)
      * 1= respuesta afirmativa (Aceptar).
+     * @return 
      */
     public int getSelectedOption(){
         return option;
@@ -72,7 +73,7 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
     @Override
     public void closeNotify(DesktopNotify notify) {
         System.out.println("Closing Notify");
-        ControllerDesktopNotify.removeNotify(notify);
+        ControlNotify.removeNotify(notify);
     }
     
 }
