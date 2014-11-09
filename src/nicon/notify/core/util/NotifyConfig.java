@@ -25,7 +25,6 @@ package nicon.notify.core.util;
 
 import java.awt.Color;
 import java.awt.Font;
-import nicon.notify.core.font.UbuntuFont;
 
 /**
  *
@@ -33,35 +32,19 @@ import nicon.notify.core.font.UbuntuFont;
  */
 public class NotifyConfig {
     
-    /**
-     * Fuente para los titulos de las WindowNotify
-     */
-    private Font titleFontWin;
+    private final Font titleFontWin;
+    private final Font messageFontWin;
+    private final Font titleFontDesk;
+    private final Font messageFontDesk;
+    private final UbuntuFont font;
     
-    /**
-     * Fuente para el texto de las WindowNotify
-     */
-    private Font messageFontWin;
+    private final Color fontErrorColor;
+    private final Color fontWarningColor;
+    private final Color fontOKColor;
+    private final Color fontConfirmColor;
+    private final Color fontDefaultColor;
     
-    /**
-     * Fuente para el titulo de las DesktopNotify
-     */
-    private Font titleFontDesk;
-    
-    /**
-     * Fuente para el mensaje de las DesktopNotify
-     */
-    private Font messageFontDesk;
-    
-    private UbuntuFont font;
-    
-    private Color fontErrorColor;
-    private Color fontWarningColor;
-    private Color fontOKColor;
-    private Color fontConfirmColor;
-    private Color fontDefaultColor;
-    
-    private String nitruxIconsPath;
+    private final String nitruxIconsPath;
     
     private static NotifyConfig instance;
     
