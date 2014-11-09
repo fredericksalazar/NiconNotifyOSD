@@ -39,12 +39,24 @@ public class Notification {
     public final static int FACEBOOK_ICON=1;
     public final static int TWITTER_ON_ICON=2;
     public final static int TWITTER_OFF_ICON=3;
-    public final static int UPDATE_ICON=4;
+    public final static int UPDATE_ICON_GREEN=4;
     public final static int SECURE_ICON=5;
     public final static int GOOGLE_ICON=6;
     public final static int DISK_ICON=7;
     public final static int GPLUS_ICON=8;
     public final static int WEATHER_ICON=9;
+    public final static int WIFI_ICON=10;
+    public final static int DOWNLOAD_ICON=11;
+    public final static int RSS_ICON=12;
+    public final static int UPDATE_ICON_BLUE=13;
+    public final static int EVERNOTE_ICON=14;
+    public final static int MESSAGE_ICON_ORANGE=15;
+    public final static int MESSAGE_ICON_BLUE=16;
+    public final static int MUSIC_ICON=17;
+    public final static int SHIELD_ICON=18;
+    public final static int PLUGIN_ICON=19;
+    public final static int MAIL_ICON_RED=20;
+    public final static int MAIL_ICON_BLUE=21;
     
     public final static String NICON_DARK_THEME="D";
     public final static String NICON_LIGHT_THEME="L";

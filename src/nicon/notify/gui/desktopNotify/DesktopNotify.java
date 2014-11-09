@@ -145,7 +145,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         jbClose.setBounds(355, 5, 15, 15);
         jbClose.setBorderPainted(false);
         jbClose.setContentAreaFilled(false);
-        jbClose.setIcon(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/CloseNotify.png")));
+        jbClose.setIcon(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"CloseNotify.png")));
         jbClose.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -194,23 +194,23 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      */
     private void setDesktopInterface(){
         if(ev.getTipeMessage()==Notification.DEFAULT_MESSAGE){
-            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/wingpanel.png")));
+            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconDefault.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
         }
         if(ev.getTipeMessage()==Notification.OK_MESSAGE){
-            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconOK.png")));
+            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconOK.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleOKForeground(), 16)));
         }
         if(ev.getTipeMessage()==Notification.WARNING_MESSAGE){
-            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconWarning.png")));
+            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconWarning.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleWarningForeground(), 16)));
         }
         if(ev.getTipeMessage()==Notification.ERROR_MESSAGE){
-            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconError.png")));
+            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconError.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleErrorForeground(), 16)));
         }
         if(ev.getTipeMessage()==Notification.CONFIRM_MESSAGE){
-            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconConfirm.png")));
+            setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconConfirm.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
         }
     }
@@ -219,33 +219,49 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      * Ajusta el Icono de la notificacion con la opcion recibida del API.
      */
     private void setIconOption(){
-        if(iconOption==1){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconFacebook.png"))));
-        }
-        if(iconOption==2){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconTwitter.png"))));
-        }
-        if(iconOption==3){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconTwitterOff.png"))));
-        }
-        if(iconOption==4){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconUpdate.png"))));
-        }
-        if(iconOption==5){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconSecure.png"))));
-        }
-        if(iconOption==6){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconGoogle.png"))));
-        }
-        if(iconOption==7){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconHard.png"))));
-        }
-        if(iconOption==8){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconPlus.png"))));
-        }
-        if(iconOption==9){
-            setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconWeather.png"))));
-        }
+        
+        if(iconOption==1) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconFacebook.png"))));
+        
+        if(iconOption==2) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconTwitter.png"))));
+        
+        if(iconOption==3) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconTwitterOff.png"))));
+        
+        if(iconOption==4) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconUpdateGreen.png"))));
+        
+        if(iconOption==5) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconSecure.png"))));
+        
+        if(iconOption==6) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconGoogle.png"))));
+        
+        if(iconOption==7) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconHard.png"))));
+        
+        if(iconOption==8)  setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconPlus.png"))));
+        
+        if(iconOption==9)  setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconWeather.png"))));
+        
+        if(iconOption==10) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconWifi.png"))));
+        
+        if(iconOption==11) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconDownload.png"))));
+        
+        if(iconOption==12) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconRss.png"))));
+        
+        if(iconOption==13) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconUpdateBlue.png"))));
+        
+        if(iconOption==14) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconEverNote.png"))));
+        
+        if(iconOption==15) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMessageOrange.png"))));
+        
+        if(iconOption==16) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMessageBlue.png"))));
+        
+        if(iconOption==17) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMusic.png"))));
+        
+        if(iconOption==18) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconShield.png"))));
+        
+        if(iconOption==19) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconPlugin.png"))));
+        
+        if(iconOption==20) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMailRed.png"))));
+        
+        if(iconOption==21) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMailBlue.png"))));
+        
     }
     
     private void selectTheme(){
