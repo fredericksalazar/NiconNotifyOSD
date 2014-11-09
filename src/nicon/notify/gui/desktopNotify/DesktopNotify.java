@@ -35,6 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import nicon.notify.core.util.NLabel;
 import nicon.notify.core.NiconEvent;
+import nicon.notify.core.Notification;
 import nicon.notify.core.util.NotifyConfig;
 import nicon.notify.core.util.NotifyUtil;
 import nicon.notify.gui.themes.NiconDarkTheme;
@@ -47,20 +48,9 @@ import nicon.notify.gui.themes.NiconTheme;
  */
 public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     
-    public final static int NICON_FACEBOOK_ICON=1;
-    public final static int NICON_TWITTER_ON_ICON=2;
-    public final static int NICON_TWITTER_OFF_ICON=3;
-    public final static int NICON_UPDATE_ICON=4;
-    public final static int NICON_SECURE_ICON=5;
-    public final static int NICON_GOOGLE_ICON=6;
-    public final static int NICON_HARD_ICON=7;
-    public final static int NICON_GPLUS_ICON=8;
-    public final static int NICON_WEATHER_ICON=9;    
-    public final static String NICON_DARK_THEME="D";
-    public final static String NICON_LIGHT_THEME="L";
-    
+      
     private int iconOption;
-    private String optionTheme;
+    private String selSkin;
     
     private NiconEvent ev;
     private NotifyConfig config;
@@ -97,7 +87,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     
      public DesktopNotify(NiconEvent ev, String optionTheme) {        
         this.ev=ev;
-        this.optionTheme=optionTheme;
+        this.selSkin=optionTheme;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();  
         this.selectTheme();
@@ -134,7 +124,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     public DesktopNotify(NiconEvent ev, int iconOption,String optionTheme){
         this.ev=ev;
         this.iconOption=iconOption;
-        this.optionTheme=optionTheme;
+        this.selSkin=optionTheme;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
         this.selectTheme();
@@ -203,23 +193,23 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      * simple y sin ninguna expresion.
      */
     private void setDesktopInterface(){
-        if(ev.getTipeMessage()==NiconEvent.NOTIFY_DEFAULT){
+        if(ev.getTipeMessage()==Notification.DEFAULT_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/wingpanel.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
         }
-        if(ev.getTipeMessage()==NiconEvent.NOTIFY_OK){
+        if(ev.getTipeMessage()==Notification.OK_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconOK.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleOKForeground(), 16)));
         }
-        if(ev.getTipeMessage()==NiconEvent.NOTIFY_WARNING){
+        if(ev.getTipeMessage()==Notification.WARNING_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconWarning.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleWarningForeground(), 16)));
         }
-        if(ev.getTipeMessage()==NiconEvent.NOTIFY_ERROR){
+        if(ev.getTipeMessage()==Notification.ERROR_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconError.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleErrorForeground(), 16)));
         }
-        if(ev.getTipeMessage()==NiconEvent.NOTIFY_CONFIRM){
+        if(ev.getTipeMessage()==Notification.CONFIRM_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"small/NiconConfirm.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
         }
@@ -259,10 +249,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     }
     
     private void selectTheme(){
-        if(optionTheme.equals(DesktopNotify.NICON_DARK_THEME)){
+        if(selSkin.equals(Notification.NICON_DARK_THEME)){
             theme=NiconDarkTheme.getInstance();
         }
-        if(optionTheme.equals(DesktopNotify.NICON_LIGHT_THEME)){
+        if(selSkin.equals(Notification.NICON_LIGHT_THEME)){
             theme=NiconLightTheme.getInstance();
         }
     }

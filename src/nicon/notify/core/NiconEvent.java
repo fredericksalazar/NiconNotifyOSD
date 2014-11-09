@@ -33,13 +33,7 @@ package nicon.notify.core;
  */
 
 public class NiconEvent {
-    
-    public final static int NOTIFY_OK=0;
-    public final static int NOTIFY_ERROR=1;
-    public final static int NOTIFY_WARNING=2;
-    public final static int NOTIFY_CONFIRM=3;
-    public final static int NOTIFY_DEFAULT=4;
-    
+        
     private final String titleEvent;    
     private final String textEvent;
     private final int tipeMessage;

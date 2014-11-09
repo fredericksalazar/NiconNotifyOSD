@@ -29,6 +29,26 @@ import nicon.notify.gui.desktopNotify.DesktopNotify;
 
 public class Notification {
     
+    
+    public final static int OK_MESSAGE=0;
+    public final static int ERROR_MESSAGE=1;
+    public final static int WARNING_MESSAGE=2;
+    public final static int CONFIRM_MESSAGE=3;
+    public final static int DEFAULT_MESSAGE=4;
+    
+    public final static int FACEBOOK_ICON=1;
+    public final static int TWITTER_ON_ICON=2;
+    public final static int TWITTER_OFF_ICON=3;
+    public final static int UPDATE_ICON=4;
+    public final static int SECURE_ICON=5;
+    public final static int GOOGLE_ICON=6;
+    public final static int DISK_ICON=7;
+    public final static int GPLUS_ICON=8;
+    public final static int WEATHER_ICON=9;
+    
+    public final static String NICON_DARK_THEME="D";
+    public final static String NICON_LIGHT_THEME="L";
+    
     private static DesktopNotify notify;   
     private static NiconEvent event;
      
@@ -39,7 +59,7 @@ public class Notification {
      * @param message 
      */
     public static void showNotify(String title, String message){
-        event=new NiconEvent(title,message,NiconEvent.NOTIFY_DEFAULT);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
     }
@@ -68,7 +88,7 @@ public class Notification {
      * @param Skin 
      */
     public static void showNotify(String title, String message,String Skin){
-        event=new NiconEvent(title,message,NiconEvent.NOTIFY_DEFAULT);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,Skin);
         ControlNotify.launchNotify(notify);
     }
@@ -97,22 +117,22 @@ public class Notification {
      * crea una notificacion de escritorio con un titulo, un mensaje y un valor
      * entero que presenta un icono especial seleccionando una de las opciones 
      * habilitadas dentro de DesktopNotify:
-     * <br>DesktopNotify.NICON_FACEBOOK_ICON
-     * <br>DesktopNotify.NICON_TWITTER_ICON
-     * <br>DesktopNotify.NICON_TWITTER_OFF_ICON
-     * <br>DesktopNotify.NICON_UPDATE_ICON
-     * <br>DesktopNotify.NICON_SECURE_ICON
-     * <br>DesktopNotify.NICON_GOOGLE_ICON
-     * <br>DesktopNotify.NICON_HARD_ICON
-     * <br>DesktopNotify.NICON_GPLUS_ICON
-     * <br>DesktopNotify.NICON_WEATHER_ICON
+     * <br>DesktopNotify.FACEBOOK_ICON
+ <br>DesktopNotify.NICON_TWITTER_ICON
+     * <br>DesktopNotify.TWITTER_OFF_ICON
+ <br>DesktopNotify.UPDATE_ICON
+ <br>DesktopNotify.SECURE_ICON
+ <br>DesktopNotify.GOOGLE_ICON
+ <br>DesktopNotify.DISK_ICON
+ <br>DesktopNotify.GPLUS_ICON
+ <br>DesktopNotify.WEATHER_ICON
      * 
      * @param tipeIcon
      * @param title
      * @param message
      */
     public static void showNotify(int tipeIcon,String title, String message){
-        event=new NiconEvent(title,message,NiconEvent.NOTIFY_DEFAULT);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event, tipeIcon);
         ControlNotify.launchNotify(notify);
     }
@@ -121,19 +141,19 @@ public class Notification {
      * crea una notificacion de escritorio con un titulo, un mensaje y un valor
      * entero que presenta un icono especial seleccionando una de las opciones 
      * habilitadas dentro de DesktopNotify:
-     * <br>DesktopNotify.NICON_FACEBOOK_ICON
-     * <br>DesktopNotify.NICON_TWITTER_ICON
-     * <br>DesktopNotify.NICON_TWITTER_OFF_ICON
-     * <br>DesktopNotify.NICON_UPDATE_ICON
-     * <br>DesktopNotify.NICON_SECURE_ICON
-     * <br>DesktopNotify.NICON_GOOGLE_ICON
-     * <br>DesktopNotify.NICON_HARD_ICON
-     * <br>DesktopNotify.NICON_GPLUS_ICON
-     * <br>DesktopNotify.NICON_WEATHER_ICON
-     * el Skin que
-     * desea usar para la notificacion usando las siguientes Opciones
-     * DesktopNotify.NICON_DARK_THEME
-     * DesktopNotify.NICON_LIGHT_THEME 
+     * <br>DesktopNotify.FACEBOOK_ICON
+ <br>DesktopNotify.NICON_TWITTER_ICON
+     * <br>DesktopNotify.TWITTER_OFF_ICON
+ <br>DesktopNotify.UPDATE_ICON
+ <br>DesktopNotify.SECURE_ICON
+ <br>DesktopNotify.GOOGLE_ICON
+ <br>DesktopNotify.DISK_ICON
+ <br>DesktopNotify.GPLUS_ICON
+ <br>DesktopNotify.WEATHER_ICON
+ el Skin que
+ desea usar para la notificacion usando las siguientes Opciones
+ DesktopNotify.NICON_DARK_THEME
+ DesktopNotify.NICON_LIGHT_THEME 
      * 
      * @param tipeIcon
      * @param title
@@ -141,7 +161,7 @@ public class Notification {
      * @param skin
      */
     public static void showNotify(int tipeIcon,String title, String message,String skin){
-        event=new NiconEvent(title,message,NiconEvent.NOTIFY_DEFAULT);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event, tipeIcon,skin);
         ControlNotify.launchNotify(notify);
     }
