@@ -23,6 +23,7 @@
 
 package nicon.notify.gui.desktopNotify;
 
+import nicon.notify.core.util.ControlNotify;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,8 +55,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     public final static int NICON_GOOGLE_ICON=6;
     public final static int NICON_HARD_ICON=7;
     public final static int NICON_GPLUS_ICON=8;
-    public final static int NICON_WEATHER_ICON=9;
-    
+    public final static int NICON_WEATHER_ICON=9;    
     public final static String NICON_DARK_THEME="D";
     public final static String NICON_LIGHT_THEME="L";
     
@@ -67,14 +67,11 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private NotifyUtil util;
     private NiconTheme theme;
     
-    private JButton jbClose;
-    
+    private JButton jbClose;    
     private JPanel panel;    
-    
     private JLabel jlTitle;
     private NLabel jlMessage;
-    private JLabel jlIcon;
-    
+    private JLabel jlIcon;   
     private ImageIcon icon;
     private Timer timer;
     
@@ -163,7 +160,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();                
-                ControllerDesktopNotify.displayed--;
+                ControlNotify.displayed--;
             }
         });
                 
@@ -270,12 +267,16 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         }
     }
        
+    /**
+     *
+     * @param notify
+     */
     @Override
     public void closeNotify(final DesktopNotify notify) {
        timer = new Timer(6500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ControllerDesktopNotify.removeNotify(notify);
+                ControlNotify.removeNotify(notify);
                 timer.stop();
                 timer=null;
             }
