@@ -29,50 +29,20 @@ package nicon.notify.core;
  * un codigo de evento que define si es un mensaje de error, de alerta un mensaje
  * positivo.
  * 
- * @author frederick
+ * @author Frederick Adolfo Salazar Sanchez
  */
 
 public class NiconEvent {
     
-    /**
-     * Muestra una notificación del tipo OK Message coon un Icono de OK.
-     */
     public final static int NOTIFY_OK=0;
-    
-    /**
-     * Muestra una notificacion del tipo Error Message con Icono de Error.
-     */
     public final static int NOTIFY_ERROR=1;
-    
-    /**
-     * Muestra una Notificacion del tipo Advertencia con Icono de Warning.
-     */
     public final static int NOTIFY_WARNING=2;
-    
-    /**
-     * Muestra una notificacion de confirmacion con un Icono de Confirm.
-     */
     public final static int NOTIFY_CONFIRM=3;
-    
-    /**
-     * Muestra la notificacion po defecto con el icono de Desktop.
-     */
     public final static int NOTIFY_DEFAULT=4;
     
-    /**
-     * Titulo de la notificacion.
-     */
-    private String titleEvent;
-    
-    /**
-     * Mensaje a mostrar en la notificación.
-     */
-    private String textEvent;
-    
-    /**
-     * Tipo de mensaje que mostrará la notificación.
-     */
-    private int tipeMessage;
+    private final String titleEvent;    
+    private final String textEvent;
+    private final int tipeMessage;
 
     
     public NiconEvent(String titleEvent, String textEvent, int tipeMessage) {
@@ -109,8 +79,5 @@ public class NiconEvent {
     public String toString() {
         return "NiconEvent{" + "titleEvent=" + titleEvent + ", textEvent=" + textEvent + ", tipeMessage=" + tipeMessage + '}';
     }
-
-     
-       
 }
 
