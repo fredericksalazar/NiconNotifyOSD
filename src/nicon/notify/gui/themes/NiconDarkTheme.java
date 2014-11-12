@@ -10,13 +10,13 @@ package nicon.notify.gui.themes;
  */
 public class NiconDarkTheme extends NiconTheme{
     
-    private String bakcgroundPanel="232323";
-    private String titleForeground="d2d2d2";
-    private String messageForeground="d2d2d2";
+    private final String bakcgroundPanel="232323";
+    private final String titleForeground="d2d2d2";
+    private final String messageForeground="d2d2d2";
     
-    private String titleWarningForeground="ff6400";
-    private String titleErrorForeground="ff000c";
-    private String titleOKForeground="73d50b";
+    private final String titleWarningForeground="ff6400";
+    private final String titleErrorForeground="ff000c";
+    private final String titleOKForeground="73d50b";
     
     private static NiconDarkTheme instance;
 

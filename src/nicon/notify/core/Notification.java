@@ -177,6 +177,10 @@ public class Notification {
         ControlNotify.launchNotify(notify);
     }
     
+    /*
+     *  Muestra una notificacion de escritorio donde muestra informacion basica
+        acerca de la libreria su version, estado.
+    */
     public static void showVersionLib(){
         String title=NotifyConfig.getInstance().getNameLib();
         String version=NotifyConfig.getInstance().getVersionLib();

@@ -37,7 +37,6 @@ import nicon.notify.gui.desktopNotify.DesktopNotify;
 public class ControlNotify {
     
     private static final int HEIGHT_SEPARATOR=8;    
-    private static boolean active;
     private static DesktopNotify deskNotify;
 
     public static int displayed = 0;

@@ -33,7 +33,7 @@ import javax.swing.JTextArea;
  */
 public class NLabel extends JTextArea{
     
-    private String text;
+    private final String text;
 
     public NLabel(String text) {
         super(text);
