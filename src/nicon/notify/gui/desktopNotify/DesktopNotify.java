@@ -262,6 +262,14 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         
         if(iconOption==21) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMailBlue.png"))));
         
+        if(iconOption==22) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"ImageIcon.png"))));
+        
+        if(iconOption==23) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconNotes.png"))));
+        
+        if(iconOption==24) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconCalendar.png"))));
+        
+        if(iconOption==25) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconInfo.png"))));
+        
     }
     
     private void selectTheme(){

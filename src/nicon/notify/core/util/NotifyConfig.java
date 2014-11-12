@@ -48,6 +48,11 @@ public class NotifyConfig {
     
     private static NotifyConfig instance;
     
+    private final String nameLib;
+    private final String versionLib;
+    private final String infoLib;
+    
+    
     
     private NotifyConfig() {
         font=UbuntuFont.getInstance();
@@ -63,6 +68,9 @@ public class NotifyConfig {
         fontDefaultColor=new java.awt.Color(214, 214, 214);
         
         nitruxIconsPath="/nicon/notify/gui/Icons/Nitrux/";
+        nameLib="NiconNotifyOSD";
+        versionLib="0.8-7";
+        infoLib="Developed By NiconSystem CO | Icons desingned By Nitrux  MX";
     } 
       
     public  Font getTitleFont() {
@@ -112,7 +120,19 @@ public class NotifyConfig {
     public String getNitruxIconsPath() {
         return nitruxIconsPath;
     }
-    
+
+    public String getNameLib() {
+        return nameLib;
+    }
+
+    public String getVersionLib() {
+        return versionLib;
+    }
+
+    public String getInfoLib() {
+        return infoLib;
+    }
+       
     public static NotifyConfig getInstance(){
         if(instance==null){
             instance=new NotifyConfig();
