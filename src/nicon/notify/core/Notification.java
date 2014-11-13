@@ -60,8 +60,8 @@ public class Notification {
     public final static int CALENDAR_ICON=24;
     protected final static int INFO_ICON=25;
 
-    public final static String NICON_DARK_THEME = "D";
-    public final static String NICON_LIGHT_THEME = "L";
+    public final static char NICON_DARK_THEME = 'D';
+    public final static char NICON_LIGHT_THEME = 'L';
 
     private static DesktopNotify notify;
     private static NiconEvent event;
@@ -72,7 +72,7 @@ public class Notification {
      * @param title
      * @param message
      */
-    public static void showNotify(String title, String message) {
+    public static void show(String title, String message) {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
         notify = new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
@@ -87,7 +87,7 @@ public class Notification {
      * @param message
      * @param tipeNotify
      */
-    public static void showNotify(String title, String message, int tipeNotify) {
+    public static void show(String title, String message, int tipeNotify) {
         event = new NiconEvent(title, message, tipeNotify);
         notify = new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
@@ -102,7 +102,7 @@ public class Notification {
      * @param message
      * @param Skin
      */
-    public static void showNotify(String title, String message, String Skin) {
+    public static void show(String title, String message, char Skin) {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
         notify = new DesktopNotify(event, Skin);
         ControlNotify.launchNotify(notify);
@@ -120,7 +120,7 @@ public class Notification {
      * @param tipeNotify
      * @param skin
      */
-    public static void showNotify(String title, String message, int tipeNotify, String skin) {
+    public static void show(String title, String message, int tipeNotify, char skin) {
         event = new NiconEvent(title, message, tipeNotify);
         notify = new DesktopNotify(event, skin);
         ControlNotify.launchNotify(notify);
@@ -140,13 +140,13 @@ public class Notification {
      * <br>DesktopNotify.GPLUS_ICON
      * <br>DesktopNotify.WEATHER_ICON
      *
-     * @param tipeIcon
+     * @param icon
      * @param title
      * @param message
      */
-    public static void showNotify(int tipeIcon, String title, String message) {
+    public static void show(int icon, String title, String message) {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, tipeIcon);
+        notify = new DesktopNotify(event, icon);
         ControlNotify.launchNotify(notify);
     }
 
@@ -166,17 +166,33 @@ public class Notification {
      * notificacion usando las siguientes Opciones
      * DesktopNotify.NICON_DARK_THEME DesktopNotify.NICON_LIGHT_THEME
      *
-     * @param tipeIcon
+     * @param icon
      * @param title
      * @param message
      * @param skin
      */
-    public static void showNotify(int tipeIcon, String title, String message, String skin) {
+    public static void show(int icon, String title, String message, char skin) {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, tipeIcon, skin);
+        notify = new DesktopNotify(event, icon, skin);
         ControlNotify.launchNotify(notify);
     }
     
+    /*
+        muestra una notificacion
+    */
+    public static void show(String title,String message,String urlIcon){
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        notify=new DesktopNotify(event,urlIcon);
+        ControlNotify.launchNotify(notify);
+    }
+    
+    public static void show(String title,String message, String urlIcon, char skin){
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        notify=new DesktopNotify(event,urlIcon,skin);
+        ControlNotify.launchNotify(notify);
+    }
+    
+        
     /*
      *  Muestra una notificacion de escritorio donde muestra informacion basica
         acerca de la libreria su version, estado.
