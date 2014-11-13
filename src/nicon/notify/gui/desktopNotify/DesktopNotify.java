@@ -25,8 +25,14 @@ package nicon.notify.gui.desktopNotify;
 
 import nicon.notify.core.util.ControlNotify;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -48,21 +54,24 @@ import nicon.notify.gui.themes.NiconTheme;
  */
 public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     
-      
-    private int iconOption;
-    private String selSkin;
-    
+          
     private NiconEvent ev;
+    private JLabel jlTitle;
+    private NLabel jlMessage;
+    private JLabel jlIcon;   
+    private ImageIcon icon;
+    private int iconOption;
+    private char selSkin;
+    private String urlIcon;
+    
+    
     private NotifyConfig config;
     private NotifyUtil util;
     private NiconTheme theme;
     
     private JButton jbClose;    
     private JPanel panel;    
-    private JLabel jlTitle;
-    private NLabel jlMessage;
-    private JLabel jlIcon;   
-    private ImageIcon icon;
+    
     private Timer timer;
     
     /**
@@ -85,7 +94,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         closeNotify(this);
     }        
     
-     public DesktopNotify(NiconEvent ev, String optionTheme) {        
+     public DesktopNotify(NiconEvent ev, char optionTheme) {        
         this.ev=ev;
         this.selSkin=optionTheme;
         this.config=NotifyConfig.getInstance();
@@ -121,7 +130,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         closeNotify(this);
     }    
     
-    public DesktopNotify(NiconEvent ev, int iconOption,String optionTheme){
+    public DesktopNotify(NiconEvent ev, int iconOption,char optionTheme){
         this.ev=ev;
         this.iconOption=iconOption;
         this.selSkin=optionTheme;
@@ -135,6 +144,38 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setDesktopInterface();
         setIconOption();
     }    
+    
+    public DesktopNotify(NiconEvent ev,String url){
+        this.ev=ev;
+        this.iconOption=-1;        
+        this.urlIcon=url;
+        this.theme=NiconDarkTheme.getInstance();
+        this.config=NotifyConfig.getInstance();
+        this.util=NotifyUtil.getInstance();
+        this.selectTheme();
+        
+        setSize(380,98);
+        setUndecorated(true);  
+        init();        
+        setDesktopInterface();
+        setIconOption();
+    }
+    
+    public DesktopNotify(NiconEvent ev,String url,char skin){
+        this.ev=ev;
+        this.iconOption=-1;        
+        this.urlIcon=url;
+        this.selSkin=skin;
+        this.config=NotifyConfig.getInstance();
+        this.util=NotifyUtil.getInstance();
+        this.selectTheme();
+        
+        setSize(380,98);
+        setUndecorated(true);  
+        init();        
+        setDesktopInterface();
+        setIconOption();
+    }
     
     private void init() {
         panel=new JPanel();
@@ -220,6 +261,18 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      */
     private void setIconOption(){
         
+        if(iconOption==-1) {
+            try {
+                File file=new File(urlIcon);
+                    if(file.exists()){
+                        ImageIcon prevIcon=new ImageIcon(file.getPath());
+                        setIconNotify(new ImageIcon(prevIcon.getImage().getScaledInstance(67, 67, Image.SCALE_DEFAULT)));
+                    }
+            } catch (Exception ex) {
+                Logger.getLogger(DesktopNotify.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         if(iconOption==1) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconFacebook.png"))));
         
         if(iconOption==2) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconTwitter.png"))));
@@ -273,12 +326,11 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     }
     
     private void selectTheme(){
-        if(selSkin.equals(Notification.NICON_DARK_THEME)){
+        if(selSkin==Notification.NICON_DARK_THEME)
             theme=NiconDarkTheme.getInstance();
-        }
-        if(selSkin.equals(Notification.NICON_LIGHT_THEME)){
-            theme=NiconLightTheme.getInstance();
-        }
+        
+        if(selSkin==Notification.NICON_LIGHT_THEME)
+            theme=NiconLightTheme.getInstance();        
     }
        
     /**
