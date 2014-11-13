@@ -26,6 +26,14 @@ import nicon.notify.core.util.ControlNotify;
 import nicon.notify.core.util.NotifyConfig;
 import nicon.notify.gui.desktopNotify.DesktopNotify;
 
+/**
+ * Notification es la clase API para la invocación, manejo y configuración de las
+ * notificaciones de escritorio que provee NiconNotifyOSD, use este standar
+ * para acceder a todas las herramientas que provee NiconNotifyOSD
+ * 
+ * @author Frederick Adolfo Salazar Sanchez
+ */
+
 public class Notification {
 
     public final static int OK_MESSAGE = 0;
@@ -67,7 +75,8 @@ public class Notification {
     private static NiconEvent event;
 
     /**
-     * Crea una Notificacion de escritorio con un titulo y un mensaje
+     * Muestra una notificación de escritorio recibiendo como parametros el
+     * titulo y el mensaje.
      *
      * @param title
      * @param message
@@ -79,9 +88,13 @@ public class Notification {
     }
 
     /**
-     * Crea una notificacion de escritorio recibiendo el titulo, un mensaje y el
-     * tipo de Notificacion a mostrar, NiconEvent.Error NiconEvent.Warning
-     * NiconEvent.Default NiconEvent.OK
+     * Muestra una notificacion de escritorio recibiendo como parametros el 
+     * titulo, el mensaje a mostrar y el tipo de notificacion definido en 
+     * Notification ej:<p>
+     * Notification.OK_MESSAGE<BR>
+     * Notification.WARNING_MESSAGE<BR>
+     * Notification.ERROR_MESSAGE<BR>
+     * Notification.DEFAULT_MESSAGE<BR>
      *
      * @param title
      * @param message
@@ -94,9 +107,10 @@ public class Notification {
     }
 
     /**
-     * Crea una notificacion de escritorio con un titulo y un mensaje y el Skin
-     * desea usar para la notificacion usando las siguientes Opciones
-     * DesktopNotify.NICON_DARK_THEME DesktopNotify.NICON_LIGHT_THEME
+     * Muestra una notificacion de escritorio recibiendo como parametro el 
+     * titulo, el mensaje a mostrar y un tema a usar ej:<p>
+     * Notification.NICON_LIGHT_THEME<BR>
+     * Notification.NICON_DARK_THEME
      *
      * @param title
      * @param message
@@ -109,11 +123,9 @@ public class Notification {
     }
 
     /**
-     * Crea una notificacion de escritorio recibiendo el titulo, un mensaje y el
-     * tipo de Notificacion a mostrar, NiconEvent.Error NiconEvent.Warning
-     * NiconEvent.Default NiconEvent.OK y el Skin que desea usar para la
-     * notificacion usando las siguientes Opciones
-     * DesktopNotify.NICON_DARK_THEME DesktopNotify.NICON_LIGHT_THEME
+     * Muesra una notificacion de escritorio recibiendo el titulo, un mensaje y el
+     * tipo de Notificacion a mostrar y el tema a usar<P> 
+     * Notification.show("title","message",Notification.DEFAUL_MESSAGE,Notification.NICON_LIGHT_THEME
      *
      * @param title
      * @param message
@@ -127,19 +139,14 @@ public class Notification {
     }
 
     /**
-     * crea una notificacion de escritorio con un titulo, un mensaje y un valor
-     * entero que presenta un icono especial seleccionando una de las opciones
-     * habilitadas dentro de DesktopNotify:
-     * <br>DesktopNotify.FACEBOOK_ICON
-     * <br>DesktopNotify.NICON_TWITTER_ICON
-     * <br>DesktopNotify.TWITTER_OFF_ICON
-     * <br>DesktopNotify.UPDATE_ICON
-     * <br>DesktopNotify.SECURE_ICON
-     * <br>DesktopNotify.GOOGLE_ICON
-     * <br>DesktopNotify.DISK_ICON
-     * <br>DesktopNotify.GPLUS_ICON
-     * <br>DesktopNotify.WEATHER_ICON
-     *
+     * Muestra una notificacion de escritorio con un Icono, un titulo, 
+     * un mensaje, Ej iconos incorporados:<p>
+     * Notification.FACEBOOK_ICON<br>
+     * Notification.UPDATE_ICON_GREEN<br>
+     * Notification.CALENDAR_ICON<br>
+     * Notification.MUSIC_ICON<br>
+     * Notification.SECURE_ICON
+     * 
      * @param icon
      * @param title
      * @param message
@@ -177,15 +184,30 @@ public class Notification {
         ControlNotify.launchNotify(notify);
     }
     
-    /*
-        muestra una notificacion
-    */
+    /**
+     * Muestra una notificacion de escritorio con un titulo, un mensaje y la ruta
+     * de un icono personalizado
+     * @param title
+     * @param message
+     * @param urlIcon 
+     */
     public static void show(String title,String message,String urlIcon){
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,urlIcon);
         ControlNotify.launchNotify(notify);
     }
     
+    
+    /**
+     * Muestra una notificacion de escritorio con un titulo, un mensaje, la ruta
+     * del icono personalizado y el caracter del Thema a usar:<p>
+     * Notification.NICON_DARK_THEME<br>
+     * Notification.NICON_LIGHT_THEME
+     * @param title
+     * @param message
+     * @param urlIcon
+     * @param skin 
+     */
     public static void show(String title,String message, String urlIcon, char skin){
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,urlIcon,skin);
@@ -193,10 +215,9 @@ public class Notification {
     }
     
         
-    /*
-     *  Muestra una notificacion de escritorio donde muestra informacion basica
-        acerca de la libreria su version, estado.
-    */
+    /**
+     * Muestra la informacion básica de NiconNotifyOSD
+     */
     public static void showVersionLib(){
         String title=NotifyConfig.getInstance().getNameLib();
         String version=NotifyConfig.getInstance().getVersionLib();
