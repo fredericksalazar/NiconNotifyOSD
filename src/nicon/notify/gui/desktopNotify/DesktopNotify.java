@@ -29,8 +29,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -94,6 +92,16 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         closeNotify(this);
     }        
     
+    /**
+     * Este metodo constructor permite crear una nueva notificacion de escritorio
+     * de forma que se configura por defecto con la informacion y caracteristicas
+     * del objeto NiconEvent que llega en su constructor, ademas recibe un char
+     * con la seleccion del NiconTheme que el usuario desea usar
+     * 
+     * @param ev 
+     * @param optionTheme 
+     */
+    
      public DesktopNotify(NiconEvent ev, char optionTheme) {        
         this.ev=ev;
         this.selSkin=optionTheme;
@@ -112,7 +120,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      * Este metodo permite crear una nueva notificacion de escritorio recibiendo
      * como parametros el Evento que se desea mostrar y un Icono de los iconos 
      * proveidos por la libreria, para hacer uso de los iconos debera acceder a 
-     * ellos mediante las variables constantes de DesktopNoify
+     * ellos mediante las variables constantes de Notification
      * @param ev
      * @param iconOption 
      */
@@ -130,6 +138,18 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         closeNotify(this);
     }    
     
+    /**
+     * Este metodo constructor permite crear una nueva notificacion de escritorio
+     * de forma que se configura por defecto con la informacion y caracteristicas
+     * del objeto NiconEvent que llega en su constructor, ademas recibe un int
+     * que representa el icono a usar en la notificacion y un char con el NiconTheme
+     * seleccionado para la notificacion
+     * 
+     * @param ev 
+     * @param iconOption 
+     * @param optionTheme 
+     */
+    
     public DesktopNotify(NiconEvent ev, int iconOption,char optionTheme){
         this.ev=ev;
         this.iconOption=iconOption;
@@ -144,6 +164,16 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setDesktopInterface();
         setIconOption();
     }    
+    
+    /**
+     * Este metodo constructor permite crear una nueva notificacion de escritorio
+     * de forma que se configura por defecto con la informacion y caracteristicas
+     * del objeto NiconEvent que llega en su constructor, ademas de un string 
+     * con la url de un icono que el usuario desea mostrar
+     * 
+     * @param ev 
+     * @param url 
+     */
     
     public DesktopNotify(NiconEvent ev,String url){
         this.ev=ev;
@@ -161,6 +191,18 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setIconOption();
     }
     
+    /**
+     * Este metodo constructor permite crear una nueva notificacion de escritorio
+     * de forma que se configura por defecto con la informacion y caracteristicas
+     * del objeto NiconEvent que llega en su constructor, ademas recibe un 
+     * String con el Url de un icono a cargar y el char del NiconTheme a usar en 
+     * la notificacion
+     * 
+     * @param ev 
+     * @param url 
+     * @param skin 
+     */
+    
     public DesktopNotify(NiconEvent ev,String url,char skin){
         this.ev=ev;
         this.iconOption=-1;        
@@ -168,8 +210,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.selSkin=skin;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
-        this.selectTheme();
-        
+        this.selectTheme();        
         setSize(380,98);
         setUndecorated(true);  
         init();        
@@ -177,7 +218,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setIconOption();
     }
     
-    private void init() {
+    /**
+     * Metodo que inicia el proceso de carga y configuracion de la notificacion
+     */
+    private void init() {        
         panel=new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(Integer.parseInt(theme.getBakcgroundPanel(), 16)));
@@ -325,6 +369,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         
     }
     
+    /**
+     * Metodo que permite ajustar un NiconTheme segun el seleccionado por el 
+     * usuario
+     */
     private void selectTheme(){
         if(selSkin==Notification.NICON_DARK_THEME)
             theme=NiconDarkTheme.getInstance();
