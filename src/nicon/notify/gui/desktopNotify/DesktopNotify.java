@@ -60,8 +60,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private ImageIcon icon;
     private int iconOption;
     private char selSkin;
-    private String urlIcon;
-    
+    private String urlIcon;    
     
     private NotifyConfig config;
     private NotifyUtil util;
@@ -86,7 +85,8 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.util=NotifyUtil.getInstance();
         this.theme=NiconDarkTheme.getInstance();        
         setSize(380,98);
-        setUndecorated(true);     
+        setUndecorated(true);  
+        setAlwaysOnTop(true);
         init();        
         setDesktopInterface();
         closeNotify(this);
@@ -107,10 +107,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.selSkin=optionTheme;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();  
-        this.selectTheme();
-        
+        selectTheme();        
         setSize(380,98);
         setUndecorated(true); 
+        setAlwaysOnTop(true);
         init();        
         setDesktopInterface();
         closeNotify(this);
@@ -131,7 +131,8 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         util=NotifyUtil.getInstance();        
         theme=NiconDarkTheme.getInstance();        
         setSize(380,98);
-        setUndecorated(true);   
+        setUndecorated(true);
+        setAlwaysOnTop(true);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -156,10 +157,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.selSkin=optionTheme;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
-        this.selectTheme();
-        
+        this.selectTheme();        
         setSize(380,98);
-        setUndecorated(true);  
+        setUndecorated(true); 
+        setAlwaysOnTop(true);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -182,10 +183,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.theme=NiconDarkTheme.getInstance();
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
-        this.selectTheme();
-        
+        this.selectTheme();        
         setSize(380,98);
-        setUndecorated(true);  
+        setUndecorated(true);
+        setAlwaysOnTop(true);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -212,7 +213,8 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.util=NotifyUtil.getInstance();
         this.selectTheme();        
         setSize(380,98);
-        setUndecorated(true);  
+        setUndecorated(true); 
+        this.setAlwaysOnTop(true);
         init();        
         setDesktopInterface();
         setIconOption();
