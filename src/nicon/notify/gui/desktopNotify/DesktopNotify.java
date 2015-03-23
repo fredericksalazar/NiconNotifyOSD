@@ -23,6 +23,7 @@
 
 package nicon.notify.gui.desktopNotify;
 
+import java.applet.AudioClip;
 import nicon.notify.core.util.ControlNotify;
 import java.awt.Color;
 import java.awt.Image;
@@ -59,7 +60,8 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private JLabel jlIcon;   
     private int iconOption;
     private char selSkin;
-    private String urlIcon;    
+    private String urlIcon;  
+    private boolean sound;
     
     private NotifyConfig config;
     private NotifyUtil util;
@@ -90,8 +92,8 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         init();        
         setDesktopInterface();
         closeNotify(this);
-    }        
-    
+    }    
+  
     /**
      * Este metodo constructor permite crear una nueva notificacion de escritorio
      * de forma que se configura por defecto con la informacion y caracteristicas
@@ -411,6 +413,19 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      */
     public Color getForegroundTitle(){
         return this.jlTitle.getForeground();
+    }
+    
+    /**
+     * Este metodo permitira reproducir un sonido al momento de mostrar la 
+     * notificacion
+     */    
+    public void startSound(){
+        System.out.println("Reproduciendo sonido ..");
+        String url="/nicon/notify/core/sound/complete.wav";
+        System.out.println("Cargando archivo ..");
+        AudioClip adio = java.applet.Applet.newAudioClip(getClass().getResource(url));
+        adio.play();
+        System.out.println("Sonido ejecutado");
     }
        
     /**
