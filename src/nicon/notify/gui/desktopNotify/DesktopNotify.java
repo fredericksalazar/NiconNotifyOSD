@@ -71,6 +71,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private JPanel panel;    
     
     private Timer timer;
+    private String urlSound;
     
     /**
      * Este metodo constructor permite crear una nueva notificacion de escritorio
@@ -418,14 +419,20 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     /**
      * Este metodo permitira reproducir un sonido al momento de mostrar la 
      * notificacion
+     * @param type
      */    
-    public void startSound(){
-        System.out.println("Reproduciendo sonido ..");
-        String url="/nicon/notify/core/sound/complete.wav";
-        System.out.println("Cargando archivo ..");
-        AudioClip adio = java.applet.Applet.newAudioClip(getClass().getResource(url));
+    public void playSound(int type){
+        if(type==0){
+            urlSound="/nicon/notify/core/sound/notify.wav";
+        }
+        if(type==1){
+            urlSound="/nicon/notify/core/sound/warning.wav";
+        }
+        if(type==2){
+            urlSound="/nicon/notify/core/sound/error.wav";
+        }
+        AudioClip adio = java.applet.Applet.newAudioClip(getClass().getResource(urlSound));
         adio.play();
-        System.out.println("Sonido ejecutado");
     }
        
     /**
