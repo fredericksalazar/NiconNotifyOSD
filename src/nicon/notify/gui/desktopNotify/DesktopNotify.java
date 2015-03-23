@@ -57,7 +57,6 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private JLabel jlTitle;
     private NLabel jlMessage;
     private JLabel jlIcon;   
-    private ImageIcon icon;
     private int iconOption;
     private char selSkin;
     private String urlIcon;    
@@ -87,6 +86,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setSize(380,98);
         setUndecorated(true);  
         setAlwaysOnTop(true);
+        setResizable(false);
         init();        
         setDesktopInterface();
         closeNotify(this);
@@ -111,6 +111,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setSize(380,98);
         setUndecorated(true); 
         setAlwaysOnTop(true);
+        setResizable(false);
         init();        
         setDesktopInterface();
         closeNotify(this);
@@ -133,6 +134,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setSize(380,98);
         setUndecorated(true);
         setAlwaysOnTop(true);
+        setResizable(false);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -161,6 +163,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setSize(380,98);
         setUndecorated(true); 
         setAlwaysOnTop(true);
+        setResizable(false);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -187,6 +190,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setSize(380,98);
         setUndecorated(true);
         setAlwaysOnTop(true);
+        setResizable(false);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -214,7 +218,8 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         this.selectTheme();        
         setSize(380,98);
         setUndecorated(true); 
-        this.setAlwaysOnTop(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
         init();        
         setDesktopInterface();
         setIconOption();
@@ -250,7 +255,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         
         jlMessage=new NLabel(util.setTextMessageEvent(ev.getTextEvent()));
         jlMessage.setFont(config.getMessageFontDesk());
-        jlMessage.setBounds(78,40,295,80);
+        jlMessage.setBounds(78,30,295,50);
         jlMessage.setForeground(new Color(Integer.parseInt(theme.getMessageForeground(),16)));
                 
         panel.add(jlIcon);
@@ -261,12 +266,19 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         closeNotify(this);
     }
     
+    /**
+     * Este metodo permite agregar  un nuevo boton a una notificacion
+     * @param buton 
+     */
     public void addButton(JButton buton){
         panel.add(buton);
     }
     
+    /**
+     * Ajusta el icono de la notificacion
+     * @param icon 
+     */
     private void setIconNotify(ImageIcon icon){
-        this.icon=icon;
         jlIcon.setIcon(icon);
     }
     
@@ -381,6 +393,24 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         
         if(selSkin==Notification.NICON_LIGHT_THEME)
             theme=NiconLightTheme.getInstance();        
+    }
+    
+    /**
+     * Retorna un objeto del tipo NiconTheme con el tema seleccionado por el 
+     * usuario
+     * @return NiconTheme
+     */
+    public NiconTheme getTheme(){
+        return this.theme;
+    }
+    
+    /**
+     * Este metodo retorna el color de fuente usado en los titulos de las notificaciones
+     * segun el tipo que sea.
+     * @return Color titleforeground
+     */
+    public Color getForegroundTitle(){
+        return this.jlTitle.getForeground();
     }
        
     /**

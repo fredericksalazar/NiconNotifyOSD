@@ -14,9 +14,9 @@ public class NiconLightTheme extends NiconTheme{
     private final String titleForeground="3d3d3d";
     private final String messageForeground="3d3d3d";
     
-    private final String titleWarningForeground="ff6400";
-    private final String titleErrorForeground="ff000c";
-    private final String titleOKForeground="76b901";
+    private final String titleWarningForeground="f39c12";
+    private final String titleErrorForeground="e74c3c";
+    private final String titleOKForeground="3498db";
     
     private static NiconLightTheme instance;
 

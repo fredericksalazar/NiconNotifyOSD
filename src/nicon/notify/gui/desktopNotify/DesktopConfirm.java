@@ -23,6 +23,7 @@
 
 package nicon.notify.gui.desktopNotify;
 
+import java.awt.Color;
 import nicon.notify.core.util.ControlNotify;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
@@ -41,16 +42,21 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
     
     public DesktopConfirm(NiconEvent ev) {
         super(ev);
-        setSize(380,150);
+        setSize(380,110);
         init();
     }
 
-    private void init() {
-       jbAcept=new JButton("Aceptar");
-       jbAcept.setBounds(280, 120, 100, 27);
+    private void init() {               
+       jbAcept=new JButton("Acept");
+       jbAcept.setBounds(0,80,190,30); 
+       jbAcept.setForeground(Color.white);
+       jbAcept.setBorderPainted(false);
+       jbAcept.setFocusPainted(false);
+       jbAcept.setBackground(this.getForegroundTitle());
        
-       jbCancel=new JButton("Cancelar");
-       jbCancel.setBounds(175,120,100,27);
+       jbCancel=new JButton("Cancel");
+       jbCancel.setBounds(190,80,190,30);
+       jbCancel.setBackground(Color.lightGray);
        
        addButton(jbAcept);
        addButton(jbCancel);

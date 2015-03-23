@@ -24,6 +24,7 @@ package nicon.notify.core;
 
 import nicon.notify.core.util.ControlNotify;
 import nicon.notify.core.util.NotifyConfig;
+import nicon.notify.gui.desktopNotify.DesktopConfirm;
 import nicon.notify.gui.desktopNotify.DesktopNotify;
 
 /**
@@ -73,6 +74,7 @@ public class Notification {
 
     private static DesktopNotify notify;
     private static NiconEvent event;
+    private static DesktopConfirm confirm;
 
     /**
      * Muestra una notificación de escritorio recibiendo como parametros el
@@ -212,6 +214,18 @@ public class Notification {
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,urlIcon,skin);
         ControlNotify.launchNotify(notify);
+    }
+    
+    public static int showConfirm(String title, String message, int optionType){
+        int option=-1;
+        event=new NiconEvent(title,message,optionType);
+        confirm = new DesktopConfirm(event);
+        ControlNotify.launchNotify(confirm);
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
     }
     
         
