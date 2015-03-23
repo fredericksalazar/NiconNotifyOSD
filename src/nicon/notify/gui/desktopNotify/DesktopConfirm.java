@@ -24,6 +24,9 @@
 package nicon.notify.gui.desktopNotify;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import nicon.notify.core.util.ControlNotify;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
@@ -32,7 +35,7 @@ import nicon.notify.core.NiconEvent;
  *
  * @author frederick
  */
-public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterface{
+public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterface,ActionListener{
         
     public JButton jbAcept;
     public JButton jbCancel;
@@ -53,10 +56,14 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
        jbAcept.setBorderPainted(false);
        jbAcept.setFocusPainted(false);
        jbAcept.setBackground(this.getForegroundTitle());
+       jbAcept.addActionListener(this);
        
        jbCancel=new JButton("Cancel");
        jbCancel.setBounds(190,80,190,30);
-       jbCancel.setBackground(Color.lightGray);
+       jbCancel.setBorderPainted(false);
+       jbCancel.setFocusPainted(false);
+       jbCancel.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
+       jbCancel.addActionListener(this);
        
        addButton(jbAcept);
        addButton(jbCancel);
@@ -76,10 +83,33 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
         return option;
     }
     
+    /**
+     * Este metodo se encarga de hacer que una notificacion sea cerrada al 
+     * momento de obtener el evento de pulsación de un boton.
+     * @param notify 
+     */
     @Override
     public void closeNotify(DesktopNotify notify) {
         System.out.println("Closing Notify");
         ControlNotify.removeNotify(notify);
+    }
+
+    /**
+     * Manejamos los posibles eventos de mouse, click en alguno de los botones
+     * seleccionados
+     * @param ae 
+     */
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource().equals(jbAcept)){
+            System.out.println("The option selected is : acept");
+            option=1;
+            closeNotify(this);
+        }else{
+            System.out.println("The option selected is : cancel");
+            option=-1;
+            closeNotify(this);
+        }
     }
     
 }
