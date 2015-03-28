@@ -39,7 +39,7 @@ public class NiconDarkTheme extends NiconTheme{
     
     private static NiconDarkTheme instance;
     
-    public NiconDarkTheme(){
+    private NiconDarkTheme(){
         this.bakcgroundPanel = "232323";
         this.titleForeground = "ecf0f1";
         this.messageForeground = "ecf0f1";

@@ -88,6 +88,24 @@ public class Notification {
         notify = new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
     }
+    
+    /**
+     * Muestra una notificación de escritorio recibiendo como parametros el
+     * titulo y el mensaje y ademas un booleano que identifica si desea 
+     * reproducir un sonido al mostrar la notificacion
+     *
+     * @param title
+     * @param message
+     * @param sound
+     */
+    public static void show(String title, String message,boolean sound) {
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event);
+            if(sound){
+                notify.playSound(0);        
+            }
+        ControlNotify.launchNotify(notify);
+    }
 
     /**
      * Muestra una notificacion de escritorio recibiendo como parametros el 
@@ -107,6 +125,40 @@ public class Notification {
         notify = new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
     }
+    
+     /**
+     * Muestra una notificacion de escritorio recibiendo como parametros el 
+     * titulo, el mensaje a mostrar y el tipo de notificacion definido en 
+     * Notification, ademas un booleano para ejecutar un sonido de acuerdo
+     * al tipo de notificacion ej:<p>
+     * Notification.OK_MESSAGE<BR>
+     * Notification.WARNING_MESSAGE<BR>
+     * Notification.ERROR_MESSAGE<BR>
+     * Notification.DEFAULT_MESSAGE<BR>
+     *
+     * @param title
+     * @param message
+     * @param tipeNotify
+     * @param sound
+     */
+    public static void show(String title, String message, int tipeNotify,boolean sound) {
+        event = new NiconEvent(title, message, tipeNotify);
+        notify = new DesktopNotify(event);
+            if(sound){
+                if(event.getTipeMessage()==Notification.OK_MESSAGE){
+                    notify.playSound(0);
+                    ControlNotify.launchNotify(notify);
+                }
+                if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
+                    notify.playSound(1);
+                    ControlNotify.launchNotify(notify);
+                }
+                if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
+                    notify.playSound(2);
+                    ControlNotify.launchNotify(notify);
+                }
+            }
+    }
 
     /**
      * Muestra una notificacion de escritorio recibiendo como parametro el 
@@ -123,6 +175,27 @@ public class Notification {
         notify = new DesktopNotify(event, Skin);
         ControlNotify.launchNotify(notify);
     }
+    
+    
+    /**
+     * Muestra una notificacion de escritorio recibiendo como parametro el 
+     * titulo, el mensaje a mostrar y un tema a usar ej:<p>
+     * Notification.NICON_LIGHT_THEME<BR>
+     * Notification.NICON_DARK_THEME
+     *
+     * @param title
+     * @param message
+     * @param Skin
+     * @param sound
+     */
+    public static void show(String title, String message, char Skin,boolean sound) {
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event, Skin);
+            if(sound){
+                notify.playSound(0);
+            }
+        ControlNotify.launchNotify(notify);
+    }
 
     /**
      * Muesra una notificacion de escritorio recibiendo el titulo, un mensaje y el
@@ -133,11 +206,25 @@ public class Notification {
      * @param message
      * @param tipeNotify
      * @param skin
+     * @param sound
      */
-    public static void show(String title, String message, int tipeNotify, char skin) {
+    public static void show(String title, String message, int tipeNotify, char skin,boolean sound) {
         event = new NiconEvent(title, message, tipeNotify);
         notify = new DesktopNotify(event, skin);
-        ControlNotify.launchNotify(notify);
+            if(sound){
+                if(event.getTipeMessage()==Notification.OK_MESSAGE){
+                    notify.playSound(0);
+                    ControlNotify.launchNotify(notify);
+                }
+                if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
+                    notify.playSound(1);
+                    ControlNotify.launchNotify(notify);
+                }
+                if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
+                    notify.playSound(2);
+                    ControlNotify.launchNotify(notify);
+                }
+            }
     }
 
     /**
@@ -156,6 +243,29 @@ public class Notification {
     public static void show(int icon, String title, String message) {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
         notify = new DesktopNotify(event, icon);
+        ControlNotify.launchNotify(notify);
+    }
+    
+    /**
+     * Muestra una notificacion de escritorio con un Icono, un titulo, 
+     * un mensaje, Ej iconos incorporados:<p>
+     * Notification.FACEBOOK_ICON<br>
+     * Notification.UPDATE_ICON_GREEN<br>
+     * Notification.CALENDAR_ICON<br>
+     * Notification.MUSIC_ICON<br>
+     * Notification.SECURE_ICON
+     * 
+     * @param icon
+     * @param title
+     * @param message
+     * @param sound
+     */
+    public static void show(int icon, String title, String message,boolean sound) {
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event, icon);
+            if(sound){
+                notify.playSound(0);
+            }
         ControlNotify.launchNotify(notify);
     }
 
@@ -186,6 +296,37 @@ public class Notification {
         ControlNotify.launchNotify(notify);
     }
     
+     /**
+     * crea una notificacion de escritorio con un titulo, un mensaje y un valor
+     * entero que presenta un icono especial seleccionando una de las opciones
+     * habilitadas dentro de DesktopNotify:
+     * <br>DesktopNotify.FACEBOOK_ICON
+     * <br>DesktopNotify.NICON_TWITTER_ICON
+     * <br>DesktopNotify.TWITTER_OFF_ICON
+     * <br>DesktopNotify.UPDATE_ICON
+     * <br>DesktopNotify.SECURE_ICON
+     * <br>DesktopNotify.GOOGLE_ICON
+     * <br>DesktopNotify.DISK_ICON
+     * <br>DesktopNotify.GPLUS_ICON
+     * <br>DesktopNotify.WEATHER_ICON el Skin que desea usar para la
+     * notificacion usando las siguientes Opciones
+     * DesktopNotify.NICON_DARK_THEME DesktopNotify.NICON_LIGHT_THEME
+     *
+     * @param icon
+     * @param title
+     * @param message
+     * @param skin
+     * @param sound
+     */
+    public static void show(int icon, String title, String message, char skin,boolean sound) {
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event, icon, skin);
+            if(sound){
+                notify.playSound(0);
+            }
+        ControlNotify.launchNotify(notify);
+    }
+    
     /**
      * Muestra una notificacion de escritorio con un titulo, un mensaje y la ruta
      * de un icono personalizado
@@ -196,6 +337,23 @@ public class Notification {
     public static void show(String title,String message,String urlIcon){
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,urlIcon);
+        ControlNotify.launchNotify(notify);
+    }
+    
+    /**
+     * Muestra una notificacion de escritorio con un titulo, un mensaje y la ruta
+     * de un icono personalizado
+     * @param title
+     * @param message
+     * @param urlIcon 
+     * @param sound 
+     */
+    public static void show(String title,String message,String urlIcon,boolean sound){
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        notify=new DesktopNotify(event,urlIcon);
+            if(sound){
+                notify.playSound(0);
+            }
         ControlNotify.launchNotify(notify);
     }
     
@@ -216,6 +374,27 @@ public class Notification {
         ControlNotify.launchNotify(notify);
     }
     
+    /**
+     * Muestra una notificacion de escritorio con un titulo, un mensaje, la ruta
+     * del icono personalizado y el caracter del Thema a usar:<p>
+     * Notification.NICON_DARK_THEME<br>
+     * Notification.NICON_LIGHT_THEME
+     * @param title
+     * @param message
+     * @param urlIcon
+     * @param skin 
+     * @param sound 
+     */
+    public static void show(String title,String message, String urlIcon, char skin,boolean sound){
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        notify=new DesktopNotify(event,urlIcon,skin);
+            if(sound){
+                notify.playSound(0);
+            }
+        ControlNotify.launchNotify(notify);
+    }
+    
+    
     public static int showConfirm(String title, String message, int optionType){
         int option=-1;
         event=new NiconEvent(title,message,optionType);
@@ -225,6 +404,31 @@ public class Notification {
                 option=confirm.getSelectedOption();
                 break;
             }
+        return option;
+    }
+    
+    public static int showConfirm(String title, String message, int optionType,boolean sound){
+        int option=-1;
+        event=new NiconEvent(title,message,optionType);
+        confirm = new DesktopConfirm(event);
+            if(sound){
+                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
+                        confirm.playSound(0);
+                        ControlNotify.launchNotify(confirm);
+                    }
+                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
+                        confirm.playSound(1);
+                        ControlNotify.launchNotify(confirm);
+                    }
+                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
+                        confirm.playSound(2);
+                        ControlNotify.launchNotify(confirm);
+                    }
+                }
+        while(confirm.isShowing()!=true){
+            option=confirm.getSelectedOption();
+            break;
+        }
         return option;
     }
     

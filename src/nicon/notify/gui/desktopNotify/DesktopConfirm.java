@@ -39,8 +39,7 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
         
     public JButton jbAcept;
     public JButton jbCancel;
-    public static int option;
-    public static int visible=0;
+    public int option;
     
     
     public DesktopConfirm(NiconEvent ev) {

@@ -29,5 +29,5 @@ package nicon.notify.gui.desktopNotify;
  */
 public interface NotifyDesktopInterface {
         
-    public void closeNotify(final DesktopNotify notify);
+    public void closeNotify();
 }

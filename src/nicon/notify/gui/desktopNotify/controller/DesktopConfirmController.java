@@ -16,14 +16,11 @@ public class DesktopConfirmController implements ActionListener{
     
     private DesktopConfirm desktopConfirm;
     private int optionPressed;
-    private boolean visible;
-    private int active;
 
     public DesktopConfirmController(DesktopConfirm desktopConfirm) {
         this.desktopConfirm = desktopConfirm;
         this.desktopConfirm.jbAcept.addActionListener(this);
         this.desktopConfirm.jbCancel.addActionListener(this);
-        active=1;
     }
     
 
@@ -32,12 +29,12 @@ public class DesktopConfirmController implements ActionListener{
         
         if(e.getSource().equals(desktopConfirm.jbAcept)){            
             optionPressed=1;
-            desktopConfirm.closeNotify(desktopConfirm); 
+            //desktopConfirm.closeNotify(desktopConfirm); 
         }
         
         if(e.getSource().equals(desktopConfirm.jbCancel)){            
             optionPressed=0;
-            desktopConfirm.closeNotify(desktopConfirm);
+            //desktopConfirm.closeNotify(desktopConfirm);
         }
         
     }
