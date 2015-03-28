@@ -10,15 +10,23 @@ package nicon.notify.gui.themes;
  */
 public class NiconLightTheme extends NiconTheme{
     
-    private final String bakcgroundPanel="ffffff";
-    private final String titleForeground="3d3d3d";
-    private final String messageForeground="3d3d3d";
-    
-    private final String titleWarningForeground="f39c12";
-    private final String titleErrorForeground="e74c3c";
-    private final String titleOKForeground="3498db";
+    private final String bakcgroundPanel;
+    private final String titleForeground;
+    private final String messageForeground;    
+    private final String titleWarningForeground;
+    private final String titleErrorForeground;
+    private final String titleOKForeground;
     
     private static NiconLightTheme instance;
+    
+    private NiconLightTheme(){
+        this.bakcgroundPanel = "ffffff";
+        this.titleForeground = "3d3d3d";
+        this.messageForeground = "3d3d3d";
+        this.titleWarningForeground = "f39c12";
+        this.titleErrorForeground = "e74c3c";
+        this.titleOKForeground = "3498db";
+    }
 
     @Override
     public String getBakcgroundPanel() {
