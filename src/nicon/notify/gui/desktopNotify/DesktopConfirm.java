@@ -35,16 +35,16 @@ import nicon.notify.core.NiconEvent;
  *
  * @author frederick
  */
-public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterface,ActionListener{
+public class DesktopConfirm extends DesktopNotify implements ActionListener{
         
     public JButton jbAcept;
     public JButton jbCancel;
-    public static int option=-1;
+    public static int option;
     public static int visible=0;
     
     
     public DesktopConfirm(NiconEvent ev) {
-        super(ev);
+        super(ev);        
         setSize(380,110);
         init();
     }
@@ -85,11 +85,10 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
     
     /**
      * Este metodo se encarga de hacer que una notificacion sea cerrada al 
-     * momento de obtener el evento de pulsación de un boton.
-     * @param notify 
+     * momento de obtener el evento de pulsación de un boton. 
      */
-    @Override
-    public void closeNotify(DesktopNotify notify) {
+    public void close() {
+        final DesktopNotify notify = this;
         System.out.println("Closing Notify");
         ControlNotify.removeNotify(notify);
     }
@@ -104,11 +103,11 @@ public class DesktopConfirm extends DesktopNotify implements NotifyDesktopInterf
         if(ae.getSource().equals(jbAcept)){
             System.out.println("The option selected is : acept");
             option=1;
-            closeNotify(this);
+            close();
         }else{
             System.out.println("The option selected is : cancel");
             option=-1;
-            closeNotify(this);
+            close();
         }
     }
     
