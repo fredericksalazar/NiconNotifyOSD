@@ -48,7 +48,10 @@ import nicon.notify.gui.themes.NiconLightTheme;
 import nicon.notify.gui.themes.NiconTheme;
 
 /**
- *
+ * Esta clase define una notificacion del tipo DesktopNotify, esta notificacion
+ * es el centro de esta tecnologia,en esta clase solo definimos los aspectos
+ * graficos.
+ * 
  * @author frederick
  */
 public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
@@ -60,8 +63,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private JLabel jlIcon;   
     private int iconOption;
     private char selSkin;
-    private String urlIcon;  
-    private boolean sound;
+    private String urlIcon; 
     
     private NotifyConfig config;
     private NotifyUtil util;
@@ -92,7 +94,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setResizable(false);
         init();        
         setDesktopInterface();
-        closeNotify(this);
+        closeNotify();
     }    
   
     /**
@@ -117,7 +119,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setResizable(false);
         init();        
         setDesktopInterface();
-        closeNotify(this);
+        closeNotify();
     }     
     
     /**
@@ -141,7 +143,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         init();        
         setDesktopInterface();
         setIconOption();
-        closeNotify(this);
+        closeNotify();
     }    
     
     /**
@@ -266,7 +268,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         panel.add(jlMessage);
         panel.add(jbClose);
         add(panel);            
-        closeNotify(this);
+        closeNotify();
     }
     
     /**
@@ -437,10 +439,10 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
        
     /**
      *
-     * @param notify
      */
     @Override
-    public void closeNotify(final DesktopNotify notify) {
+    public final void closeNotify() {
+       final DesktopNotify notify = this;
        timer = new Timer(6500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -451,5 +453,6 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         });
         timer.start();
     }
+
             
 }
