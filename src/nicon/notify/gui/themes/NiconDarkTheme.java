@@ -30,15 +30,23 @@ package nicon.notify.gui.themes;
  */
 public class NiconDarkTheme extends NiconTheme{
     
-    private final String bakcgroundPanel="232323";
-    private final String titleForeground="ecf0f1";
-    private final String messageForeground="ecf0f1";
-    
-    private final String titleWarningForeground="f39c12";
-    private final String titleErrorForeground="e74c3c";
-    private final String titleOKForeground="3498db";
+    private final String bakcgroundPanel;
+    private final String titleForeground;
+    private final String messageForeground;    
+    private final String titleWarningForeground;
+    private final String titleErrorForeground;
+    private final String titleOKForeground;
     
     private static NiconDarkTheme instance;
+    
+    public NiconDarkTheme(){
+        this.bakcgroundPanel = "232323";
+        this.titleForeground = "ecf0f1";
+        this.messageForeground = "ecf0f1";
+        this.titleWarningForeground = "f39c12";
+        this.titleErrorForeground = "e74c3c";
+        this.titleOKForeground = "3498db";
+    }
     
     /**
      * Retorna el color de fondo del panel para la notificacion
