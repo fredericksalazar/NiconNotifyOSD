@@ -44,7 +44,7 @@ public class NotifyUtil {
     
     
     private NotifyUtil(){
-        
+        screenResol=new int[2];
     }
     
     /**
@@ -52,8 +52,7 @@ public class NotifyUtil {
      * 
      * @return int [] screnResol
      */
-    public int[] getScreenResulotion(){
-        screenResol=new int[2];
+    public int[] getScreenResulotion(){        
         screen=new Dimension();
         tk = Toolkit.getDefaultToolkit();
         screen = tk.getScreenSize();
