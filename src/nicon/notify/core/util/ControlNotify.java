@@ -39,7 +39,7 @@ public class ControlNotify {
     private static final int HEIGHT_SEPARATOR=8;    
     private static DesktopNotify deskNotify;
 
-    public static int displayed = 0;
+    public  static int displayed = 0;
     private static int ypos;
     private static int prevHeight=0;
     private static int prevYPos=0;
@@ -65,6 +65,7 @@ public class ControlNotify {
                 notify.setVisible(true); 
         }
     }
+    
     
     public static void removeNotify(DesktopNotify notify){
         for(int i=0;i< listNotify.size();i++){
