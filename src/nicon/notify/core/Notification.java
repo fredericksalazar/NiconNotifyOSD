@@ -75,6 +75,7 @@ public class Notification {
     private static DesktopNotify notify;
     private static NiconEvent event;
     private static DesktopConfirm confirm;
+    private static int option;
 
     /**
      * Muestra una notificación de escritorio recibiendo como parametros el
@@ -394,9 +395,16 @@ public class Notification {
         ControlNotify.launchNotify(notify);
     }
     
-    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param optionType
+     * @return 
+     */
     public static int showConfirm(String title, String message, int optionType){
-        int option=-1;
+        option=-1;
         event=new NiconEvent(title,message,optionType);
         confirm = new DesktopConfirm(event);
         ControlNotify.launchNotify(confirm);
@@ -407,8 +415,41 @@ public class Notification {
         return option;
     }
     
+    /**
+     * Permite crear una notificacion de escritorio del tipo confirm, recibiendo
+     * como parametros el titulo, el mensaje, el tipo de notificacion bien sea
+     * de error, advertencia, ok y recibe el thema a usar.
+     * @param title
+     * @param message
+     * @param optionType
+     * @param NiconTheme
+     * @return 
+     */
+    
+    public static int showConfirm(String title, String message,int optionType,char NiconTheme){
+        option=-1;
+        event=new NiconEvent(title,message,optionType);
+        confirm = new DesktopConfirm(event,NiconTheme);
+        ControlNotify.launchNotify(confirm);
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;        
+    }
+    
+    /**
+     * Muestra una notificacion de escritorio del tipo de confirmacion la cual
+     * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
+     * especifica la reproduccion de un sonido
+     * @param title
+     * @param message
+     * @param optionType
+     * @param sound
+     * @return int response
+     */
     public static int showConfirm(String title, String message, int optionType,boolean sound){
-        int option=-1;
+        option=-1;
         event=new NiconEvent(title,message,optionType);
         confirm = new DesktopConfirm(event);
             if(sound){
