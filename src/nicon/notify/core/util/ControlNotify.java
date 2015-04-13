@@ -65,8 +65,11 @@ public class ControlNotify {
                 notify.setVisible(true); 
         }
     }
-    
-    
+        
+    /**
+     * Permite remover una notificación del stack de notificaciones
+     * @param notify 
+     */
     public static void removeNotify(DesktopNotify notify){
         for(int i=0;i< listNotify.size();i++){
             if(notify.equals(listNotify.get(i))){
