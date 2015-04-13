@@ -47,6 +47,13 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
         setSize(380,110);
         init();
     }
+    
+    public DesktopConfirm(NiconEvent ev,char optionTheme){
+        super(ev,optionTheme);
+        setSize(380,110);
+        init();
+    }
+            
 
     private void init() {               
        jbAcept=new JButton("Acept");

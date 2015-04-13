@@ -440,6 +440,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     /**
      *
      */
+    @Override
     public final void closeNotify() {
        final DesktopNotify notify = this;
        timer = new Timer(6500, new ActionListener() {
