@@ -10,19 +10,40 @@ package nicon.notify.gui.themes;
  */
 public abstract class NiconTheme {
     
-    
-
+    /**
+     *
+     * @return
+     */
     public abstract String getBakcgroundPanel();
 
-
+    /**
+     *
+     * @return
+     */
     public abstract String getTitleForeground();
 
+    /**
+     *
+     * @return
+     */
     public abstract String getMessageForeground();
 
+    /**
+     *
+     * @return
+     */
     public abstract String getTitleWarningForeground();
 
+    /**
+     *
+     * @return
+     */
     public abstract String getTitleErrorForeground();
 
+    /**
+     *
+     * @return
+     */
     public abstract String getTitleOKForeground();
 
     

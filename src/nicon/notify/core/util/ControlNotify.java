@@ -39,6 +39,9 @@ public class ControlNotify {
     private static final int HEIGHT_SEPARATOR=8;    
     private static DesktopNotify deskNotify;
 
+    /**
+     *
+     */
     public  static int displayed = 0;
     private static int ypos;
     private static int prevHeight=0;

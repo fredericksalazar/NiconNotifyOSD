@@ -17,6 +17,10 @@ public class DesktopConfirmController implements ActionListener{
     private DesktopConfirm desktopConfirm;
     private int optionPressed;
 
+    /**
+     *
+     * @param desktopConfirm
+     */
     public DesktopConfirmController(DesktopConfirm desktopConfirm) {
         this.desktopConfirm = desktopConfirm;
         this.desktopConfirm.jbAcept.addActionListener(this);
@@ -39,6 +43,10 @@ public class DesktopConfirmController implements ActionListener{
         
     }
         
+    /**
+     *
+     * @return
+     */
     public int getOptionPressed(){
         return optionPressed;
     }

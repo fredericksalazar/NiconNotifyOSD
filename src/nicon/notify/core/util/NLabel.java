@@ -35,6 +35,10 @@ public class NLabel extends JTextArea{
     
     private final String text;
 
+    /**
+     *
+     * @param text
+     */
     public NLabel(String text) {
         super(text);
         this.text = text;        

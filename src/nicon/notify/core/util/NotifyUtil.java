@@ -62,11 +62,18 @@ public class NotifyUtil {
         return screenResol;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public int getHeigtScreen(){
        return screenResol[1];
     }
     
+    /**
+     *
+     * @return
+     */
     public int getWidthScreen(){
         return screenResol[0];
     }

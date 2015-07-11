@@ -62,10 +62,19 @@ public class UbuntuFont {
         return ubuntuFont.deriveFont(size);
     }
     
+    /**
+     *
+     * @param size
+     * @return
+     */
     public Font getUbuntuBold(float size){
         return ubuntuFont.deriveFont(Font.BOLD, size);
     }
     
+    /**
+     *
+     * @return
+     */
     public static UbuntuFont getInstance(){
         if(font==null){            
             font=new UbuntuFont(); 

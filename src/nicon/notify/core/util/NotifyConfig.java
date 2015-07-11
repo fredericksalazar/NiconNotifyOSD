@@ -73,66 +73,130 @@ public class NotifyConfig {
         infoLib="Developed By NiconSystem CO | Icons desingned By Nitrux  MX";
     } 
       
+    /**
+     *
+     * @return
+     */
     public  Font getTitleFont() {
         return titleFontWin;
     }
 
+    /**
+     *
+     * @return
+     */
     public Font getMessageFont() {
         return messageFontWin;
     }
 
+    /**
+     *
+     * @return
+     */
     public Font getTitleFontWin() {
         return titleFontWin;
     }
 
+    /**
+     *
+     * @return
+     */
     public Font getMessageFontWin() {
         return messageFontWin;
     }
 
+    /**
+     *
+     * @return
+     */
     public Font getTitleFontDesk() {
         return titleFontDesk;
     }
 
+    /**
+     *
+     * @return
+     */
     public Font getMessageFontDesk() {
         return messageFontDesk;
     }   
 
+    /**
+     *
+     * @return
+     */
     public  Color getFontErrorColor() {
         return fontErrorColor;
     }
 
+    /**
+     *
+     * @return
+     */
     public  Color getFontWarningColor() {
         return fontWarningColor;
     }  
 
+    /**
+     *
+     * @return
+     */
     public  Color getFontOKColor() {
         return fontOKColor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Color getFontConfirmColor() {
         return fontConfirmColor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Color getFontDefaultColor() {
         return fontDefaultColor;
     }    
     
+    /**
+     *
+     * @return
+     */
     public String getNitruxIconsPath() {
         return nitruxIconsPath;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNameLib() {
         return nameLib;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getVersionLib() {
         return versionLib;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInfoLib() {
         return infoLib;
     }
        
+    /**
+     *
+     * @return
+     */
     public static NotifyConfig getInstance(){
         if(instance==null){
             instance=new NotifyConfig();

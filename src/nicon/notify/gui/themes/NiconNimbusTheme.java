@@ -1,5 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package nicon.notify.gui.themes;
@@ -8,7 +9,7 @@ package nicon.notify.gui.themes;
  *
  * @author frederick
  */
-public class NiconLightTheme extends NiconTheme{
+public class NiconNimbusTheme extends NiconTheme{
     
     private final String bakcgroundPanel;
     private final String titleForeground;
@@ -17,20 +18,20 @@ public class NiconLightTheme extends NiconTheme{
     private final String titleErrorForeground;
     private final String titleOKForeground;
     
-    private static NiconLightTheme instance;
+    private static NiconNimbusTheme instance;
     
-    private NiconLightTheme(){
-        this.bakcgroundPanel = "ffffff";
-        this.titleForeground = "3d3d3d";
-        this.messageForeground = "3d3d3d";
+    private NiconNimbusTheme(){
+        this.bakcgroundPanel = "232323";
+        this.titleForeground = "ecf0f1";
+        this.messageForeground = "ecf0f1";
         this.titleWarningForeground = "f39c12";
         this.titleErrorForeground = "e74c3c";
         this.titleOKForeground = "3498db";
     }
-
+    
     /**
-     *
-     * @return
+     * Retorna el color de fondo del panel para la notificacion
+     * @return 
      */
     @Override
     public String getBakcgroundPanel() {
@@ -38,26 +39,26 @@ public class NiconLightTheme extends NiconTheme{
     }
     
     /**
-     *
-     * @return
+     * Retorna el color de fuente del titulo
+     * @return 
      */
     @Override
     public String getTitleForeground() {
         return titleForeground;
     }
-
+    
     /**
-     *
-     * @return
+     * Retorna color de fuente del cuerpo de mensaje
+     * @return 
      */
     @Override
     public String getMessageForeground() {
         return messageForeground;
     }
-
+    
     /**
-     *
-     * @return
+     * Retorna color de fuente de titulo para mensajes de advertencia
+     * @return 
      */
     @Override
     public String getTitleWarningForeground() {
@@ -65,8 +66,8 @@ public class NiconLightTheme extends NiconTheme{
     }
     
     /**
-     *
-     * @return
+     * Retorna el color de fuente de titulo para mensajes de Error
+     * @return 
      */
     @Override
     public String getTitleErrorForeground() {
@@ -74,8 +75,8 @@ public class NiconLightTheme extends NiconTheme{
     }
     
     /**
-     *
-     * @return
+     * Retorna el color de fuente de titulo para mensajes de exito
+     * @return 
      */
     @Override
     public String getTitleOKForeground() {
@@ -83,14 +84,14 @@ public class NiconLightTheme extends NiconTheme{
     }
     
     /**
-     *
-     * @return
+     * Retorna una instancia de objeto del tema
+     * @return 
      */
-    public static NiconLightTheme getInstance(){
+    public static NiconNimbusTheme getInstance(){
         if(instance==null){
-            instance=new NiconLightTheme();
+            instance=new NiconNimbusTheme();
         }
         return instance;
-    }
+    }   
     
 }

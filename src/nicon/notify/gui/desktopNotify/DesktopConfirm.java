@@ -37,17 +37,36 @@ import nicon.notify.core.NiconEvent;
  */
 public class DesktopConfirm extends DesktopNotify implements ActionListener{
         
+    /**
+     *
+     */
     public JButton jbAcept;
+
+    /**
+     *
+     */
     public JButton jbCancel;
+
+    /**
+     *
+     */
     public int option;
     
-    
+    /**
+     *
+     * @param ev
+     */
     public DesktopConfirm(NiconEvent ev) {
         super(ev);        
         setSize(380,110);
         init();
     }
     
+    /**
+     *
+     * @param ev
+     * @param optionTheme
+     */
     public DesktopConfirm(NiconEvent ev,char optionTheme){
         super(ev,optionTheme);
         setSize(380,110);
