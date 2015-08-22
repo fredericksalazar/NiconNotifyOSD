@@ -57,16 +57,18 @@ import nicon.notify.gui.themes.NiconTheme;
 public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     
           
-    private NiconEvent ev;
-    private JLabel jlTitle;
-    private NLabel jlMessage;
-    private JLabel jlIcon;   
+    private final NiconEvent ev;
+    private int nid;
     private int iconOption;
     private char selSkin;
     private String urlIcon; 
     
-    private NotifyConfig config;
-    private NotifyUtil util;
+    private JLabel jlTitle;
+    private NLabel jlMessage;
+    private JLabel jlIcon;   
+    
+    private final NotifyConfig config;
+    private final NotifyUtil util;
     private NiconTheme theme;
     
     private JButton jbClose;    
@@ -429,6 +431,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
      * @param type
      */    
     public void playSound(int type){
+        
         if(type==0){
             urlSound="/nicon/notify/core/sound/notify.wav";
         }
@@ -441,6 +444,22 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         AudioClip adio = java.applet.Applet.newAudioClip(getClass().getResource(urlSound));
         adio.play();
     }
+
+    /*
+        Permite obtener el nid de la desktopNotify asignado por el serverOSD
+    */
+    public int getNid() {
+        return nid;
+    }
+
+    /*
+        Ajustamos el nid al desktopNotify, es asignado por serverOSD
+    */
+    public void setNid(int nid) {
+        this.nid = nid;
+    }
+    
+    
        
     /**
      *
