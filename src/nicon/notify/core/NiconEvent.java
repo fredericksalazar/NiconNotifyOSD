@@ -76,7 +76,7 @@ public class NiconEvent {
 
     @Override
     public String toString() {
-        return "NiconEvent{" + "titleEvent=" + titleEvent + ", textEvent=" + textEvent + ", tipeMessage=" + tipeMessage + '}';
+        return "NiconEvent: " + "titleEvent=" + titleEvent + ", textEvent=" + textEvent + ", tipeMessage=" + tipeMessage;
     }
 }
 
