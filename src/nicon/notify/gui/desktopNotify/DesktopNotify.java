@@ -24,7 +24,6 @@
 package nicon.notify.gui.desktopNotify;
 
 import java.applet.AudioClip;
-import nicon.notify.core.util.ControlNotify;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -37,10 +36,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import nicon.notify.core.util.NLabel;
 import nicon.notify.core.NiconEvent;
 import nicon.notify.core.Notification;
+import nicon.notify.core.server.ServerOSD;
 import nicon.notify.core.util.NotifyConfig;
 import nicon.notify.core.util.NotifyUtil;
 import nicon.notify.gui.themes.NiconDarkTheme;
@@ -54,7 +53,7 @@ import nicon.notify.gui.themes.NiconTheme;
  * 
  * @author frederick
  */
-public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
+public class DesktopNotify extends JDialog implements ActionListener{
     
           
     private final NiconEvent ev;
@@ -72,9 +71,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
     private NiconTheme theme;
     
     private JButton jbClose;    
-    private JPanel panel;    
-    
-    private Timer timer;
+    private JPanel panel;  
     private String urlSound;
     
     /**
@@ -96,7 +93,6 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setResizable(false);
         init();        
         setDesktopInterface();
-        closeNotify();
     }    
   
     /**
@@ -121,7 +117,6 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         setResizable(false);
         init();        
         setDesktopInterface();
-        closeNotify();
     }     
     
     /**
@@ -145,7 +140,6 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         init();        
         setDesktopInterface();
         setIconOption();
-        closeNotify();
     }    
     
     /**
@@ -245,13 +239,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         jbClose.setBorderPainted(false);
         jbClose.setContentAreaFilled(false);
         jbClose.setIcon(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"CloseNotify.png")));
-        jbClose.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();                
-                ControlNotify.displayed--;
-            }
-        });
+        jbClose.addActionListener(this);
                 
         jlIcon=new JLabel();
         jlIcon.setBounds(0,0,65,65);
@@ -269,8 +257,7 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         panel.add(jlTitle);
         panel.add(jlMessage);
         panel.add(jbClose);
-        add(panel);            
-        closeNotify();
+        add(panel);         
     }
     
     /**
@@ -444,6 +431,13 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         AudioClip adio = java.applet.Applet.newAudioClip(getClass().getResource(urlSound));
         adio.play();
     }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(this.jbClose)){
+            ServerOSD.getInstance().remove(getNid());
+        }
+    }
 
     /*
         Permite obtener el nid de la desktopNotify asignado por el serverOSD
@@ -452,31 +446,14 @@ public class DesktopNotify extends JDialog implements NotifyDesktopInterface{
         return nid;
     }
 
+    
     /*
         Ajustamos el nid al desktopNotify, es asignado por serverOSD
     */
     public void setNid(int nid) {
         this.nid = nid;
     }
-    
-    
-       
-    /**
-     *
-     */
-    @Override
-    public final void closeNotify() {
-       final DesktopNotify notify = this;
-       timer = new Timer(6500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ControlNotify.removeNotify(notify);
-                timer.stop();
-                timer=null;
-            }
-        });
-        timer.start();
-    }
 
+    
             
 }
