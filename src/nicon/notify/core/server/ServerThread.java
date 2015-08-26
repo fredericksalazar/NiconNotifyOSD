@@ -27,7 +27,7 @@ public class ServerThread extends Thread{
     @Override
     public void run(){
         try {
-            System.out.println("Server OSD: init run ServerThread process ...");
+            System.out.println("ServerOSD: init run ServerThread process ...");
             sleep(time);
             server.remove(nid);
         } catch (InterruptedException ex) {
