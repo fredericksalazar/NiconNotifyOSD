@@ -22,6 +22,7 @@
  */
 package nicon.notify.core;
 
+import nicon.notify.core.server.ServerOSD;
 import nicon.notify.core.util.ControlNotify;
 import nicon.notify.core.util.NotifyConfig;
 import nicon.notify.gui.desktopNotify.DesktopConfirm;
@@ -36,173 +37,54 @@ import nicon.notify.gui.desktopNotify.DesktopNotify;
  */
 
 public class Notification {
+    
+    private static ServerOSD serverOSD;
 
-    /**
-     * entero define el tipo de mensaje de la notificacion
-     */
     public final static int OK_MESSAGE = 0;
-
-    /**
-     * entero define tipo de mensaje de la notificacion como ERROR
-     */
     public final static int ERROR_MESSAGE = 1;
-
-    /**
-     * entero define tipo de mensaje de la notificacion como advertencia
-     */
     public final static int WARNING_MESSAGE = 2;
-
-    /**
-     * entero define tipo de mensaje de la notificacion como confirmacion
-     */
     public final static int CONFIRM_MESSAGE = 3;
-
-    /**
-     * entero define como defaul el tipo de mensaje de la notificacion
-     */
     public final static int DEFAULT_MESSAGE = 4;
 
-    /**
-     * entero define el icono de notificacion como facebook
-     */
+    /*
+        declaramos las variables estaticas para el manejo de los iconos
+    */
     public final static int FACEBOOK_ICON = 1;
-
-    /**
-     *
-     */
     public final static int TWITTER_ON_ICON = 2;
-
-    /**
-     *
-     */
     public final static int TWITTER_OFF_ICON = 3;
-
-    /**
-     *
-     */
     public final static int UPDATE_ICON_GREEN = 4;
-
-    /**
-     *
-     */
     public final static int SECURE_ICON = 5;
-
-    /**
-     *
-     */
     public final static int GOOGLE_ICON = 6;
-
-    /**
-     *
-     */
     public final static int DISK_ICON = 7;
-
-    /**
-     *
-     */
     public final static int GPLUS_ICON = 8;
-
-    /**
-     *
-     */
     public final static int WEATHER_ICON = 9;
-
-    /**
-     *
-     */
     public final static int WIFI_ICON = 10;
-
-    /**
-     *
-     */
     public final static int DOWNLOAD_ICON = 11;
-
-    /**
-     *
-     */
     public final static int RSS_ICON = 12;
-
-    /**
-     *
-     */
     public final static int UPDATE_ICON_BLUE = 13;
-
-    /**
-     *
-     */
     public final static int EVERNOTE_ICON = 14;
-
-    /**
-     *
-     */
     public final static int MESSAGE_ICON_ORANGE = 15;
-
-    /**
-     *
-     */
     public final static int MESSAGE_ICON_BLUE = 16;
-
-    /**
-     *
-     */
     public final static int MUSIC_ICON = 17;
-
-    /**
-     *
-     */
     public final static int SHIELD_ICON = 18;
-
-    /**
-     *
-     */
     public final static int PLUGIN_ICON = 19;
-
-    /**
-     *
-     */
     public final static int MAIL_ICON_RED = 20;
-
-    /**
-     *
-     */
     public final static int MAIL_ICON_BLUE = 21;
-
-    /**
-     *
-     */
     public final static int IMAGE_ICON=22;
-
-    /**
-     *
-     */
     public final static int NOTES_ICON=23;
-
-    /**
-     *
-     */
     public final static int CALENDAR_ICON=24;
-
-    /**
-     *
-     */
     public final static int INFO_ICON=25;
-    
     public final static int BAT_FULL=26;
-    
     public final static int BAT_MED=27;
-    
     public final static int BAT_DOWN=28;
 
-    /**
-     *
+    /*
+     *  configuracion statica de variables para el manejo de los NiconThemes
      */
     public final static char NICON_DARK_THEME = 'D';
-
-    /**
-     *
-     */
     public final static char NICON_LIGHT_THEME = 'L';
 
+    
     private static DesktopNotify notify;
     private static NiconEvent event;
     private static DesktopConfirm confirm;
@@ -220,6 +102,7 @@ public class Notification {
         notify = new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
     }
+    
     
     /**
      * Muestra una notificación de escritorio recibiendo como parametros el
@@ -604,6 +487,22 @@ public class Notification {
         return option;
     }
     
+    /*
+        Este es una version de pruebas para el nuevo serverOSD
+        En este vamos a mostrar una notificacion temporal usando el nuevo
+        servidor.
+    */
+    
+    private static void getServer(){
+        serverOSD = ServerOSD.getInstance();
+    }
+    
+    public static void showS(String title,String msg,int timeout, int tipe){
+        getServer();
+        event = new NiconEvent(title, msg, tipe);
+        notify = new DesktopNotify(event);
+        serverOSD.send(notify, timeout);
+    }
         
     /**
      * Muestra la informacion básica de NiconNotifyOSD

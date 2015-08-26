@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NiconSystem inc 2013
+ * Copyright (c) NiconSystemCO2013
  * License: GPLv3
  *
  * Authors:
@@ -37,19 +37,9 @@ import nicon.notify.core.NiconEvent;
  */
 public class DesktopConfirm extends DesktopNotify implements ActionListener{
         
-    /**
-     *
-     */
+   
     public JButton jbAcept;
-
-    /**
-     *
-     */
     public JButton jbCancel;
-
-    /**
-     *
-     */
     public int option;
     
     /**
