@@ -36,7 +36,7 @@ public class NiconEvent {
         
     private final String titleEvent;    
     private final String textEvent;
-    private final int tipeMessage;
+    private final short tipeMessage;
 
     /**
      * Crea un objeto Event que contiene la informacion de la notificacion
@@ -44,7 +44,7 @@ public class NiconEvent {
      * @param textEvent
      * @param tipeMessage
      */
-    public NiconEvent(String titleEvent, String textEvent, int tipeMessage) {
+    public NiconEvent(String titleEvent, String textEvent, short tipeMessage) {
         this.titleEvent = titleEvent;
         this.textEvent = textEvent;
         this.tipeMessage = tipeMessage;
