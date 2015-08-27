@@ -39,6 +39,7 @@ import nicon.notify.gui.desktopNotify.DesktopNotify;
 public class Notification {
     
     private static ServerOSD serverOSD;
+    private static final int time_out = 20000;
 
     public final static byte OK_MESSAGE = 0;
     public final static byte ERROR_MESSAGE = 1;
@@ -49,34 +50,34 @@ public class Notification {
     /*
         declaramos las variables estaticas para el manejo de los iconos
     */
-    public final static int FACEBOOK_ICON = 1;
-    public final static int TWITTER_ON_ICON = 2;
-    public final static int TWITTER_OFF_ICON = 3;
-    public final static int UPDATE_ICON_GREEN = 4;
-    public final static int SECURE_ICON = 5;
-    public final static int GOOGLE_ICON = 6;
-    public final static int DISK_ICON = 7;
-    public final static int GPLUS_ICON = 8;
-    public final static int WEATHER_ICON = 9;
-    public final static int WIFI_ICON = 10;
-    public final static int DOWNLOAD_ICON = 11;
-    public final static int RSS_ICON = 12;
-    public final static int UPDATE_ICON_BLUE = 13;
-    public final static int EVERNOTE_ICON = 14;
-    public final static int MESSAGE_ICON_ORANGE = 15;
-    public final static int MESSAGE_ICON_BLUE = 16;
-    public final static int MUSIC_ICON = 17;
-    public final static int SHIELD_ICON = 18;
-    public final static int PLUGIN_ICON = 19;
-    public final static int MAIL_ICON_RED = 20;
-    public final static int MAIL_ICON_BLUE = 21;
-    public final static int IMAGE_ICON=22;
-    public final static int NOTES_ICON=23;
-    public final static int CALENDAR_ICON=24;
-    public final static int INFO_ICON=25;
-    public final static int BAT_FULL=26;
-    public final static int BAT_MED=27;
-    public final static int BAT_DOWN=28;
+    public final static short FACEBOOK_ICON = 1;
+    public final static short TWITTER_ON_ICON = 2;
+    public final static short TWITTER_OFF_ICON = 3;
+    public final static short UPDATE_ICON_GREEN = 4;
+    public final static short SECURE_ICON = 5;
+    public final static short GOOGLE_ICON = 6;
+    public final static short DISK_ICON = 7;
+    public final static short GPLUS_ICON = 8;
+    public final static short WEATHER_ICON = 9;
+    public final static short WIFI_ICON = 10;
+    public final static short DOWNLOAD_ICON = 11;
+    public final static short RSS_ICON = 12;
+    public final static short UPDATE_ICON_BLUE = 13;
+    public final static short EVERNOTE_ICON = 14;
+    public final static short MESSAGE_ICON_ORANGE = 15;
+    public final static short MESSAGE_ICON_BLUE = 16;
+    public final static short MUSIC_ICON = 17;
+    public final static short SHIELD_ICON = 18;
+    public final static short PLUGIN_ICON = 19;
+    public final static short MAIL_ICON_RED = 20;
+    public final static short MAIL_ICON_BLUE = 21;
+    public final static short IMAGE_ICON=22;
+    public final static short NOTES_ICON=23;
+    public final static short CALENDAR_ICON=24;
+    public final static short INFO_ICON=25;
+    public final static short BAT_FULL=26;
+    public final static short BAT_MED=27;
+    public final static short BAT_DOWN=28;
 
     /*
      *  configuracion statica de variables para el manejo de los NiconThemes
@@ -90,17 +91,89 @@ public class Notification {
     private static DesktopConfirm confirm;
     private static int option;
 
+    
     /**
      * Muestra una notificación de escritorio recibiendo como parametros el
      * titulo y el mensaje.
      *
      * @param title
      * @param message
+     * @param theme
      */
-    public static void show(String title, String message) {
+    
+    public static void show(String title, String message,char theme) {
+        init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event);
-        ControlNotify.launchNotify(notify);
+        notify = new DesktopNotify(event,theme);
+        serverOSD.send(notify, time_out);
+    }
+    
+    
+    /**
+     * Crea una notificacion de escritorio recibiendo el titulo, el mensaje 
+     * y el tiempo que deberá mostrase la notificacion, si el tiempo es menor a 0
+     * entonces la notificacion nunca se cerrará hasta que el mismo usuario
+     * la cierre manualmente.
+     * @param title
+     * @param message
+     * @param theme
+     * @param timeout 
+     */
+    
+    public static void show(String title, String message,char theme,int timeout) {
+        init_Server();
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event,theme);
+        serverOSD.send(notify, timeout);
+    }
+    
+    
+    /**
+     * Crea una notificacion con el titulo, el mensaje, el tema y el tipo de n
+     * notificación siguiendo los siguientes parametros
+     * Notification ej:<p>
+     * Notification.OK_MESSAGE<BR>
+     * Notification.WARNING_MESSAGE<BR>
+     * Notification.ERROR_MESSAGE<BR>
+     * Notification.DEFAULT_MESSAGE<BR>
+     *
+     * @param title
+     * @param message
+     * @param theme
+     * @param type
+     */
+    
+    public static void show(String title, String message,char theme, byte type) {
+        init_Server();
+        event = new NiconEvent(title, message, type);
+        notify = new DesktopNotify(event,theme);
+        serverOSD.send(notify, time_out);
+    }
+    
+    
+     /**
+     * Crea una notificacion con el titulo, el mensaje, el tema el tipo de 
+     * notificación y el tiempo que desea mostrar la notificacion en el escritorio
+     * si el valor de timeout es menor a 0 la notificacion nunca se cerrará y
+     * será el usuario quien la cierre manualmentes
+     * Notification ej:<p>
+     * Notification.OK_MESSAGE<BR>
+     * Notification.WARNING_MESSAGE<BR>
+     * Notification.ERROR_MESSAGE<BR>
+     * Notification.DEFAULT_MESSAGE<BR>
+     *
+     * @param title
+     * @param message
+     * @param theme
+     * @param type
+     * @param timeout
+     */
+    
+    public static void show(String title, String message,char theme, byte type, int timeout) {
+        init_Server();
+        event = new NiconEvent(title, message, type);
+        notify = new DesktopNotify(event,theme);
+        serverOSD.send(notify, timeout);
     }
     
     
@@ -111,155 +184,140 @@ public class Notification {
      *
      * @param title
      * @param message
+     * @param theme
      * @param sound
      */
-    public static void show(String title, String message,boolean sound) {
+    
+    public static void show(String title, String message,char theme, boolean sound) {
+        init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event);
+        notify = new DesktopNotify(event,theme);
+        serverOSD.send(notify, time_out);
             if(sound){
                 notify.playSound(0);        
             }
-        ControlNotify.launchNotify(notify);
-    }
-
-    /**
-     * Muestra una notificacion de escritorio recibiendo como parametros el 
-     * titulo, el mensaje a mostrar y el tipo de notificacion definido en 
-     * Notification ej:<p>
-     * Notification.OK_MESSAGE<BR>
-     * Notification.WARNING_MESSAGE<BR>
-     * Notification.ERROR_MESSAGE<BR>
-     * Notification.DEFAULT_MESSAGE<BR>
-     *
-     * @param title
-     * @param message
-     * @param tipeNotify
-     */
-    public static void show(String title, String message, byte tipeNotify) {
-        event = new NiconEvent(title, message, tipeNotify);
-        notify = new DesktopNotify(event);
-        ControlNotify.launchNotify(notify);
     }
     
-     /**
-     * Muestra una notificacion de escritorio recibiendo como parametros el 
-     * titulo, el mensaje a mostrar y el tipo de notificacion definido en 
-     * Notification, ademas un booleano para ejecutar un sonido de acuerdo
-     * al tipo de notificacion ej:<p>
-     * Notification.OK_MESSAGE<BR>
-     * Notification.WARNING_MESSAGE<BR>
-     * Notification.ERROR_MESSAGE<BR>
-     * Notification.DEFAULT_MESSAGE<BR>
+    /**
+     * Muestra una notificación de escritorio recibiendo como parametros el
+     * titulo y el mensaje y ademas un booleano que identifica si desea 
+     * reproducir un sonido al mostrar la notificacion
      *
      * @param title
      * @param message
-     * @param tipeNotify
+     * @param theme
      * @param sound
+     * @param timeout
      */
-    public static void show(String title, String message, byte tipeNotify,boolean sound) {
-        event = new NiconEvent(title, message, tipeNotify);
-        notify = new DesktopNotify(event);
+    
+    public static void show(String title, String message,char theme, boolean sound,int timeout) {
+        init_Server();
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event,theme);
+        serverOSD.send(notify, timeout);
+            if(sound){
+                notify.playSound(0);        
+            }
+    }
+    
+    
+    /**
+     * Muestra una notificación de escritorio recibiendo como parametros el
+     * titulo y el mensaje y ademas un booleano que identifica si desea 
+     * reproducir un sonido al mostrar la notificacion
+     *
+     * @param title
+     * @param message
+     * @param theme
+     * @param sound
+     * @param type
+     */
+    
+    public static void show(String title, String message,char theme,boolean sound, byte type) {
+        init_Server();
+        event = new NiconEvent(title, message, type);
+        notify = new DesktopNotify(event,theme);
+        
             if(sound){
                 if(event.getTipeMessage()==Notification.OK_MESSAGE){
                     notify.playSound(0);
-                    ControlNotify.launchNotify(notify);
+                    serverOSD.send(notify, time_out);
                 }
                 if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
                     notify.playSound(1);
-                    ControlNotify.launchNotify(notify);
+                    serverOSD.send(notify, time_out);
                 }
                 if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
                     notify.playSound(2);
-                    ControlNotify.launchNotify(notify);
+                    serverOSD.send(notify, time_out);
                 }
             }
     }
-
-    /**
-     * Muestra una notificacion de escritorio recibiendo como parametro el 
-     * titulo, el mensaje a mostrar y un tema a usar ej:<p>
-     * Notification.NICON_LIGHT_THEME<BR>
-     * Notification.NICON_DARK_THEME
-     *
-     * @param title
-     * @param message
-     * @param Skin
-     */
-    public static void show(String title, String message, char Skin) {
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, Skin);
-        ControlNotify.launchNotify(notify);
-    }
     
     
     /**
-     * Muestra una notificacion de escritorio recibiendo como parametro el 
-     * titulo, el mensaje a mostrar y un tema a usar ej:<p>
-     * Notification.NICON_LIGHT_THEME<BR>
-     * Notification.NICON_DARK_THEME
+     * Muestra una notificación de escritorio recibiendo como parametros el
+     * titulo y el mensaje y ademas un booleano que identifica si desea 
+     * reproducir un sonido al mostrar la notificacion
      *
      * @param title
      * @param message
-     * @param Skin
+     * @param theme
      * @param sound
+     * @param type
+     * @param timeout
      */
-    public static void show(String title, String message, char Skin,boolean sound) {
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, Skin);
-            if(sound){
-                notify.playSound(0);
-            }
-        ControlNotify.launchNotify(notify);
-    }
-
-    /**
-     * Muesra una notificacion de escritorio recibiendo el titulo, un mensaje y el
-     * tipo de Notificacion a mostrar y el tema a usar<P> 
-     * Notification.show("title","message",Notification.DEFAUL_MESSAGE,Notification.NICON_LIGHT_THEME
-     *
-     * @param title
-     * @param message
-     * @param tipeNotify
-     * @param skin
-     * @param sound
-     */
-    public static void show(String title, String message, byte tipeNotify, char skin,boolean sound) {
-        event = new NiconEvent(title, message, tipeNotify);
-        notify = new DesktopNotify(event, skin);
+    public static void show(String title, String message,char theme,boolean sound, byte type,int timeout) {
+        init_Server();
+        event = new NiconEvent(title, message, type);
+        notify = new DesktopNotify(event,theme);
+       
             if(sound){
                 if(event.getTipeMessage()==Notification.OK_MESSAGE){
                     notify.playSound(0);
-                    ControlNotify.launchNotify(notify);
+                    serverOSD.send(notify, timeout);
                 }
                 if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
                     notify.playSound(1);
-                    ControlNotify.launchNotify(notify);
+                    serverOSD.send(notify, timeout);
                 }
                 if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
                     notify.playSound(2);
-                    ControlNotify.launchNotify(notify);
+                    serverOSD.send(notify, timeout);
                 }
             }
     }
 
+    
     /**
-     * Muestra una notificacion de escritorio con un Icono, un titulo, 
-     * un mensaje, Ej iconos incorporados:<p>
-     * Notification.FACEBOOK_ICON<br>
-     * Notification.UPDATE_ICON_GREEN<br>
-     * Notification.CALENDAR_ICON<br>
-     * Notification.MUSIC_ICON<br>
-     * Notification.SECURE_ICON
-     * 
+     * Crea una notificacion con el titulo, mensaje, el tema y un icono
      * @param icon
      * @param title
-     * @param message
+     * @param theme
+     * @param message 
      */
-    public static void show(int icon, String title, String message) {
+    public static void show(String title, String message,char theme,short icon) {
+        init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, icon);
-        ControlNotify.launchNotify(notify);
+        notify = new DesktopNotify(event, icon, theme);
+        serverOSD.send(notify, time_out);
     }
+    
+    /**
+     * Crea una notificacion con el titulo, mensaje, el tema y un icono
+     * @param icon
+     * @param title
+     * @param theme
+     * @param message 
+     * @param timeout 
+     */
+    public static void show(String title, String message,char theme,short icon,int timeout) {
+        init_Server();
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event, icon, theme);
+        serverOSD.send(notify, timeout);
+    }
+    
     
     /**
      * Muestra una notificacion de escritorio con un Icono, un titulo, 
@@ -272,156 +330,62 @@ public class Notification {
      * 
      * @param icon
      * @param title
+     * @param theme
      * @param message
      * @param sound
      */
-    public static void show(int icon, String title, String message,boolean sound) {
+    public static void show(String title, String message,char theme,short icon,boolean sound) {
+        init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, icon);
+        notify = new DesktopNotify(event, icon,theme);
+        serverOSD.send(notify, time_out);
             if(sound){
                 notify.playSound(0);
             }
-        ControlNotify.launchNotify(notify);
+    }
+    
+    
+    /**
+     * Muestra una notificacion de escritorio con un Icono, un titulo, 
+     * un mensaje, Ej iconos incorporados:<p>
+     * Notification.FACEBOOK_ICON<br>
+     * Notification.UPDATE_ICON_GREEN<br>
+     * Notification.CALENDAR_ICON<br>
+     * Notification.MUSIC_ICON<br>
+     * Notification.SECURE_ICON
+     * 
+     * @param icon
+     * @param title
+     * @param theme
+     * @param message
+     * @param sound
+     * @param timeout
+     */
+    public static void show(String title, String message,char theme,short icon,boolean sound,int timeout) {
+        init_Server();
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        notify = new DesktopNotify(event, icon,theme);
+        serverOSD.send(notify, timeout);
+            if(sound){
+                notify.playSound(0);
+            }
     }
 
-    /**
-     * crea una notificacion de escritorio con un titulo, un mensaje y un valor
-     * entero que presenta un icono especial seleccionando una de las opciones
-     * habilitadas dentro de DesktopNotify:
-     * <br>DesktopNotify.FACEBOOK_ICON
-     * <br>DesktopNotify.NICON_TWITTER_ICON
-     * <br>DesktopNotify.TWITTER_OFF_ICON
-     * <br>DesktopNotify.UPDATE_ICON
-     * <br>DesktopNotify.SECURE_ICON
-     * <br>DesktopNotify.GOOGLE_ICON
-     * <br>DesktopNotify.DISK_ICON
-     * <br>DesktopNotify.GPLUS_ICON
-     * <br>DesktopNotify.WEATHER_ICON el Skin que desea usar para la
-     * notificacion usando las siguientes Opciones
-     * DesktopNotify.NICON_DARK_THEME DesktopNotify.NICON_LIGHT_THEME
-     *
-     * @param icon
-     * @param title
-     * @param message
-     * @param skin
-     */
-    public static void show(int icon, String title, String message, char skin) {
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, icon, skin);
-        ControlNotify.launchNotify(notify);
-    }
-    
-     /**
-     * crea una notificacion de escritorio con un titulo, un mensaje y un valor
-     * entero que presenta un icono especial seleccionando una de las opciones
-     * habilitadas dentro de DesktopNotify:
-     * <br>DesktopNotify.FACEBOOK_ICON
-     * <br>DesktopNotify.NICON_TWITTER_ICON
-     * <br>DesktopNotify.TWITTER_OFF_ICON
-     * <br>DesktopNotify.UPDATE_ICON
-     * <br>DesktopNotify.SECURE_ICON
-     * <br>DesktopNotify.GOOGLE_ICON
-     * <br>DesktopNotify.DISK_ICON
-     * <br>DesktopNotify.GPLUS_ICON
-     * <br>DesktopNotify.WEATHER_ICON el Skin que desea usar para la
-     * notificacion usando las siguientes Opciones
-     * DesktopNotify.NICON_DARK_THEME DesktopNotify.NICON_LIGHT_THEME
-     *
-     * @param icon
-     * @param title
-     * @param message
-     * @param skin
-     * @param sound
-     */
-    public static void show(int icon, String title, String message, char skin,boolean sound) {
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
-        notify = new DesktopNotify(event, icon, skin);
-            if(sound){
-                notify.playSound(0);
-            }
-        ControlNotify.launchNotify(notify);
-    }
-    
-    /**
-     * Muestra una notificacion de escritorio con un titulo, un mensaje y la ruta
-     * de un icono personalizado
-     * @param title
-     * @param message
-     * @param urlIcon 
-     */
-    public static void show(String title,String message,String urlIcon){
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
-        notify=new DesktopNotify(event,urlIcon);
-        ControlNotify.launchNotify(notify);
-    }
-    
-    /**
-     * Muestra una notificacion de escritorio con un titulo, un mensaje y la ruta
-     * de un icono personalizado
-     * @param title
-     * @param message
-     * @param urlIcon 
-     * @param sound 
-     */
-    public static void show(String title,String message,String urlIcon,boolean sound){
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
-        notify=new DesktopNotify(event,urlIcon);
-            if(sound){
-                notify.playSound(0);
-            }
-        ControlNotify.launchNotify(notify);
-    }
-    
-    
-    /**
-     * Muestra una notificacion de escritorio con un titulo, un mensaje, la ruta
-     * del icono personalizado y el caracter del Thema a usar:<p>
-     * Notification.NICON_DARK_THEME<br>
-     * Notification.NICON_LIGHT_THEME
-     * @param title
-     * @param message
-     * @param urlIcon
-     * @param skin 
-     */
-    public static void show(String title,String message, String urlIcon, char skin){
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
-        notify=new DesktopNotify(event,urlIcon,skin);
-        ControlNotify.launchNotify(notify);
-    }
-    
-    /**
-     * Muestra una notificacion de escritorio con un titulo, un mensaje, la ruta
-     * del icono personalizado y el caracter del Thema a usar:<p>
-     * Notification.NICON_DARK_THEME<br>
-     * Notification.NICON_LIGHT_THEME
-     * @param title
-     * @param message
-     * @param urlIcon
-     * @param skin 
-     * @param sound 
-     */
-    public static void show(String title,String message, String urlIcon, char skin,boolean sound){
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
-        notify=new DesktopNotify(event,urlIcon,skin);
-            if(sound){
-                notify.playSound(0);
-            }
-        ControlNotify.launchNotify(notify);
-    }
     
     /**
      * Este metodo muestra una notificacion de escritorio del tipo confirmacion
      * recibe un titulo, un mensae y el tipo de notificacion
      * @param title
      * @param message
-     * @param optionType
+     * @param theme
      * @return 
      */
-    public static int showConfirm(String title, String message, byte optionType){
+    public static int showConfirm(String title, String message,char theme){
+        init_Server();
         option=-1;
-        event=new NiconEvent(title,message,optionType);
-        confirm = new DesktopConfirm(event);
-        ControlNotify.launchNotify(confirm);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event,theme);
+        serverOSD.send(confirm, time_out);
             while(confirm.isShowing()!=true){
                 option=confirm.getSelectedOption();
                 break;
@@ -429,28 +393,76 @@ public class Notification {
         return option;
     }
     
+    
     /**
-     * Permite crear una notificacion de escritorio del tipo confirm, recibiendo
-     * como parametros el titulo, el mensaje, el tipo de notificacion bien sea
-     * de error, advertencia, ok y recibe el thema a usar.
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
      * @param title
      * @param message
-     * @param optionType
-     * @param NiconTheme
+     * @param theme
+     * @param timeout
      * @return 
      */
-    
-    public static int showConfirm(String title, String message,byte optionType,char NiconTheme){
+    public static int showConfirm(String title, String message,char theme,int timeout){
+        init_Server();
         option=-1;
-        event=new NiconEvent(title,message,optionType);
-        confirm = new DesktopConfirm(event,NiconTheme);
-        ControlNotify.launchNotify(confirm);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event,theme);
+        serverOSD.send(confirm, timeout);
             while(confirm.isShowing()!=true){
                 option=confirm.getSelectedOption();
                 break;
             }
-        return option;        
+        return option;
     }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param type
+     * @return 
+     */
+    public static int showConfirm(String title, String message,char theme, byte type){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,type);
+        confirm = new DesktopConfirm(event,theme);
+        serverOSD.send(notify, time_out);
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param type
+     * @param timeout
+     * @return 
+     */
+    public static int showConfirm(String title, String message,char theme, byte type,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,type);
+        confirm = new DesktopConfirm(event,theme);
+        serverOSD.send(confirm, timeout);
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
+    }
+    
     
     /**
      * Muestra una notificacion de escritorio del tipo de confirmacion la cual
@@ -458,26 +470,27 @@ public class Notification {
      * especifica la reproduccion de un sonido
      * @param title
      * @param message
-     * @param optionType
+     * @param theme
      * @param sound
      * @return int response
      */
-    public static int showConfirm(String title, String message, byte optionType,boolean sound){
+    public static int showConfirm(String title, String message,char theme,boolean sound){
+        init_Server();
         option=-1;
-        event=new NiconEvent(title,message,optionType);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         confirm = new DesktopConfirm(event);
             if(sound){
                     if(event.getTipeMessage()==Notification.OK_MESSAGE){
                         confirm.playSound(0);
-                        ControlNotify.launchNotify(confirm);
+                        serverOSD.send(confirm, time_out);
                     }
                     if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
                         confirm.playSound(1);
-                        ControlNotify.launchNotify(confirm);
+                        serverOSD.send(confirm, time_out);
                     }
                     if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
                         confirm.playSound(2);
-                        ControlNotify.launchNotify(confirm);
+                        serverOSD.send(confirm, time_out);
                     }
                 }
         while(confirm.isShowing()!=true){
@@ -487,23 +500,228 @@ public class Notification {
         return option;
     }
     
-    /*
-        Este es una version de pruebas para el nuevo serverOSD
-        En este vamos a mostrar una notificacion temporal usando el nuevo
-        servidor.
-    */
     
-    private static void getServer(){
+    /**
+     * Muestra una notificacion de escritorio del tipo de confirmacion la cual
+     * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
+     * especifica la reproduccion de un sonido
+     * @param title
+     * @param message
+     * @param theme
+     * @param sound
+     * @param timeout
+     * @return int response
+     */
+    public static int showConfirm(String title, String message,char theme,boolean sound,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event);
+            if(sound){
+                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
+                        confirm.playSound(0);
+                        serverOSD.send(confirm, timeout);
+                    }
+                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
+                        confirm.playSound(1);
+                        serverOSD.send(confirm, timeout);
+                    }
+                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
+                        confirm.playSound(2);
+                        serverOSD.send(confirm, timeout);
+                    }
+                }
+        while(confirm.isShowing()!=true){
+            option=confirm.getSelectedOption();
+            break;
+        }
+        return option;
+    }
+    
+    /**
+     * Muestra una notificacion de escritorio del tipo de confirmacion la cual
+     * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
+     * especifica la reproduccion de un sonido
+     * @param title
+     * @param message
+     * @param theme
+     * @param sound
+     * @param type
+     * @return int response
+     */
+    public static int showConfirm(String title, String message,char theme,boolean sound,byte type){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,type);
+        confirm = new DesktopConfirm(event);
+            if(sound){
+                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
+                        confirm.playSound(0);
+                        serverOSD.send(confirm, time_out);
+                    }
+                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
+                        confirm.playSound(1);
+                        serverOSD.send(confirm, time_out);
+                    }
+                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
+                        confirm.playSound(2);
+                        serverOSD.send(confirm, time_out);
+                    }
+                }
+        while(confirm.isShowing()!=true){
+            option=confirm.getSelectedOption();
+            break;
+        }
+        return option;
+    }
+    
+    
+    /**
+     * Muestra una notificacion de escritorio del tipo de confirmacion la cual
+     * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
+     * especifica la reproduccion de un sonido
+     * @param title
+     * @param message
+     * @param theme
+     * @param sound
+     * @param type
+     * @param timeout
+     * @return int response
+     */
+    public static int showConfirm(String title, String message,char theme,boolean sound,byte type,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,type);
+        confirm = new DesktopConfirm(event);
+            if(sound){
+                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
+                        confirm.playSound(0);
+                        serverOSD.send(confirm, timeout);
+                    }
+                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
+                        confirm.playSound(1);
+                        serverOSD.send(confirm, timeout);
+                    }
+                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
+                        confirm.playSound(2);
+                        serverOSD.send(confirm, timeout);
+                    }
+                }
+        while(confirm.isShowing()!=true){
+            option=confirm.getSelectedOption();
+            break;
+        }
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param icon
+     * @return 
+     */
+    public static int showConfirm(String title, String message,char theme,short icon){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event,theme,icon);
+        serverOSD.send(confirm, time_out);
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param icon
+     * @param timeout
+     * @return 
+     */
+    public static int showConfirm(String title, String message,char theme,short icon,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event,theme,icon);
+        serverOSD.send(confirm, timeout);
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param icon
+     * @param sound
+     * @return 
+     */
+    public static int showConfirm(String title, String message,char theme,short icon,boolean sound){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event,theme,icon);
+        serverOSD.send(confirm, time_out);
+            if(sound){
+                notify.playSound(0);
+            }
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param icon
+     * @param sound
+     * @param timeout
+     * @return 
+     */
+    public static int showConfirm(String title, String message,char theme,short icon,boolean sound,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        confirm = new DesktopConfirm(event,theme,icon);
+        serverOSD.send(confirm, timeout);
+            if(sound){
+                notify.playSound(0);
+            }
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
+        return option;
+    }
+ 
+    
+    private static void init_Server(){
         serverOSD = ServerOSD.getInstance();
     }
+
     
-    public static void showS(String title,String msg,int timeout, byte tipe){
-        getServer();
-        event = new NiconEvent(title, msg, tipe);
-        notify = new DesktopNotify(event);
-        serverOSD.send(notify, timeout);
-    }
-        
     /**
      * Muestra la informacion básica de NiconNotifyOSD
      */
