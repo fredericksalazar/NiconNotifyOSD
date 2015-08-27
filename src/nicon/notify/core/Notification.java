@@ -40,11 +40,11 @@ public class Notification {
     
     private static ServerOSD serverOSD;
 
-    public final static short OK_MESSAGE = 0;
-    public final static short ERROR_MESSAGE = 1;
-    public final static short WARNING_MESSAGE = 2;
-    public final static short CONFIRM_MESSAGE = 3;
-    public final static short DEFAULT_MESSAGE = 4;
+    public final static byte OK_MESSAGE = 0;
+    public final static byte ERROR_MESSAGE = 1;
+    public final static byte WARNING_MESSAGE = 2;
+    public final static byte CONFIRM_MESSAGE = 3;
+    public final static byte DEFAULT_MESSAGE = 4;
 
     /*
         declaramos las variables estaticas para el manejo de los iconos
@@ -135,7 +135,7 @@ public class Notification {
      * @param message
      * @param tipeNotify
      */
-    public static void show(String title, String message, short tipeNotify) {
+    public static void show(String title, String message, byte tipeNotify) {
         event = new NiconEvent(title, message, tipeNotify);
         notify = new DesktopNotify(event);
         ControlNotify.launchNotify(notify);
@@ -156,7 +156,7 @@ public class Notification {
      * @param tipeNotify
      * @param sound
      */
-    public static void show(String title, String message, short tipeNotify,boolean sound) {
+    public static void show(String title, String message, byte tipeNotify,boolean sound) {
         event = new NiconEvent(title, message, tipeNotify);
         notify = new DesktopNotify(event);
             if(sound){
@@ -223,7 +223,7 @@ public class Notification {
      * @param skin
      * @param sound
      */
-    public static void show(String title, String message, short tipeNotify, char skin,boolean sound) {
+    public static void show(String title, String message, byte tipeNotify, char skin,boolean sound) {
         event = new NiconEvent(title, message, tipeNotify);
         notify = new DesktopNotify(event, skin);
             if(sound){
@@ -417,7 +417,7 @@ public class Notification {
      * @param optionType
      * @return 
      */
-    public static int showConfirm(String title, String message, short optionType){
+    public static int showConfirm(String title, String message, byte optionType){
         option=-1;
         event=new NiconEvent(title,message,optionType);
         confirm = new DesktopConfirm(event);
@@ -440,7 +440,7 @@ public class Notification {
      * @return 
      */
     
-    public static int showConfirm(String title, String message,short optionType,char NiconTheme){
+    public static int showConfirm(String title, String message,byte optionType,char NiconTheme){
         option=-1;
         event=new NiconEvent(title,message,optionType);
         confirm = new DesktopConfirm(event,NiconTheme);
@@ -462,7 +462,7 @@ public class Notification {
      * @param sound
      * @return int response
      */
-    public static int showConfirm(String title, String message, short optionType,boolean sound){
+    public static int showConfirm(String title, String message, byte optionType,boolean sound){
         option=-1;
         event=new NiconEvent(title,message,optionType);
         confirm = new DesktopConfirm(event);
@@ -497,7 +497,7 @@ public class Notification {
         serverOSD = ServerOSD.getInstance();
     }
     
-    public static void showS(String title,String msg,int timeout, short tipe){
+    public static void showS(String title,String msg,int timeout, byte tipe){
         getServer();
         event = new NiconEvent(title, msg, tipe);
         notify = new DesktopNotify(event);
