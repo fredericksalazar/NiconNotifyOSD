@@ -23,6 +23,7 @@
 
 package nicon.notify.core.util;
 
+import nicon.notify.core.font.ControlFont;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -32,11 +33,9 @@ import java.awt.Font;
  */
 public class NotifyConfig {
     
-    private final Font titleFontWin;
-    private final Font messageFontWin;
     private final Font titleFontDesk;
     private final Font messageFontDesk;
-    private final UbuntuFont font;
+    private final ControlFont font;
     
     private final Color fontErrorColor;
     private final Color fontWarningColor;
@@ -55,11 +54,9 @@ public class NotifyConfig {
     
     
     private NotifyConfig() {
-        font=UbuntuFont.getInstance();
-        titleFontWin=font.getUbuntuFont(28);
-        messageFontWin=font.getUbuntuFont(14);
-        titleFontDesk=font.getUbuntuBold(17);
-        messageFontDesk=font.getUbuntuFont(12);
+        font=ControlFont.getInstance();
+        titleFontDesk=font.getUbuntuFont(20);
+        messageFontDesk=font.getUbuntuFont(15);
         
         fontErrorColor=new java.awt.Color(222,60,60);
         fontWarningColor=new java.awt.Color(230,89,0);
@@ -69,41 +66,11 @@ public class NotifyConfig {
         
         nitruxIconsPath="/nicon/notify/gui/Icons/Nitrux/";
         nameLib="NiconNotifyOSD";
-        versionLib="1.7.8";
+        versionLib="1.8.8";
         infoLib="Developed By NiconSystem CO | Icons desingned By Nitrux  MX";
     } 
       
-    /**
-     *
-     * @return
-     */
-    public  Font getTitleFont() {
-        return titleFontWin;
-    }
 
-    /**
-     *
-     * @return
-     */
-    public Font getMessageFont() {
-        return messageFontWin;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Font getTitleFontWin() {
-        return titleFontWin;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Font getMessageFontWin() {
-        return messageFontWin;
-    }
 
     /**
      *
