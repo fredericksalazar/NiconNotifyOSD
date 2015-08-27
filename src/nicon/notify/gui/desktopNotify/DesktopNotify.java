@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NiconSystem inc 2013
+ * Copyright (c) NiconSystemCO 2015
  * License: GPLv3
  *
  * Authors:
@@ -229,13 +229,14 @@ public class DesktopNotify extends JDialog implements ActionListener{
     /**
      * Metodo que inicia el proceso de carga y configuracion de la notificacion
      */
-    private void init() {        
+    private void init() {  
+        
         panel=new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(Integer.parseInt(theme.getBakcgroundPanel(), 16)));
         
         jbClose=new JButton();
-        jbClose.setBounds(355, 5, 15, 15);
+        jbClose.setBounds(362, 2, 15, 15);
         jbClose.setBorderPainted(false);
         jbClose.setContentAreaFilled(false);
         jbClose.setIcon(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"CloseNotify.png")));
@@ -246,11 +247,11 @@ public class DesktopNotify extends JDialog implements ActionListener{
         
         jlTitle=new JLabel(ev.getTitleEvent());
         jlTitle.setFont(config.getTitleFontDesk());
-        jlTitle.setBounds(75,10,305, 18);
+        jlTitle.setBounds(72,3,305, 18);
         
         jlMessage=new NLabel(util.setTextMessageEvent(ev.getTextEvent()));
         jlMessage.setFont(config.getMessageFontDesk());
-        jlMessage.setBounds(78,30,295,50);
+        jlMessage.setBounds(72,26,299,53);
         jlMessage.setForeground(new Color(Integer.parseInt(theme.getMessageForeground(),16)));
                 
         panel.add(jlIcon);
