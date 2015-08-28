@@ -475,19 +475,9 @@ public class Notification {
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         confirm = new DesktopConfirm(event);
             if(sound){
-                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
-                        confirm.playSound(0);
-                        serverOSD.send(confirm, time_out);
-                    }
-                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
-                        confirm.playSound(1);
-                        serverOSD.send(confirm, time_out);
-                    }
-                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
-                        confirm.playSound(2);
-                        serverOSD.send(confirm, time_out);
-                    }
-                }
+                confirm.playSound(0);
+                serverOSD.send(confirm, time_out);
+            }
         while(confirm.isShowing()!=true){
             option=confirm.getSelectedOption();
             break;
