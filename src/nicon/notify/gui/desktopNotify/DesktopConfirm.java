@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NiconSystemCO2013
+ * Copyright (c) NiconSystemCO 2015
  * License: GPLv3
  *
  * Authors:
@@ -23,13 +23,13 @@
 
 package nicon.notify.gui.desktopNotify;
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import nicon.notify.core.util.ControlNotify;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
+import nicon.notify.core.server.ServerOSD;
 
 /**
  *
@@ -42,48 +42,76 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
     public JButton jbCancel;
     public int option;
     
+    
     /**
-     *
+     * Crea una DesktopConfirm recibiendo un objeto NiconEvent con los parametros
+     * configurados.
      * @param ev
      */
+    
     public DesktopConfirm(NiconEvent ev) {
         super(ev);        
-        setSize(380,110);
+        setSize(380,106);
         init();
     }
     
+    
     /**
-     *
+     * Crea Un DesktopConfirm con un objeto NiconEvent y un tema a aplicar a la
+     * notificacion, los temas pueden ser asi:<br>
+     * Notification.Nicon_Light_Theme<br>
+     * Notification.Nicon_Dark_Theme<br>
+     * Notification.Nicon_Gray_Theme
      * @param ev
-     * @param optionTheme
+     * @param theme
      */
-    public DesktopConfirm(NiconEvent ev,char optionTheme){
-        super(ev,optionTheme);
-        setSize(380,110);
+    public DesktopConfirm(NiconEvent ev,char theme){
+        super(ev,theme);
+        setSize(380,106);
+        init();
+    }
+    
+    
+    /**
+     * 
+     * @param ev
+     * @param theme
+     * @param icon
+     */
+    public DesktopConfirm(NiconEvent ev,char theme,short icon){
+        super(ev,icon,theme);
+        setSize(380,106);
         init();
     }
             
 
-    private void init() {               
+    /**
+     * Inicializa y ajusta todos los objetos que componen la notificacion de
+     * confirmacion, los botones aceptar y cancelar.
+     */
+    
+    private void init() {  
+        
        jbAcept=new JButton("Acept");
-       jbAcept.setBounds(0,80,190,30); 
-       jbAcept.setForeground(Color.white);
-       jbAcept.setBorderPainted(false);
-       jbAcept.setFocusPainted(false);
+       jbAcept.setBounds(0,83,190,23); 
        jbAcept.setBackground(this.getForegroundTitle());
+       jbAcept.setForeground(Color.white);
+       jbAcept.setOpaque(true);
+       jbAcept.setBorderPainted(false);
        jbAcept.addActionListener(this);
        
        jbCancel=new JButton("Cancel");
-       jbCancel.setBounds(190,80,190,30);
+       jbCancel.setBounds(190,83,190,23);
+       jbCancel.setOpaque(true);
        jbCancel.setBorderPainted(false);
-       jbCancel.setFocusPainted(false);
-       jbCancel.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
        jbCancel.addActionListener(this);
+       
        
        addButton(jbAcept);
        addButton(jbCancel);
     }
     
+   
     /**
      * este metodo obtiene y retorna la opcion seleccionada por parte del usuario
      * que corresponde al evento NiconEvent que se ha pasado como parametro de
@@ -94,25 +122,28 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
      * 1= respuesta afirmativa (Aceptar).
      * @return 
      */
+    
     public int getSelectedOption(){
         return option;
     }
+    
     
     /**
      * Este metodo se encarga de hacer que una notificacion sea cerrada al 
      * momento de obtener el evento de pulsación de un boton. 
      */
+    
     public void close() {
-        final DesktopNotify notify = this;
-        System.out.println("Closing Notify");
-        ControlNotify.removeNotify(notify);
+       ServerOSD.getInstance().remove(getNid());
     }
 
+    
     /**
      * Manejamos los posibles eventos de mouse, click en alguno de los botones
      * seleccionados
      * @param ae 
      */
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource().equals(jbAcept)){
