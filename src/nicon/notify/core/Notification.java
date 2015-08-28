@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NiconSystem inc 2013
+ * Copyright (c) NiconSystemCO 2015
  * License: GPLv3
  *
  * Authors:
@@ -20,10 +20,10 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 package nicon.notify.core;
 
 import nicon.notify.core.server.ServerOSD;
-import nicon.notify.core.util.ControlNotify;
 import nicon.notify.core.util.NotifyConfig;
 import nicon.notify.gui.desktopNotify.DesktopConfirm;
 import nicon.notify.gui.desktopNotify.DesktopNotify;
@@ -84,6 +84,7 @@ public class Notification {
      */
     public final static char NICON_DARK_THEME = 'D';
     public final static char NICON_LIGHT_THEME = 'L';
+    public final static char NICON_GRAY_THEME = 'G';
 
     
     private static DesktopNotify notify;
@@ -93,12 +94,14 @@ public class Notification {
 
     
     /**
-     * Muestra una notificación de escritorio recibiendo como parametros el
-     * titulo y el mensaje.
-     *
+     * Create a desktop notification with title, message and char theme, that
+     * you can chose as follows:
+     * <br>
+     * <br>Notification.Nicon_Light_Theme
+     * <br>Notification.Nicon_Dark_Theme
      * @param title
      * @param message
-     * @param theme
+     * @param theme 
      */
     
     public static void show(String title, String message,char theme) {
@@ -110,10 +113,9 @@ public class Notification {
     
     
     /**
-     * Crea una notificacion de escritorio recibiendo el titulo, el mensaje 
-     * y el tiempo que deberá mostrase la notificacion, si el tiempo es menor a 0
-     * entonces la notificacion nunca se cerrará hasta que el mismo usuario
-     * la cierre manualmente.
+     * Create a Desktop Notification with a title,message a char theme and a int
+     * time to be displayed in the desktop
+     * 
      * @param title
      * @param message
      * @param theme
@@ -129,9 +131,9 @@ public class Notification {
     
     
     /**
-     * Crea una notificacion con el titulo, el mensaje, el tema y el tipo de n
-     * notificación siguiendo los siguientes parametros
-     * Notification ej:<p>
+     * Create a desktop notification with a title,message,char theme and a byte
+     * that is a type notification as be used as follows:
+     * <p>
      * Notification.OK_MESSAGE<BR>
      * Notification.WARNING_MESSAGE<BR>
      * Notification.ERROR_MESSAGE<BR>
@@ -152,15 +154,8 @@ public class Notification {
     
     
      /**
-     * Crea una notificacion con el titulo, el mensaje, el tema el tipo de 
-     * notificación y el tiempo que desea mostrar la notificacion en el escritorio
-     * si el valor de timeout es menor a 0 la notificacion nunca se cerrará y
-     * será el usuario quien la cierre manualmentes
-     * Notification ej:<p>
-     * Notification.OK_MESSAGE<BR>
-     * Notification.WARNING_MESSAGE<BR>
-     * Notification.ERROR_MESSAGE<BR>
-     * Notification.DEFAULT_MESSAGE<BR>
+     * Create a desktop notification with title,message,theme a type of notifica
+     * tion and timeout 
      *
      * @param title
      * @param message
@@ -431,7 +426,7 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,type);
         confirm = new DesktopConfirm(event,theme);
-        serverOSD.send(notify, time_out);
+        serverOSD.send(confirm, time_out);
             while(confirm.isShowing()!=true){
                 option=confirm.getSelectedOption();
                 break;
@@ -726,12 +721,13 @@ public class Notification {
      * Muestra la informacion básica de NiconNotifyOSD
      */
     public static void showVersionLib(){
+        init_Server();
         String title=NotifyConfig.getInstance().getNameLib();
         String version=NotifyConfig.getInstance().getVersionLib();
         String info=NotifyConfig.getInstance().getInfoLib();
         event=new NiconEvent(title,"Version: "+version+"\n"+info,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,Notification.INFO_ICON,Notification.NICON_LIGHT_THEME);
-        ControlNotify.launchNotify(notify);
+        serverOSD.send(notify, time_out);
     }
 
 }
