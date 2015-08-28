@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NiconSystem inc 2013
+ * Copyright (c) NiconSystemCO 2015
  * License: GPLv3
  *
  * Authors:
@@ -23,13 +23,17 @@
 
 package nicon.notify.gui.themes;
 
+
 /**
  *Esta clase define un objeto NiconTheme que tiene colores oscuros como 
  *base para las notificaciones de escritorio Java, define el color de fondo
  *color de fuentes.
  */
+
 public class NiconDarkTheme extends NiconTheme{
     
+    
+    private final String nameTheme;
     private final String bakcgroundPanel;
     private final String titleForeground;
     private final String messageForeground;    
@@ -39,14 +43,22 @@ public class NiconDarkTheme extends NiconTheme{
     
     private static NiconDarkTheme instance;
     
+    
+    /**
+     * Crea un objeto NiconDarkTheme que tiene las configuraciones gráficas 
+     * para ajustar una notificacion en tono Dark
+     */
+    
     private NiconDarkTheme(){
-        this.bakcgroundPanel = "232323";
-        this.titleForeground = "ecf0f1";
-        this.messageForeground = "ecf0f1";
+        this.nameTheme = "Dark";
+        this.bakcgroundPanel = "303030";
+        this.titleForeground = "2196F3";
+        this.messageForeground = "EEEEEE";
         this.titleWarningForeground = "f39c12";
         this.titleErrorForeground = "e74c3c";
-        this.titleOKForeground = "3498db";
+        this.titleOKForeground = "4BAF4F";
     }
+    
     
     /**
      * Retorna el color de fondo del panel para la notificacion
@@ -101,6 +113,14 @@ public class NiconDarkTheme extends NiconTheme{
     public String getTitleOKForeground() {
         return titleOKForeground;
     }
+
+    
+    @Override
+    public String getNameTheme() {
+        return nameTheme;
+    }
+    
+    
     
     /**
      * Retorna una instancia de objeto del tema
