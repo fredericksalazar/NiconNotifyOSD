@@ -474,9 +474,9 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         confirm = new DesktopConfirm(event);
+        serverOSD.send(confirm, time_out);
             if(sound){
                 confirm.playSound(0);
-                serverOSD.send(confirm, time_out);
             }
         while(confirm.isShowing()!=true){
             option=confirm.getSelectedOption();
@@ -502,24 +502,14 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         confirm = new DesktopConfirm(event);
+        serverOSD.send(confirm, timeout);
             if(sound){
-                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
-                        confirm.playSound(0);
-                        serverOSD.send(confirm, timeout);
-                    }
-                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
-                        confirm.playSound(1);
-                        serverOSD.send(confirm, timeout);
-                    }
-                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
-                        confirm.playSound(2);
-                        serverOSD.send(confirm, timeout);
-                    }
-                }
-        while(confirm.isShowing()!=true){
-            option=confirm.getSelectedOption();
-            break;
-        }
+                  confirm.playSound(0);
+            }
+            while(confirm.isShowing()!=true){
+                option=confirm.getSelectedOption();
+                break;
+            }
         return option;
     }
     
@@ -539,18 +529,16 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,type);
         confirm = new DesktopConfirm(event);
+        serverOSD.send(confirm, time_out);
             if(sound){
                     if(event.getTipeMessage()==Notification.OK_MESSAGE){
                         confirm.playSound(0);
-                        serverOSD.send(confirm, time_out);
                     }
                     if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
                         confirm.playSound(1);
-                        serverOSD.send(confirm, time_out);
                     }
                     if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
                         confirm.playSound(2);
-                        serverOSD.send(confirm, time_out);
                     }
                 }
         while(confirm.isShowing()!=true){
@@ -578,18 +566,16 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,type);
         confirm = new DesktopConfirm(event);
+        serverOSD.send(confirm, timeout);
             if(sound){
                     if(event.getTipeMessage()==Notification.OK_MESSAGE){
                         confirm.playSound(0);
-                        serverOSD.send(confirm, timeout);
                     }
                     if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
                         confirm.playSound(1);
-                        serverOSD.send(confirm, timeout);
                     }
                     if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
                         confirm.playSound(2);
-                        serverOSD.send(confirm, timeout);
                     }
                 }
         while(confirm.isShowing()!=true){
@@ -664,7 +650,7 @@ public class Notification {
         confirm = new DesktopConfirm(event,theme,icon);
         serverOSD.send(confirm, time_out);
             if(sound){
-                notify.playSound(0);
+                confirm.playSound(0);
             }
             while(confirm.isShowing()!=true){
                 option=confirm.getSelectedOption();
