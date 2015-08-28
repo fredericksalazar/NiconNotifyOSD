@@ -133,7 +133,7 @@ public class ServerOSD{
             yPosition = 30;
         }else {
            if(stack.size()>1){
-               yPosition = prev_vertical_position + 103;
+               yPosition = prev_vertical_position + 110;
            }
         }
         return yPosition;

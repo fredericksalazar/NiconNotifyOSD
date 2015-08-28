@@ -1,5 +1,5 @@
 /*
- * Copyright (c) NiconSystem inc 2013
+ * Copyright (c) NiconSystemCO 2015
  * License: GPLv3
  *
  * Authors:

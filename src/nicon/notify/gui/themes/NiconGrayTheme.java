@@ -9,8 +9,9 @@ package nicon.notify.gui.themes;
  *
  * @author frederick
  */
-public class NiconNimbusTheme extends NiconTheme{
+public class NiconGrayTheme extends NiconTheme{
     
+    private final String nameTheme;
     private final String bakcgroundPanel;
     private final String titleForeground;
     private final String messageForeground;    
@@ -18,12 +19,13 @@ public class NiconNimbusTheme extends NiconTheme{
     private final String titleErrorForeground;
     private final String titleOKForeground;
     
-    private static NiconNimbusTheme instance;
+    private static NiconGrayTheme instance;
     
-    private NiconNimbusTheme(){
-        this.bakcgroundPanel = "232323";
-        this.titleForeground = "ecf0f1";
-        this.messageForeground = "ecf0f1";
+    private NiconGrayTheme(){
+        this.nameTheme = "Gray";
+        this.bakcgroundPanel = "A1A1A1";
+        this.titleForeground = "FCFCFC";
+        this.messageForeground = "FCFCFD";
         this.titleWarningForeground = "f39c12";
         this.titleErrorForeground = "e74c3c";
         this.titleOKForeground = "3498db";
@@ -82,14 +84,21 @@ public class NiconNimbusTheme extends NiconTheme{
     public String getTitleOKForeground() {
         return titleOKForeground;
     }
+
+    @Override
+    public String getNameTheme() {
+        return nameTheme;
+    }
+    
+    
     
     /**
      * Retorna una instancia de objeto del tema
      * @return 
      */
-    public static NiconNimbusTheme getInstance(){
+    public static NiconGrayTheme getInstance(){
         if(instance==null){
-            instance=new NiconNimbusTheme();
+            instance=new NiconGrayTheme();
         }
         return instance;
     }   

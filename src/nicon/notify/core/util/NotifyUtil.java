@@ -112,8 +112,8 @@ public class NotifyUtil {
      */
     public String setTextMessageEvent(String text){
         textMessage=text;
-        if(textMessage.length()>180){
-            textMessage=text.substring(0,180);
+        if(textMessage.length()>140){
+            textMessage=text.substring(0,140);
         }
         return this.textMessage;
     }     

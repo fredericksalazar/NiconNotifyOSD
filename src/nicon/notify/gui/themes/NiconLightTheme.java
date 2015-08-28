@@ -34,6 +34,7 @@ package nicon.notify.gui.themes;
 
 public class NiconLightTheme extends NiconTheme{
     
+    private final String nameTheme;
     private final String bakcgroundPanel;
     private final String titleForeground;
     private final String messageForeground;    
@@ -50,6 +51,7 @@ public class NiconLightTheme extends NiconTheme{
      */
     
     private NiconLightTheme(){
+        this.nameTheme = "Light";
         this.bakcgroundPanel = "F8F8F8";
         this.titleForeground = "313030";
         this.messageForeground = "777777";
@@ -113,6 +115,14 @@ public class NiconLightTheme extends NiconTheme{
     public String getTitleOKForeground() {
         return titleOKForeground;
     }
+
+    
+    @Override
+    public String getNameTheme() {
+        return nameTheme;
+    }
+    
+    
     
     /**
      * Obtiene una instacia del theme para ser aplicada en una Notificacion.

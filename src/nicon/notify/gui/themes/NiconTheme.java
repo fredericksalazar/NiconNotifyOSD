@@ -45,6 +45,8 @@ public abstract class NiconTheme {
      * @return
      */
     public abstract String getTitleOKForeground();
+    
+    public abstract String getNameTheme();
 
     
 }
