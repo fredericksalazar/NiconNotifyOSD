@@ -57,7 +57,7 @@ public class NiconLightTheme extends NiconTheme{
         this.messageForeground = "777777";
         this.titleWarningForeground = "C34000";
         this.titleErrorForeground = "C91313";
-        this.titleOKForeground = "006B98";
+        this.titleOKForeground = "4BAF4F";
     }
 
     /**

@@ -418,6 +418,13 @@ public class DesktopNotify extends JDialog implements ActionListener{
         if(icon==27) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconMed.png"))));
         
         if(icon==28) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconDown.png"))));
+        
+        if(icon==29) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconContact.png"))));
+    
+        if(icon==30) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconHardOrange.png"))));
+        
+        if(icon==31) setIconNotify((new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconAlarm.png"))));
+    
     }
     
     

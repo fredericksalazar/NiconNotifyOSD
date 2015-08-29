@@ -39,7 +39,7 @@ import nicon.notify.gui.desktopNotify.DesktopNotify;
 public class Notification {
     
     private static ServerOSD serverOSD;
-    private static final int time_out = 20000;
+    private static final int time_out = 10000;
 
     public final static byte OK_MESSAGE = 0;
     public final static byte ERROR_MESSAGE = 1;
@@ -78,6 +78,9 @@ public class Notification {
     public final static short BAT_FULL=26;
     public final static short BAT_MED=27;
     public final static short BAT_DOWN=28;
+    public final static short CONTACT_ICON = 29;
+    public final static short DISK_ORANGE = 30;
+    public final static short ALARM_ICON = 31;
 
     /*
      *  configuracion statica de variables para el manejo de los NiconThemes
@@ -661,8 +664,9 @@ public class Notification {
     
     
     /**
-     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
-     * recibe un titulo, un mensae y el tipo de notificacion
+     * Crea una notificacion de escritorio de tipo confirmacion o ConfirmNotify
+     * que permite seleccionar una accion aceptar o cancelar segun desea el
+     * usuario, recibe como paramentros:
      * @param title
      * @param message
      * @param theme
@@ -687,8 +691,11 @@ public class Notification {
         return option;
     }
  
-    
+    /**
+     * Inicialia el servidor de notificaciones ServerOSD.
+     */
     private static void init_Server(){
+        System.out.println("Starting NiconNotifyOSD "+NotifyConfig.getInstance().getVersionLib());
         serverOSD = ServerOSD.getInstance();
     }
 

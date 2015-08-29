@@ -66,7 +66,7 @@ public class NotifyConfig {
         
         nitruxIconsPath="/nicon/notify/gui/Icons/Nitrux/";
         nameLib="NiconNotifyOSD";
-        versionLib="1.8.8";
+        versionLib="1.9.5";
         infoLib="Developed By NiconSystem CO | Icons desingned By Nitrux  MX";
     } 
       
