@@ -34,5 +34,14 @@ public class ServerThread extends Thread{
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+   
+    /**
+     * Detiene el ServerThread en el momento en que una notificacion es cerrada
+     * por el usuario
+     */
+    protected void killThread(){
+        System.out.println("ServerOSD: stoping Thread for serverThread nid: "+nid);
+        this.stop();
+    }
 }
 

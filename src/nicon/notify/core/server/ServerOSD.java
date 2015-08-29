@@ -39,7 +39,8 @@ public class ServerOSD{
     private int prev_vertical_position;
     private final double versionServer;
     private int size;
-    private HashMap stack;
+    private HashMap stackServer;
+    private HashMap  stackThread;
     private ServerThread serThread;
     private final NotifyUtil nUtil;
     
@@ -57,7 +58,8 @@ public class ServerOSD{
     private ServerOSD(){
         versionServer =  0.98;
         System.out.println("Starting ServerOSD "+versionServer);
-        stack = new HashMap();
+        stackServer = new HashMap();
+        stackThread= new HashMap();
         nUtil = NotifyUtil.getInstance();
         size = -1;
     }
@@ -71,7 +73,7 @@ public class ServerOSD{
     private int createNID(){
         System.out.println("ServerOSD: creating nid key stack ...");
         nid = (int) Math.floor(Math.random()*1000);
-            if(stack.containsKey(nid)){
+            if(stackServer.containsKey(nid)){
                 System.out.println("ServerOSD: the key is not available ...");
                 createNID();
             }
@@ -89,13 +91,14 @@ public class ServerOSD{
     */
     public void send(DesktopNotify notify, int time){
         try{
-            if(stack.size()<=4){
+            if(stackServer.size()<=4){
                 notify.setNid(createNID());
-                System.out.println("ServerOSD: Stack size: "+stack.size());
-                stack.put(nid, notify);
+                System.out.println("ServerOSD: Stack size: "+stackServer.size());
+                stackServer.put(nid, notify);
                     if(time >= 10){
                         serThread = new ServerThread(this,nid,time);   
                         serThread.start();
+                        stackThread.put(nid, serThread);
                     }
                 notify.setLocation(getDimensionDevice().width-notify.getWidth()-5,setVerticalPosition());
                 System.out.println("ServerOSD: Notification is Launched nid:"+nid);
@@ -112,11 +115,15 @@ public class ServerOSD{
         de que este visible y de eliminar una notificacion en el stack,
     */
     public void remove(int nid){
-        if(stack.containsKey(nid)){
-            notify = (DesktopNotify) stack.get(nid);
+        ServerThread thrd;
+        if(stackServer.containsKey(nid)){
+            notify = (DesktopNotify) stackServer.get(nid);
             if(notify.isVisible()){
                 notify.dispose();
-                stack.remove(nid);
+                thrd = (ServerThread) stackThread.get(nid);
+                thrd.killThread();
+                stackServer.remove(nid);
+                stackThread.remove(nid);
                 System.out.println("ServerOSD: notification with nid: "+nid+" remove successfully ...");
             }
         }
@@ -129,10 +136,10 @@ public class ServerOSD{
      * cual es realmente su nuevo valor de Y
      */
     private int setVerticalPosition(){
-        if(stack.size()==1){
+        if(stackServer.size()==1){
             yPosition = 30;
         }else {
-           if(stack.size()>1){
+           if(stackServer.size()>1){
                yPosition = prev_vertical_position + 110;
            }
         }
@@ -163,8 +170,8 @@ public class ServerOSD{
         dentro de el stack de notificaciones.
     */
     private int stackSize(){
-        if(stack!=null){
-            size = stack.size();
+        if(stackServer!=null){
+            size = stackServer.size();
         }
         return size;
     }
