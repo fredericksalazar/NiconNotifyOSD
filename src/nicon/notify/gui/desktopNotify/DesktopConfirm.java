@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
+import nicon.notify.core.Notification;
 import nicon.notify.core.server.ServerOSD;
 
 /**
@@ -94,7 +95,6 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
         
        jbAcept=new JButton("Acept");
        jbAcept.setBounds(0,83,190,23); 
-       jbAcept.setBackground(this.getForegroundTitle());
        jbAcept.setForeground(Color.white);
        jbAcept.setOpaque(true);
        jbAcept.setBorderPainted(false);
@@ -109,8 +109,17 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
        
        addButton(jbAcept);
        addButton(jbCancel);
+       setAceptButtonColor();
     }
     
+    private void setAceptButtonColor(){
+        if(getEvent().getTipeMessage() == Notification.DEFAULT_MESSAGE && 
+                                getTheme().getNameTheme().equals("Dark")){
+            jbAcept.setBackground(new Color(Integer.parseInt("707070", 16)));
+        }else{
+            jbAcept.setBackground(this.getForegroundTitle());
+        }
+    }
    
     /**
      * este metodo obtiene y retorna la opcion seleccionada por parte del usuario

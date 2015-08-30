@@ -23,12 +23,12 @@ public class NiconGrayTheme extends NiconTheme{
     
     private NiconGrayTheme(){
         this.nameTheme = "Gray";
-        this.bakcgroundPanel = "A1A1A1";
-        this.titleForeground = "FCFCFC";
-        this.messageForeground = "FCFCFD";
-        this.titleWarningForeground = "f39c12";
-        this.titleErrorForeground = "e74c3c";
-        this.titleOKForeground = "3498db";
+        this.bakcgroundPanel = "DDDDDD";
+        this.titleForeground = "0987CA";
+        this.messageForeground = "292929";
+        this.titleWarningForeground = "EE6837";
+        this.titleErrorForeground = "C64064";
+        this.titleOKForeground = "5FB95F";
     }
     
     /**
