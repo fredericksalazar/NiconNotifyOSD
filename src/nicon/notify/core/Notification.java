@@ -217,9 +217,7 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,sound);
         notify = new DesktopNotify(event,theme);
-
-            if(sound) notify.playSound(0);        
-                serverOSD.send(notify);
+        serverOSD.send(notify);
     }
 
     
@@ -239,9 +237,7 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,timeout,sound);
         notify = new DesktopNotify(event,theme);
-
-            if(sound) notify.playSound(0); 
-                serverOSD.send(notify);
+        serverOSD.send(notify);
     }
     
     
@@ -263,17 +259,6 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, type,sound);
         notify = new DesktopNotify(event,theme);
-        
-            if(sound){
-                if(event.getTipeMessage()==Notification.OK_MESSAGE)
-                    notify.playSound(0);
-                    
-                if(event.getTipeMessage()==Notification.WARNING_MESSAGE)
-                    notify.playSound(1);
-                
-                if(event.getTipeMessage()==Notification.ERROR_MESSAGE)
-                    notify.playSound(2);
-            }
         serverOSD.send(notify);
     }
     
@@ -296,17 +281,6 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, type, timeout,sound);
         notify = new DesktopNotify(event,theme);
-       
-            if(sound){
-                if(event.getTipeMessage()==Notification.OK_MESSAGE)
-                    notify.playSound(0);
-                
-                if(event.getTipeMessage()==Notification.WARNING_MESSAGE)
-                    notify.playSound(1);
-                
-                if(event.getTipeMessage()==Notification.ERROR_MESSAGE)
-                    notify.playSound(2);
-            }
         serverOSD.send(notify);
     }
 
@@ -374,9 +348,6 @@ public class Notification {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,sound);
         notify = new DesktopNotify(event, icon,theme);
         serverOSD.send(notify);
-            if(sound){
-                notify.playSound(0);
-            }
     }
     
     
@@ -401,9 +372,6 @@ public class Notification {
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,timeout,sound);
         notify = new DesktopNotify(event, icon,theme);
         serverOSD.send(notify);
-            if(sound){
-                notify.playSound(0);
-            }
     }
 
     
@@ -553,10 +521,6 @@ public class Notification {
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,sound);
         confirm = new DesktopConfirm(event);
 
-        if(sound){
-            confirm.playSound(0);
-        }
-
         synchronized (confirm){
 
             try {
@@ -591,9 +555,6 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,timeout,sound);
         confirm = new DesktopConfirm(event,theme);
-            if(sound){
-                  confirm.playSound(0);
-            }
 
         synchronized (confirm){
 
@@ -628,17 +589,6 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,type,sound);
         confirm = new DesktopConfirm(event);
-            if(sound){
-                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
-                        confirm.playSound(0);
-                    }
-                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
-                        confirm.playSound(1);
-                    }
-                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
-                        confirm.playSound(2);
-                    }
-                }
 
         synchronized (confirm){
 
@@ -675,18 +625,6 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,type,timeout,sound);
         confirm = new DesktopConfirm(event);
-
-            if(sound){
-                    if(event.getTipeMessage()==Notification.OK_MESSAGE){
-                        confirm.playSound(0);
-                    }
-                    if(event.getTipeMessage()==Notification.WARNING_MESSAGE){
-                        confirm.playSound(1);
-                    }
-                    if(event.getTipeMessage()==Notification.ERROR_MESSAGE){
-                        confirm.playSound(2);
-                    }
-                }
 
         synchronized (confirm){
 
@@ -789,10 +727,6 @@ public class Notification {
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,sound);
         confirm = new DesktopConfirm(event,theme,icon);
 
-            if(sound){
-                confirm.playSound(0);
-            }
-
         synchronized (confirm){
 
             try {
@@ -827,10 +761,6 @@ public class Notification {
         option=-1;
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,timeout,sound);
         confirm = new DesktopConfirm(event,theme,icon);
-
-            if(sound){
-                confirm.playSound(0);
-            }
 
         synchronized (confirm){
 
