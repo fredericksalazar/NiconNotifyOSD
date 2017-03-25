@@ -23,14 +23,13 @@
 
 package nicon.notify.gui.desktopNotify;
 
-
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
 import nicon.notify.core.Notification;
 import nicon.notify.core.server.ServerOSD;
+import nicon.notify.gui.desktopNotify.components.nsButton;
 
 /**
  *
@@ -42,6 +41,9 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
     public JButton jbAcept;
     public JButton jbCancel;
     public int option;
+
+    //representa el estado visual del objeto visible = true sino false
+    private boolean state = false;
     
     
     /**
@@ -93,20 +95,14 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
     
     private void init() {  
         
-       jbAcept=new JButton("Acept");
-       jbAcept.setBounds(0,83,190,23); 
-       jbAcept.setForeground(Color.white);
-       jbAcept.setOpaque(true);
-       jbAcept.setBorderPainted(false);
+       jbAcept=new nsButton(this,"Acept",1);
+       jbAcept.setBounds(0,83,190,23);
        jbAcept.addActionListener(this);
        
-       jbCancel=new JButton("Cancel");
+       jbCancel=new nsButton(this,"Cancel",0);
        jbCancel.setBounds(190,83,190,23);
-       jbCancel.setOpaque(true);
-       jbCancel.setBorderPainted(false);
        jbCancel.addActionListener(this);
-       
-       
+
        addButton(jbAcept);
        addButton(jbCancel);
        setAceptButtonColor();
@@ -115,20 +111,28 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
     private void setAceptButtonColor(){
         if(getEvent().getTipeMessage() == Notification.DEFAULT_MESSAGE && 
                                 getTheme().getNameTheme().equals("Dark")){
-            jbAcept.setBackground(new Color(Integer.parseInt("707070", 16)));
+            //jbAcept.setBackground(new Color(Integer.parseInt("707070", 16)));
         }else{
-            jbAcept.setBackground(this.getForegroundTitle());
+            //jbAcept.setBackground(this.getForegroundTitle());
         }
     }
-   
+
+    public boolean getState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
     /**
      * este metodo obtiene y retorna la opcion seleccionada por parte del usuario
      * que corresponde al evento NiconEvent que se ha pasado como parametro de
      * informacion, el valor retornado será un valor entero que representa una 
      * seleccion en base a la siguiente logica
      * 
-     * 0= respuesta negativa (Cancel)
-     * 1= respuesta afirmativa (Aceptar).
+     * 0= respuesta negativa (Cancel o close action)
+     * 1= respuesta afirmativa (Acept action).
      * @return 
      */
     
@@ -161,7 +165,7 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
             close();
         }else{
             System.out.println("The option selected is : cancel");
-            option=-1;
+            option=0;
             close();
         }
     }
