@@ -36,12 +36,13 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import nicon.notify.core.util.NLabel;
+import nicon.notify.gui.desktopNotify.components.NLabel;
 import nicon.notify.core.NiconEvent;
 import nicon.notify.core.Notification;
 import nicon.notify.core.server.ServerOSD;
 import nicon.notify.core.util.NotifyConfig;
 import nicon.notify.core.util.NotifyUtil;
+import nicon.notify.gui.desktopNotify.controller.MouseController;
 import nicon.notify.gui.themes.NiconDarkTheme;
 import nicon.notify.gui.themes.NiconGrayTheme;
 import nicon.notify.gui.themes.NiconLightTheme;
@@ -54,7 +55,7 @@ import nicon.notify.gui.themes.NiconTheme;
  * 
  * @author frederick
  */
-public class DesktopNotify extends JDialog implements ActionListener{
+public class DesktopNotify extends JDialog implements ActionListener {
     
           
     private final NiconEvent ev;
@@ -74,6 +75,8 @@ public class DesktopNotify extends JDialog implements ActionListener{
     private JButton jbClose;    
     private JPanel panel;  
     private String urlSound;
+
+    private MouseController mouseController;
     
     /**
      * Este metodo constructor permite crear una nueva notificacion de escritorio
@@ -259,10 +262,16 @@ public class DesktopNotify extends JDialog implements ActionListener{
         panel.add(jlTitle);
         panel.add(jlMessage);
         panel.add(jbClose);
-        add(panel);         
+
+        add(panel);
+
+        mouseController = new MouseController(this);
+        this.addMouseListener(mouseController);
+        jlMessage.addMouseListener(mouseController);
     }
     
     public NiconEvent getEvent(){
+
         return this.ev;
     }
     
@@ -272,6 +281,7 @@ public class DesktopNotify extends JDialog implements ActionListener{
      */
     
     public int getNid() {
+
         return nid;
     }
 
@@ -282,6 +292,7 @@ public class DesktopNotify extends JDialog implements ActionListener{
     */
     
     public void setNid(int nid) {
+
         this.nid = nid;
     }
     
@@ -493,5 +504,5 @@ public class DesktopNotify extends JDialog implements ActionListener{
             ServerOSD.getInstance().remove(getNid());
         }
     }
-      
+
 }
