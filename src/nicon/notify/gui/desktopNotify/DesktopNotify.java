@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -110,7 +111,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
      * @param theme 
      */
     
-     public DesktopNotify(NiconEvent ev, char theme) {        
+     public DesktopNotify(NiconEvent ev, char theme) {
         this.ev=ev;
         this.nicon_theme=theme;
         this.config=NotifyConfig.getInstance();
@@ -236,6 +237,11 @@ public class DesktopNotify extends JDialog implements ActionListener {
         jbClose.setContentAreaFilled(false);
         jbClose.setIcon(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"CloseNotify.png")));
         jbClose.addActionListener(this);
+
+        jlDate = new JLabel();
+        jlDate.setFont(config.getMessageFontDesk());
+        jlDate.setBounds(350,2,100,30);
+        jlDate.setForeground(config.getFontDefaultColor());
                 
         jlIcon=new JLabel();
         jlIcon.setBounds(0,0,65,65);
@@ -252,9 +258,10 @@ public class DesktopNotify extends JDialog implements ActionListener {
         panel.add(jlIcon);
         panel.add(jlTitle);
         panel.add(jlMessage);
-        panel.add(jbClose);
+        panel.add(jlDate);
 
         add(panel);
+        setTimeNotification();
 
         /*
          * vamos a realizar la modificacion del contorno de la notificacion
@@ -269,6 +276,20 @@ public class DesktopNotify extends JDialog implements ActionListener {
         jlMessage.addMouseListener(mouseController);
         this.addMouseListener(mouseController);
 
+    }
+
+
+    /**
+     * Este metodo permite  ajustar el objeto que muestra  la hora de la
+     * notificacin, se ajusta la hora y el color que se mostrará
+     *
+     */
+
+    private void setTimeNotification(){
+        Calendar cal = Calendar.getInstance();
+
+        String time = String.valueOf(cal.get(Calendar.HOUR)+":"+String.valueOf(cal.get(Calendar.MINUTE)));
+        this.jlDate.setText(time);
     }
 
 
@@ -342,26 +363,31 @@ public class DesktopNotify extends JDialog implements ActionListener {
         if(ev.getTipeMessage()==Notification.DEFAULT_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconDefault.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
+            jlDate.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
         }
         
         if(ev.getTipeMessage()==Notification.OK_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconOK.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleOKForeground(), 16)));
+            jlDate.setForeground(new Color(Integer.parseInt(theme.getTitleOKForeground(), 16)));
         }
         
         if(ev.getTipeMessage()==Notification.WARNING_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconWarning.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleWarningForeground(), 16)));
+            jlDate.setForeground(new Color(Integer.parseInt(theme.getTitleWarningForeground(), 16)));
         }
         
         if(ev.getTipeMessage()==Notification.ERROR_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconError.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleErrorForeground(), 16)));
+            jlDate.setForeground(new Color(Integer.parseInt(theme.getTitleErrorForeground(), 16)));
         }
         
         if(ev.getTipeMessage()==Notification.CONFIRM_MESSAGE){
             setIconNotify(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"NiconConfirm.png")));
             jlTitle.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
+            jlDate.setForeground(new Color(Integer.parseInt(theme.getTitleForeground(), 16)));
         }
     }
     
@@ -532,6 +558,8 @@ public class DesktopNotify extends JDialog implements ActionListener {
         }
 
         setVisible(true);
+        this.setOpacity(0.8f);
+
     }
     
     @Override
