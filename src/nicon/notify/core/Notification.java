@@ -29,6 +29,7 @@ import nicon.notify.gui.desktopNotify.DesktopConfirm;
 import nicon.notify.gui.desktopNotify.DesktopNotify;
 
 
+
 /*
  * Notification es el API principal de NiconNotifyOSD, a traves de este API
  * se pueden crear las notificaciones de escritorio que provee el paquete 
@@ -46,7 +47,17 @@ import nicon.notify.gui.desktopNotify.DesktopNotify;
 public class Notification {
     
     private static ServerOSD serverOSD;
-    private static final int time_out = 10000;
+
+    public static final int TIME_OUT = 10000;
+    public static boolean SOUND = false;
+
+
+    /*
+    Definimos los tipos de notificaciones que pueden
+    ser usadas en el sistema, el ajuste del tipo
+    de notificacion modifica el comportamiento grafico
+    de la DesktoNtify
+    */
 
     public final static byte OK_MESSAGE = 0;
     public final static byte ERROR_MESSAGE = 1;
@@ -54,8 +65,9 @@ public class Notification {
     public final static byte CONFIRM_MESSAGE = 3;
     public final static byte DEFAULT_MESSAGE = 4;
 
+
     /*
-      variables estaticas para el manejo de los iconos
+    variables estaticas para el manejo de los iconos
     */
     
     public final static short FACEBOOK_ICON = 1;
@@ -122,7 +134,7 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
         notify = new DesktopNotify(event,theme);
-        serverOSD.send(notify, time_out);
+        serverOSD.send(notify);
     }
     
     
@@ -139,9 +151,9 @@ public class Notification {
     
     public static void show(String title, String message,char theme,int timeout) {
         init_Server();
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,timeout);
         notify = new DesktopNotify(event,theme);
-        serverOSD.send(notify, timeout);
+        serverOSD.send(notify);
     }
     
     
@@ -166,7 +178,7 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, type);
         notify = new DesktopNotify(event,theme);
-        serverOSD.send(notify, time_out);
+        serverOSD.send(notify);
     }
     
     
@@ -184,9 +196,9 @@ public class Notification {
     
     public static void show(String title, String message,char theme, byte type, int timeout) {
         init_Server();
-        event = new NiconEvent(title, message, type);
+        event = new NiconEvent(title, message, type,timeout);
         notify = new DesktopNotify(event,theme);
-        serverOSD.send(notify, timeout);
+        serverOSD.send(notify);
     }
     
     
@@ -203,11 +215,13 @@ public class Notification {
     
     public static void show(String title, String message,char theme, boolean sound) {
         init_Server();
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,sound);
         notify = new DesktopNotify(event,theme);
+
             if(sound) notify.playSound(0);        
-        serverOSD.send(notify, time_out);
+                serverOSD.send(notify);
     }
+
     
     /**
      * Crea una notificacion de escritorio recibiendo como parámetros el titulo
@@ -223,10 +237,11 @@ public class Notification {
     
     public static void show(String title, String message,char theme, boolean sound,int timeout) {
         init_Server();
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,timeout,sound);
         notify = new DesktopNotify(event,theme);
+
             if(sound) notify.playSound(0); 
-        serverOSD.send(notify, timeout);
+                serverOSD.send(notify);
     }
     
     
@@ -246,7 +261,7 @@ public class Notification {
     
     public static void show(String title, String message,char theme,boolean sound, byte type) {
         init_Server();
-        event = new NiconEvent(title, message, type);
+        event = new NiconEvent(title, message, type,sound);
         notify = new DesktopNotify(event,theme);
         
             if(sound){
@@ -259,7 +274,7 @@ public class Notification {
                 if(event.getTipeMessage()==Notification.ERROR_MESSAGE)
                     notify.playSound(2);
             }
-        serverOSD.send(notify, time_out);
+        serverOSD.send(notify);
     }
     
     
@@ -277,10 +292,9 @@ public class Notification {
      * @param timeout
      */
     
-    public static void show(String title, String message,char theme,boolean 
-                            sound, byte type,int timeout) {
+    public static void show(String title, String message,char theme,boolean sound, byte type,int timeout) {
         init_Server();
-        event = new NiconEvent(title, message, type);
+        event = new NiconEvent(title, message, type, timeout,sound);
         notify = new DesktopNotify(event,theme);
        
             if(sound){
@@ -293,7 +307,7 @@ public class Notification {
                 if(event.getTipeMessage()==Notification.ERROR_MESSAGE)
                     notify.playSound(2);
             }
-        serverOSD.send(notify, timeout);
+        serverOSD.send(notify);
     }
 
     
@@ -316,7 +330,7 @@ public class Notification {
         init_Server();
         event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
         notify = new DesktopNotify(event, icon, theme);
-        serverOSD.send(notify, time_out);
+        serverOSD.send(notify);
     }
     
     
@@ -334,9 +348,9 @@ public class Notification {
     
     public static void show(String title, String message,char theme,short icon,int timeout) {
         init_Server();
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,timeout);
         notify = new DesktopNotify(event, icon, theme);
-        serverOSD.send(notify, timeout);
+        serverOSD.send(notify);
     }
     
     
@@ -357,9 +371,9 @@ public class Notification {
      */
     public static void show(String title, String message,char theme,short icon,boolean sound) {
         init_Server();
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,sound);
         notify = new DesktopNotify(event, icon,theme);
-        serverOSD.send(notify, time_out);
+        serverOSD.send(notify);
             if(sound){
                 notify.playSound(0);
             }
@@ -384,9 +398,9 @@ public class Notification {
      */
     public static void show(String title, String message,char theme,short icon,boolean sound,int timeout) {
         init_Server();
-        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE);
+        event = new NiconEvent(title, message, Notification.DEFAULT_MESSAGE,timeout,sound);
         notify = new DesktopNotify(event, icon,theme);
-        serverOSD.send(notify, timeout);
+        serverOSD.send(notify);
             if(sound){
                 notify.playSound(0);
             }
@@ -401,118 +415,167 @@ public class Notification {
      * @param theme
      * @return 
      */
-    public static int showConfirm(String title, String message,char theme){
+    public synchronized static int showConfirm(String title, String message,char theme){
         init_Server();
         option=-1;
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         confirm = new DesktopConfirm(event,theme);
-        serverOSD.send(confirm, time_out);
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        return option;
-    }
-    
-    
-    /**
-     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
-     * recibe un titulo, un mensae y el tipo de notificacion
-     * @param title
-     * @param message
-     * @param theme
-     * @param timeout
-     * @return 
-     */
-    public static int showConfirm(String title, String message,char theme,int timeout){
-        init_Server();
-        option=-1;
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
-        confirm = new DesktopConfirm(event,theme);
-        serverOSD.send(confirm, timeout);
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
-            }
-        return option;
-    }
-    
-    
-    /**
-     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
-     * recibe un titulo, un mensae y el tipo de notificacion
-     * @param title
-     * @param message
-     * @param theme
-     * @param type
-     * @return 
-     */
-    public static int showConfirm(String title, String message,char theme, byte type){
-        init_Server();
-        option=-1;
-        event=new NiconEvent(title,message,type);
-        confirm = new DesktopConfirm(event,theme);
-        serverOSD.send(confirm, time_out);
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
-            }
-        return option;
-    }
-    
-    
-    /**
-     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
-     * recibe un titulo, un mensae y el tipo de notificacion
-     * @param title
-     * @param message
-     * @param theme
-     * @param type
-     * @param timeout
-     * @return 
-     */
-    public static int showConfirm(String title, String message,char theme, byte type,int timeout){
-        init_Server();
-        option=-1;
-        event=new NiconEvent(title,message,type);
-        confirm = new DesktopConfirm(event,theme);
-        serverOSD.send(confirm, timeout);
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
-            }
-        return option;
-    }
-    
-    
-    /**
-     * Muestra una notificacion de escritorio del tipo de confirmacion la cual
-     * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
-     * especifica la reproduccion de un sonido
-     * @param title
-     * @param message
-     * @param theme
-     * @param sound
-     * @return int response
-     */
-    public static int showConfirm(String title, String message,char theme,boolean sound){
-        init_Server();
-        option=-1;
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
-        confirm = new DesktopConfirm(event);
-        serverOSD.send(confirm, time_out);
-            if(sound){
-                confirm.playSound(0);
-            }
-        while(confirm.isShowing()!=true){
-            option=confirm.getSelectedOption();
-            break;
         }
         return option;
     }
     
     
     /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param timeout
+     * @return 
+     */
+    public synchronized static int showConfirm(String title, String message,char theme,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,timeout);
+        confirm = new DesktopConfirm(event,theme);
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param type
+     * @return 
+     */
+    public synchronized static int showConfirm(String title, String message,char theme, byte type){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,type);
+        confirm = new DesktopConfirm(event,theme);
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return option;
+    }
+    
+    
+    /**
+     * Este metodo muestra una notificacion de escritorio del tipo confirmacion
+     * recibe un titulo, un mensae y el tipo de notificacion
+     * @param title
+     * @param message
+     * @param theme
+     * @param type
+     * @param timeout
+     * @return 
+     */
+    public synchronized static int showConfirm(String title, String message,char theme, byte type,int timeout){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,type,timeout);
+        confirm = new DesktopConfirm(event,theme);
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return option;
+    }
+    
+    
+    /**
+     * Muestra una notificacion de escritorio del tipo de confirmacion la cual
+     * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
+     * especifica la reproduccion de un sonido
+     * @param title
+     * @param message
+     * @param theme
+     * @param sound
+     * @return int response
+     */
+    public synchronized static int showConfirm(String title, String message,char theme,boolean sound){
+        init_Server();
+        option=-1;
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,sound);
+        confirm = new DesktopConfirm(event);
+
+        if(sound){
+            confirm.playSound(0);
+        }
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return option;
+    }
+    
+    
+    /**
      * Muestra una notificacion de escritorio del tipo de confirmacion la cual
      * contiene un titulo, un mensaje, un tipo de notificacion y un booleano que
      * especifica la reproduccion de un sonido
@@ -523,19 +586,29 @@ public class Notification {
      * @param timeout
      * @return int response
      */
-    public static int showConfirm(String title, String message,char theme,boolean sound,int timeout){
+    public synchronized static int showConfirm(String title, String message,char theme,boolean sound,int timeout){
         init_Server();
         option=-1;
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,timeout,sound);
         confirm = new DesktopConfirm(event,theme);
-        serverOSD.send(confirm, timeout);
             if(sound){
                   confirm.playSound(0);
             }
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+
         return option;
     }
     
@@ -550,12 +623,11 @@ public class Notification {
      * @param type
      * @return int response
      */
-    public static int showConfirm(String title, String message,char theme,boolean sound,byte type){
+    public synchronized static int showConfirm(String title, String message,char theme,boolean sound,byte type){
         init_Server();
         option=-1;
-        event=new NiconEvent(title,message,type);
+        event=new NiconEvent(title,message,type,sound);
         confirm = new DesktopConfirm(event);
-        serverOSD.send(confirm, time_out);
             if(sound){
                     if(event.getTipeMessage()==Notification.OK_MESSAGE){
                         confirm.playSound(0);
@@ -567,10 +639,21 @@ public class Notification {
                         confirm.playSound(2);
                     }
                 }
-        while(confirm.isShowing()!=true){
-            option=confirm.getSelectedOption();
-            break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return option;
     }
     
@@ -587,12 +670,12 @@ public class Notification {
      * @param timeout
      * @return int response
      */
-    public static int showConfirm(String title, String message,char theme,boolean sound,byte type,int timeout){
+    public synchronized static int showConfirm(String title, String message,char theme,boolean sound,byte type,int timeout){
         init_Server();
         option=-1;
-        event=new NiconEvent(title,message,type);
+        event=new NiconEvent(title,message,type,timeout,sound);
         confirm = new DesktopConfirm(event);
-        serverOSD.send(confirm, timeout);
+
             if(sound){
                     if(event.getTipeMessage()==Notification.OK_MESSAGE){
                         confirm.playSound(0);
@@ -604,10 +687,21 @@ public class Notification {
                         confirm.playSound(2);
                     }
                 }
-        while(confirm.isShowing()!=true){
-            option=confirm.getSelectedOption();
-            break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return option;
     }
     
@@ -621,16 +715,26 @@ public class Notification {
      * @param icon
      * @return 
      */
-    public static int showConfirm(String title, String message,char theme,short icon){
+    public synchronized static int showConfirm(String title, String message,char theme,short icon){
         init_Server();
         option=-1;
         event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
         confirm = new DesktopConfirm(event,theme,icon);
-        serverOSD.send(confirm, time_out);
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+
         return option;
     }
     
@@ -645,16 +749,26 @@ public class Notification {
      * @param timeout
      * @return 
      */
-    public static int showConfirm(String title, String message,char theme,short icon,int timeout){
+    public synchronized static int showConfirm(String title, String message,char theme,short icon,int timeout){
         init_Server();
         option=-1;
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,timeout);
         confirm = new DesktopConfirm(event,theme,icon);
-        serverOSD.send(confirm, timeout);
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+
         return option;
     }
     
@@ -669,19 +783,29 @@ public class Notification {
      * @param sound
      * @return 
      */
-    public static int showConfirm(String title, String message,char theme,short icon,boolean sound){
+    public synchronized static int showConfirm(String title, String message,char theme,short icon,boolean sound){
         init_Server();
         option=-1;
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,sound);
         confirm = new DesktopConfirm(event,theme,icon);
-        serverOSD.send(confirm, time_out);
+
             if(sound){
                 confirm.playSound(0);
             }
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
         return option;
     }
     
@@ -698,19 +822,30 @@ public class Notification {
      * @param timeout
      * @return 
      */
-    public static int showConfirm(String title, String message,char theme,short icon,boolean sound,int timeout){
+    public synchronized static int showConfirm(String title, String message,char theme,short icon,boolean sound,int timeout){
         init_Server();
         option=-1;
-        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE);
+        event=new NiconEvent(title,message,Notification.DEFAULT_MESSAGE,timeout,sound);
         confirm = new DesktopConfirm(event,theme,icon);
-        serverOSD.send(confirm, timeout);
+
             if(sound){
                 confirm.playSound(0);
             }
-            while(confirm.isShowing()!=true){
-                option=confirm.getSelectedOption();
-                break;
+
+        synchronized (confirm){
+
+            try {
+                serverOSD.send(confirm);
+
+                if(confirm.getState()==true){
+                    confirm.wait();
+                }
+                option = confirm.getSelectedOption();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+
         return option;
     }
  
@@ -735,7 +870,7 @@ public class Notification {
         String info=NotifyConfig.getInstance().getInfoLib();
         event=new NiconEvent(title,"Version: "+version+"\n"+info,Notification.DEFAULT_MESSAGE);
         notify=new DesktopNotify(event,Notification.NICON_SYSTEM,Notification.NICON_DARK_THEME);
-        serverOSD.send(notify, time_out);
+        serverOSD.send(notify);
     }
 
 }
