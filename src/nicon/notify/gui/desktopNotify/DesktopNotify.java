@@ -24,8 +24,7 @@
 package nicon.notify.gui.desktopNotify;
 
 import java.applet.AudioClip;
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -91,7 +90,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
         this.theme=NiconDarkTheme.getInstance();        
-        setSize(380,98);
+        setSize(400,98);
         setUndecorated(true);  
         setAlwaysOnTop(true);
         setResizable(false);
@@ -269,25 +268,35 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.addMouseListener(mouseController);
         jlMessage.addMouseListener(mouseController);
     }
-    
-    public NiconEvent getEvent(){
 
+
+    /**
+     * retorna el objeto NiconEvent recibido
+     *
+     * @return NiconEvent ev
+     */
+
+    public NiconEvent getEvent(){
         return this.ev;
     }
+
     
     /**
-     * Retorna el nid de una notificacion
-     * @return 
+     * Retorna el ID de la notificacion que ha sido asignado
+     * por el serverOSD al momento de lanzar la notificacion
+     *
+     * @return int nid
      */
     
     public int getNid() {
-
         return nid;
     }
 
     
    /**
-    * Ajusta el nid a la notificacion.
+    * Ajusta el ID de la notificacion creado por el serverOSD
+    * al momento de lanzar la notificacion
+    *
     * @param nid 
     */
     
@@ -308,7 +317,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
     
     
     /**
-     * Ajusta el icono de la notificacion
+     *  Ajusta el Icono de la notificacion
      * @param icon 
      */
     
@@ -468,7 +477,8 @@ public class DesktopNotify extends JDialog implements ActionListener {
     public NiconTheme getTheme(){
         return this.theme;
     }
-    
+
+
     /**
      * Este metodo retorna el color de fuente usado en los titulos de las notificaciones
      * segun el tipo que sea.
@@ -477,13 +487,14 @@ public class DesktopNotify extends JDialog implements ActionListener {
     public Color getForegroundTitle(){
         return this.jlTitle.getForeground();
     }
+
     
     /**
-     * Este metodo permitira reproducir un sonido al momento de mostrar la 
-     * notificacion
+     * Este metodo permite  emitir un sonido al momento de lanzar la notificacion en el escritori
+     *
      * @param type
      */    
-    public void playSound(int type){
+    private void playSound(int type){
         
         if(type==0){
             urlSound="/nicon/notify/core/sound/notify.wav";
@@ -496,6 +507,29 @@ public class DesktopNotify extends JDialog implements ActionListener {
         }
         AudioClip adio = java.applet.Applet.newAudioClip(getClass().getResource(urlSound));
         adio.play();
+    }
+
+    /**
+     * Este metodo permite mostrar la notificacion
+     */
+    public void showMe(){
+
+        if(ev.isSound()){
+
+            if(ev.getTipeMessage()==Notification.DEFAULT_MESSAGE)
+                playSound(0);
+
+            if(ev.getTipeMessage()==Notification.OK_MESSAGE)
+                playSound(0);
+
+            if(ev.getTipeMessage()==Notification.WARNING_MESSAGE)
+                playSound(1);
+
+            if(ev.getTipeMessage()==Notification.ERROR_MESSAGE)
+                playSound(2);
+        }
+
+        setVisible(true);
     }
     
     @Override
