@@ -23,8 +23,10 @@
 
 package nicon.notify.gui.desktopNotify;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JButton;
 import nicon.notify.core.NiconEvent;
 import nicon.notify.core.Notification;
@@ -44,8 +46,9 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
 
     //representa el estado visual del objeto visible = true sino false
     private boolean state = false;
-    
-    
+    private Shape shape;
+
+
     /**
      * Crea una DesktopConfirm recibiendo un objeto NiconEvent con los parametros
      * configurados.
@@ -53,8 +56,8 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
      */
     
     public DesktopConfirm(NiconEvent ev) {
-        super(ev);        
-        setSize(380,106);
+        super(ev);
+
         init();
     }
     
@@ -70,7 +73,6 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
      */
     public DesktopConfirm(NiconEvent ev,char theme){
         super(ev,theme);
-        setSize(380,106);
         init();
     }
     
@@ -83,7 +85,6 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
      */
     public DesktopConfirm(NiconEvent ev,char theme,short icon){
         super(ev,icon,theme);
-        setSize(380,106);
         init();
     }
             
@@ -93,19 +94,29 @@ public class DesktopConfirm extends DesktopNotify implements ActionListener{
      * confirmacion, los botones aceptar y cancelar.
      */
     
-    private void init() {  
-        
-       jbAcept=new nsButton(this,"Acept",1);
-       jbAcept.setBounds(0,83,190,23);
-       jbAcept.addActionListener(this);
-       
-       jbCancel=new nsButton(this,"Cancel",0);
-       jbCancel.setBounds(190,83,190,23);
-       jbCancel.addActionListener(this);
+    private void init() {
 
-       addButton(jbAcept);
-       addButton(jbCancel);
-       setAceptButtonColor();
+        setSize(400,110);
+        
+        jbAcept=new nsButton(this,"Acept",1);
+        jbAcept.setBounds(0,86,200,24);
+        jbAcept.addActionListener(this);
+       
+        jbCancel=new nsButton(this,"Cancel",0);
+        jbCancel.setBounds(200,86,200,24);
+        jbCancel.addActionListener(this);
+
+        addButton(jbAcept);
+        addButton(jbCancel);
+        setAceptButtonColor();
+
+        /*
+         * vamos a realizar la modificacion del contorno de la notificacion
+         * la cual  tendrá un aspecto con esquinas redondas
+         */
+
+        shape = new RoundRectangle2D.Double(0,0,this.getWidth(),this.getHeight(),6,6);
+        this.setShape(shape);
     }
     
     private void setAceptButtonColor(){
