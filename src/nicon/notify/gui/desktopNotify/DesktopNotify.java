@@ -27,6 +27,8 @@ import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +67,8 @@ public class DesktopNotify extends JDialog implements ActionListener {
     
     private JLabel jlTitle;
     private NLabel jlMessage;
-    private JLabel jlIcon;   
+    private JLabel jlIcon;
+    private JLabel jlDate;
     
     private final NotifyConfig config;
     private final NotifyUtil util;
@@ -76,6 +79,8 @@ public class DesktopNotify extends JDialog implements ActionListener {
     private String urlSound;
 
     private MouseController mouseController;
+
+    private Shape shape;
     
     /**
      * Este metodo constructor permite crear una nueva notificacion de escritorio
@@ -89,11 +94,8 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.ev=ev;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
-        this.theme=NiconDarkTheme.getInstance();        
-        setSize(400,98);
-        setUndecorated(true);  
-        setAlwaysOnTop(true);
-        setResizable(false);
+        this.theme=NiconDarkTheme.getInstance();
+
         init();        
         setDesktopInterface();
     }    
@@ -112,12 +114,9 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.ev=ev;
         this.nicon_theme=theme;
         this.config=NotifyConfig.getInstance();
-        this.util=NotifyUtil.getInstance();  
-        setNiconTheme();        
-        setSize(380,98);
-        setUndecorated(true); 
-        setAlwaysOnTop(true);
-        setResizable(false);
+        this.util=NotifyUtil.getInstance();
+
+        setNiconTheme();
         init();        
         setDesktopInterface();
     }     
@@ -136,10 +135,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();        
         this.theme=NiconDarkTheme.getInstance();        
-        setSize(380,98);
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        setResizable(false);
+
         init();        
         setDesktopInterface();
         setIconOption();
@@ -163,11 +159,8 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.nicon_theme=theme;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
-        this.setNiconTheme();        
-        setSize(380,98);
-        setUndecorated(true); 
-        setAlwaysOnTop(true);
-        setResizable(false);
+
+        setNiconTheme();
         init();        
         setDesktopInterface();
         setIconOption();
@@ -191,10 +184,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
         this.setNiconTheme();        
-        setSize(380,98);
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        setResizable(false);
+
         init();        
         setDesktopInterface();
         setIconOption();
@@ -220,10 +210,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
         this.setNiconTheme();        
-        setSize(380,98);
-        setUndecorated(true); 
-        setAlwaysOnTop(true);
-        setResizable(false);
+
         init();        
         setDesktopInterface();
         setIconOption();
@@ -232,8 +219,13 @@ public class DesktopNotify extends JDialog implements ActionListener {
     /**
      * Metodo que inicia el proceso de carga y configuracion de la notificacion
      */
-    private void init() {  
-        
+    private void init() {
+
+        setSize(400,100);
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        setResizable(false);
+
         panel=new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(Integer.parseInt(theme.getBakcgroundPanel(), 16)));
@@ -264,9 +256,19 @@ public class DesktopNotify extends JDialog implements ActionListener {
 
         add(panel);
 
+        /*
+         * vamos a realizar la modificacion del contorno de la notificacion
+         * la cual  tendrá un aspecto con esquinas redondas
+         */
+
+        shape = new RoundRectangle2D.Double(0,0,this.getWidth(),this.getHeight(),5,5);
+        this.setShape(shape);
+
         mouseController = new MouseController(this);
-        this.addMouseListener(mouseController);
+
         jlMessage.addMouseListener(mouseController);
+        this.addMouseListener(mouseController);
+
     }
 
 
