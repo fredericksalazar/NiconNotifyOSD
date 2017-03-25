@@ -34,20 +34,79 @@ package nicon.notify.core;
 
 public class NiconEvent {
         
-    private final String titleEvent;    
-    private final String textEvent;
-    private final byte tipeMessage;
+    private String titleEvent;
+    private String textEvent;
+    private byte tipeMessage;
+    private boolean sound;
+    private int time;
+
+
+    /**
+     * Crea un objeto NiconEvent basico, asigna los atributos faltantes a valores por
+     * defecto
+     *
+     * @param titulo titulo del event
+     * @param mensaje el mensaje del evento
+     * @param tipeMessage tipo de evento
+     */
+
+    public NiconEvent(String titulo, String mensaje,byte tipeMessage){
+        this.titleEvent = titulo;
+        this.textEvent = mensaje;
+        this.tipeMessage = tipeMessage;
+        this.time = Notification.TIME_OUT;
+        this.sound = Notification.SOUND;
+    }
+
+    /**
+     * Crea un objeto NiconEvent basico, asigna los atributos faltantes a valores por
+     * defecto
+     *
+     * @param titulo titulo del evento
+     * @param mensaje mensaje del evento
+     * @param tipeMessage tipo de evento
+     */
+
+    public NiconEvent(String titulo, String mensaje,byte tipeMessage, boolean sonido){
+        this.titleEvent = titulo;
+        this.textEvent = mensaje;
+        this.tipeMessage = tipeMessage;
+        this.time = Notification.TIME_OUT;
+        this.sound = sonido;
+    }
+
+
+    /**
+     * Crea un objeto NiconEvent basico, asigna los atributos faltantes a valores po
+     * defecto
+     *
+     * @param titulo titulo del evento
+     * @param mensaje mensaje del evento
+     * @param tipeMessage tipo de evento
+     */
+
+    public NiconEvent(String titulo, String mensaje,byte tipeMessage, int time){
+        this.titleEvent = titulo;
+        this.textEvent = mensaje;
+        this.tipeMessage = tipeMessage;
+        this.time = time*1000;
+        this.sound = false;
+    }
+
 
     /**
      * Crea un objeto Event que contiene la informacion de la notificacion
-     * @param titleEvent
-     * @param textEvent
-     * @param tipeMessage
+     * @param titleEvent titulo del evento
+     * @param textEvent mensaje del evento
+     * @param tipeMessage tipo de evento
      */
-    public NiconEvent(String titleEvent, String textEvent, byte tipeMessage) {
+
+    public NiconEvent(String titleEvent, String textEvent, byte tipeMessage,int time,boolean sound) {
         this.titleEvent = titleEvent;
         this.textEvent = textEvent;
         this.tipeMessage = tipeMessage;
+        this.time = time*1000;
+        this.sound = sound;
     }   
 
     /**
@@ -55,6 +114,7 @@ public class NiconEvent {
      * @return String titleEvent
      */
     public String getTitleEvent() {
+
         return titleEvent;
     }
 
@@ -63,6 +123,7 @@ public class NiconEvent {
      * @return String textEvent
      */
     public String getTextEvent() {
+
         return textEvent;
     }
 
@@ -71,7 +132,27 @@ public class NiconEvent {
      * @return int tipeMessage
      */
     public int getTipeMessage() {
+
         return tipeMessage;
+    }
+
+    public boolean isSound() {
+
+        return sound;
+    }
+
+    public void setSound(boolean sound) {
+        this.sound = sound;
+    }
+
+    public int getTime() {
+
+        return time;
+    }
+
+    public void setTime(int time) {
+
+        this.time = time;
     }
 
     @Override
