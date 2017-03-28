@@ -42,6 +42,8 @@ public class NotifyConfig {
     private final Color fontOKColor;
     private final Color fontConfirmColor;
     private final Color fontDefaultColor;
+
+    private final Color cancelButtonColor;
     
     private final String nitruxIconsPath;
     
@@ -63,6 +65,8 @@ public class NotifyConfig {
         fontOKColor=new java.awt.Color(116,164,0);
         fontConfirmColor=new java.awt.Color(57,191,222);
         fontDefaultColor=new java.awt.Color(214, 214, 214);
+
+        cancelButtonColor = new Color(198,198,198);
         
         nitruxIconsPath="/nicon/notify/gui/Icons/Nitrux/";
         nameLib="NiconNotifyOSD";
@@ -159,7 +163,11 @@ public class NotifyConfig {
     public String getInfoLib() {
         return infoLib;
     }
-       
+
+    public Color getCancelButtonColor() {
+        return cancelButtonColor;
+    }
+
     /**
      *
      * @return
