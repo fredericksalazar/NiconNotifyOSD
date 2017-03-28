@@ -27,9 +27,9 @@ import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +38,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import nicon.notify.gui.desktopNotify.components.NLabel;
 import nicon.notify.core.NiconEvent;
 import nicon.notify.core.Notification;
@@ -230,17 +231,10 @@ public class DesktopNotify extends JDialog implements ActionListener {
         panel=new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(Integer.parseInt(theme.getBakcgroundPanel(), 16)));
-        
-        jbClose=new JButton();
-        jbClose.setBounds(362, 2, 15, 15);
-        jbClose.setBorderPainted(false);
-        jbClose.setContentAreaFilled(false);
-        jbClose.setIcon(new ImageIcon(getClass().getResource(config.getNitruxIconsPath()+"CloseNotify.png")));
-        jbClose.addActionListener(this);
 
         jlDate = new JLabel();
         jlDate.setFont(config.getMessageFontDesk());
-        jlDate.setBounds(350,2,100,30);
+        jlDate.setBounds(330,2,100,30);
         jlDate.setForeground(config.getFontDefaultColor());
                 
         jlIcon=new JLabel();
@@ -282,14 +276,13 @@ public class DesktopNotify extends JDialog implements ActionListener {
     /**
      * Este metodo permite  ajustar el objeto que muestra  la hora de la
      * notificacin, se ajusta la hora y el color que se mostrará
-     *
+     *dentro de la DesktopNotify.
      */
 
     private void setTimeNotification(){
         Calendar cal = Calendar.getInstance();
-
-        String time = String.valueOf(cal.get(Calendar.HOUR)+":"+String.valueOf(cal.get(Calendar.MINUTE)));
-        this.jlDate.setText(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+        this.jlDate.setText(sdf.format(cal.getTime()));
     }
 
 
@@ -324,7 +317,6 @@ public class DesktopNotify extends JDialog implements ActionListener {
     */
     
     public void setNid(int nid) {
-
         this.nid = nid;
     }
     
