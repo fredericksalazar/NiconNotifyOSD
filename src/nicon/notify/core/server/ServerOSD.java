@@ -25,51 +25,79 @@ package nicon.notify.core.server;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
-import nicon.notify.core.util.NotifyUtil;
+
+import nicon.notify.gui.desktopNotify.DesktopConfirm;
 import nicon.notify.gui.desktopNotify.DesktopNotify;
+
+import javax.swing.*;
 
 /**
  *
+ * Autor: FrederickSalazar
+ *
+ * El ServerOSD es denominado servidor de notificaciones de NiconNotifyOSD
+ * tiene como funcion central gestionar la publicacion en pantalla de
+ * todas las notificaciones recibidas, se encarga de administrar el stack
+ * de notificaciones, asi entonces el ServerOSD es el encargado de
+ * validar la cantidad maxima de notificaciones permitidas por el tamaño de
+ * la pantalla, adicionalmente controla la posicion en la cual las
+ * notificaciones serán mostradas.
+ *
  * @author Frederick Adolfo Salazar Sanchez
  */
+
 public class ServerOSD{
     
     private int nid;
-    private int prev_vertical_position;
-    private final double versionServer;
     private int size;
+    private int maxStackSize;
+    private int yPosition;
+    private int prev_vertical_position;
+
+    private Timer timer;
+
     private HashMap stackServer;
-    private HashMap  stackThread;
-    private ServerThread serThread;
-    private final NotifyUtil nUtil;
-    
+
+    private Toolkit tool;
     private Dimension dimensionDevice;
     
     private DesktopNotify notify;
     private static ServerOSD server;
-    private Toolkit tool;
-    private int yPosition;
-    
-    /*
-        Este metodo permite crear el servidor de Notificaciones e iniciar sus
-        configuraciones basicas.
-    */
+
+    private final double versionServer;
+
+
+    /**
+     * Autor: FrederickSalazar
+     *
+     * Crea una nueva instancia del servidor de notificaciones,
+     * este es el encargado de controlar y gestionar la
+     * publicación y eliminacion de notificaciones del stack
+     *
+     */
+
     private ServerOSD(){
-        versionServer =  0.98;
+        versionServer =  1.70;
         System.out.println("Starting ServerOSD "+versionServer);
         stackServer = new HashMap();
-        stackThread= new HashMap();
-        nUtil = NotifyUtil.getInstance();
+        setMaximunStackSize();
         size = -1;
     }
-    
-    /*
-        aqui generaremos el nid para cada notificacion, este nid será unico en 
-        cada ejecución e identificará una notificacion dentro del stack de 
-        notificaciones implementado en serverOSD, este numero es un enter
-        aleatorio entre 1 y mil
-    */
+
+
+    /**
+     * Autor: FrederickSalazar
+     *
+     * Crea una NID para una nueva  notificacion que será  lanzada por
+     * el servidor este NID identifica la notifiacion dentro del
+     * stack de notificaciones
+     *
+     * @return int NID
+     */
+
     private int createNID(){
         System.out.println("ServerOSD: creating nid key stack ...");
         nid = (int) Math.floor(Math.random()*1000);
@@ -80,61 +108,130 @@ public class ServerOSD{
         System.out.println("ServerOSD: nid key is : "+nid);
         return nid;
     }
-    
-    /*
-        El metodo send() es el encargado de controlar y enviar la notificacion
-        al escritorio, la notificacion es cargada al denominado stack de
-        notificaciones, se crea el nid y se la notificacion se hace visible para
-        el OS host, dentro de este metodo controlaremos de igual forma el tiempo
-        que se deseea mostrar la notificacion en pantalla o se se desea dejar 
-        impresa en pantalla hasta que el mismo usuario desee cerrarla
-    */
-    public void send(DesktopNotify notify, int time){
+
+
+    /**
+     * El metodo send() es el encargado de controlar y enviar la notificacion
+     * al escritorio, la notificacion es cargada al denominado stack de
+     * notificaciones, se crea el nid y se la notificacion se hace visible para
+     * el OS host, dentro de este metodo controlaremos de igual forma el tiempo
+     * que se deseea mostrar la notificacion en pantalla o se se desea dejar
+     * impresa en pantalla hasta que el mismo usuario desee cerrarla
+     *
+     * @param notify
+     */
+
+    public synchronized void  send(DesktopNotify notify){
+
         try{
-            if(stackServer.size()<=4){
+
+            if(stackServer.size()<=getMaxStackSize()){
+
                 notify.setNid(createNID());
                 System.out.println("ServerOSD: Stack size: "+stackServer.size());
                 stackServer.put(nid, notify);
-                    if(time >= 10){
-                        serThread = new ServerThread(this,nid,time);   
-                        serThread.start();
-                        stackThread.put(nid, serThread);
-                    }
+
                 notify.setLocation(getDimensionDevice().width-notify.getWidth()-5,setVerticalPosition());
                 System.out.println("ServerOSD: Notification is Launched nid:"+nid);
-                notify.setVisible(true);
                 prev_vertical_position = notify.getY();
+
+                /*
+                Autor: FrederickSalazar
+                Fecha: 22 de marzo de 2017
+                Descr: eliminamos el uso de server Thread y usamos un timer
+                       para asi controlar el tiempo de ejecucion de la notificacion
+                */
+
+                timer = new Timer(notify.getEvent().getTime(), new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //eliminamos la notificacion del stack
+                        remove(notify.getNid());
+                    }
+                });
+
+                if(notify instanceof DesktopConfirm){
+                    ((DesktopConfirm) notify).setState(true);
+                }
+
+                timer.start();
+                notify.showMe();
             }
         }catch(Exception e){
            System.out.println("ServerOSD: Exception in send():\n"+e);
         }
     }
-    
-    /*
-        Este metodo se encarga de ocultar una notificacion en pantalla en caso 
-        de que este visible y de eliminar una notificacion en el stack,
-    */
+
+
+    /**
+     * Autor:  FrederickSalazar
+     *
+     * permite remover una notificacion del servidor de notificaciones,
+     * la elimina del stack de notificaciones e invoca el metodo
+     * notify en el caso de las DesktopConfirm para liberar el hilo
+     * de ejecucion y retornar el valor seleccionado por el usuario
+     *
+     * @param nid
+     */
+
     public void remove(int nid){
-        ServerThread thrd;
+
         if(stackServer.containsKey(nid)){
             notify = (DesktopNotify) stackServer.get(nid);
             if(notify.isVisible()){
                 notify.dispose();
-                thrd = (ServerThread) stackThread.get(nid);
-                thrd.killThread();
                 stackServer.remove(nid);
-                stackThread.remove(nid);
+
+                if(notify instanceof DesktopConfirm){
+                    System.out.println("Si es una cnfirm");
+                    ((DesktopConfirm) notify).setState(false);
+                    synchronized (notify){
+                        notify.notify();
+                    }
+                }
                 System.out.println("ServerOSD: notification with nid: "+nid+" remove successfully ...");
             }
         }
     }
-    
-    /*
-     * Este metodo permite ajustar el valor de posicionamiento en el eje Y de una
-     * notificacion, calculando la cantidad de notificaciones en ejecucion, el
-     * valor height de cada una de ellas y su espacio de separacion podemos saber
-     * cual es realmente su nuevo valor de Y
+
+
+    /**
+     * Autor: FrederickSalazar
+     *
+     * Este metodo permite calcular segun el tamaño de la pantalla la cantidad maxima de
+     * notificaciones que puede recibir el stack de notificaciones, el calculo
+     * de la cantidad de notificaciones es el resultado de medir el alto de la pantall
+     * y dividirlo por el alto promedio de las notificaciones
      */
+
+    private void setMaximunStackSize(){
+        maxStackSize = (int) getDimensionDevice().getHeight()/110;
+        System.out.println("Maximun total notification in screen: "+maxStackSize);
+    }
+
+
+    /**
+     * Autor: FrederickSalazar
+     *
+     * Este metodo retorna la maxima cantidad de notificaciones
+     * que soporta el stack de acuerdo a la capacidad de la
+     * pantalla medida en el alto de la misma
+     *
+     * @return int maxStackSize
+     */
+
+    public int getMaxStackSize(){
+        return maxStackSize;
+    }
+
+
+    /**
+     * calcula y retorna la posicion en el eje Y para una nueva
+     * notificacion que será desplegada en pantalla
+     *
+     * @return int verticalPosition
+     */
+
     private int setVerticalPosition(){
         if(stackServer.size()==1){
             yPosition = 30;
@@ -145,16 +242,16 @@ public class ServerOSD{
         }
         return yPosition;
     }
-    
-    
-    
-    /*
-        Este metodo permite conocer las dimensiones en pixeles de la pantalla del
-        dispositivo en el cual se esta ejecutando este servidor, el metodo de 
-        tipo público retorna un ojeto de tipo Dimension con los valores width 
-        y height.
-        @return Dimension
-    */
+
+
+    /**
+     * Retorna un objeto {@link Dimension} que representa
+     * el tamaño de la pantalla en la cual se esta ejecutando
+     * el serverOSD
+     *
+     * @return Dimension dimensionDevice
+     */
+
     public Dimension getDimensionDevice(){
         try{
            tool = Toolkit.getDefaultToolkit();
@@ -164,24 +261,31 @@ public class ServerOSD{
         }
         return dimensionDevice;
     }
-    
-    /*
-        Este metodo se usa para retorna el total de notificaciones cargadas 
-        dentro de el stack de notificaciones.
-    */
+
+
+    /**
+     * Retorna la cantidad de notificaciones que actualmente
+     * posee el stack
+     *
+     * @return int stackSize
+     */
+
     private int stackSize(){
         if(stackServer!=null){
             size = stackServer.size();
         }
         return size;
     }
-    
-    /*
-        Usando el patron de diseño Singleton y segun los requerimientos el 
-        ServerOSD debe ser un objeto único dentro de el entorno de ejecución
-        pues será quien controle de forma central la gestion de notificaciones.
-        @return serverOSD
-    */
+
+
+    /**
+     * Retorna una instancia del servidor de notificaciones el cual
+     * se encarga de controlar al gestion de notificaciones
+     * en el escritorio
+     *
+     * @return ServerOSD instance
+     */
+
     public static ServerOSD getInstance(){
         if(server==null){
             server = new ServerOSD();
