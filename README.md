@@ -1,8 +1,9 @@
 NiconNotifyOSD
 ==============
 
-<b>NiconNotifyOSD</b> es una librería Java SE que permite gestionar notificaciones de escritorio de una manera fácil y eficiente, <b>NiconNotifyOSD</b> ha sido diseñada pensando en la facilidad de uso e implementacion en sus proyectos y provee un API lo suficientemente simple como para implementarla en cuestión de segundos.
+<b> NiconNotifyOSD</b> es una libreria para <b>JavaSE</b> que permite gestionar notificaciones de escritorio en todos los sistemas opreativos, con una simple API, usted podrà mostrar todo tipo de notificaciones flotantes con diferentes parámetros en <b>GNU/Linux</b>, <b> Windows </b> y <b> Mac OS</b>
 
-El API de NiconNotifyOSD provee una variedad de metodos que permiten mostrar notificaciones de escritorio con diferentes configuraciones y posibilidades ofreciendo asi, una herramienta potente para informar de eventos en sus proyectos en cuestion de segundos. <b> NiconNotifyOSD </b>
+Get Started
+==========
+Con el <b> API Notification </b> que ofrece todos los métodos necesarios para poder usar la librería, usted podrá en cuestion de segundos comenzar a usar la librería, a continuacion mostramos algunas de las propiedades del API Notification y como puede empezar a usarla en sus proyectos
 
-<img src ="https://lh3.googleusercontent.com/proxy/lh7DsM-vEL89czQl44AT78L2-UOdrwUQvxmCzEupK9wD48n9on3GVhhmWmmkXf4ELg70SMFZLmoeu2CiEN1ZBg=w506-h285-n"/>
