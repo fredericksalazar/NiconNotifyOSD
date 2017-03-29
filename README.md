@@ -23,7 +23,8 @@ A continuación vera lo simple que usar la librería y el poder del API Notifica
 
 <ul>
   <li> Notificacion de Escritorio simple:
-  <p> Una notificación de escritorio se compone de un titulo, un mensaje y un tipo de evento.
+  <p> Notification.show("NiconNotifyOSD 3.0", "Esta es una notificacion de prueba, usando la nueva"
+                        + "version de NiconNotifyOSD, con nuevo diseño y funcionalidad", Notification.NICON_DARK_THEME);</p>
   
   
 
