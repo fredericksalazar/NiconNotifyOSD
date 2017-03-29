@@ -23,8 +23,9 @@ A continuación vera lo simple que usar la librería y el poder del API Notifica
 
 <ul>
   <li> Notificacion de Escritorio simple:
-  <p> Notification.show("NiconNotifyOSD 3.0", "Esta es una notificacion de prueba, usando la nueva"
-                        + "version de NiconNotifyOSD, con nuevo diseño y funcionalidad", Notification.NICON_DARK_THEME);</p>
+  <p> <b>Notification.show(title, message, Notification.NICON_DARK_THEME);</b></p>
+  <li> Notificacion de confirmacion:
+  <p> <b>Notification.showConfirm(title, message, Notification.NICON_LIGHT_THEME);</b></p>
   
   
 
