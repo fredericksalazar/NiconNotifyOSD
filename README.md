@@ -15,9 +15,15 @@ Antes de empezar a usar la librería, consideramos que debe conocer un poco más
 
 <b>NiconNotifyOSD </b> dispone, por ahora, de dos tipos de notificaciones, las <b>DesktopNotify</b> y las <b>DesktopConfirm</b>, las DesktopNotify son notificaciones simples que contienen un titulo, un mensaje, un tipo de notificacion y son mostradas en pantalla a modo informativo, basicamente su objetivo es mostrar informaciòn al usuario, por el contrario las <b>DesktopConfirm</b> son notificaciones que permiten al usuario poder seleccionar un valor Aceptar o cancelar, ademas de mostrar información al usuario, permiten al mismo poder tomar una decisión.
 
-<b>Lanzando Notificaciones desde su app Java:</b>
+
+Lanzando Notificaciones desde su app Java
+=========================================
+
+A continuación vera lo simple que usar la librería y el poder del API Notification
 
 <ul>
   <li> Notificacion de Escritorio simple:
-  <p> Una notificación de escritorio se compone de un titulo, un mensaje y un tipo de even
+  <p> Una notificación de escritorio se compone de un titulo, un mensaje y un tipo de evento.
+  
+  
 
