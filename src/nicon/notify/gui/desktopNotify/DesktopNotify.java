@@ -59,9 +59,9 @@ import nicon.notify.gui.themes.NiconTheme;
  * @author frederick
  */
 public class DesktopNotify extends JDialog implements ActionListener {
-    
-          
-    private final NiconEvent ev;
+
+
+    protected final NiconEvent ev;
     private int nid;
     private short icon;
     private char nicon_theme;
@@ -92,7 +92,7 @@ public class DesktopNotify extends JDialog implements ActionListener {
      * @param ev 
      */
     
-    public DesktopNotify(NiconEvent ev) {        
+    public DesktopNotify(NiconEvent ev) {
         this.ev=ev;
         this.config=NotifyConfig.getInstance();
         this.util=NotifyUtil.getInstance();
@@ -550,8 +550,6 @@ public class DesktopNotify extends JDialog implements ActionListener {
         }
 
         setVisible(true);
-        this.setOpacity(0.8f);
-
     }
     
     @Override

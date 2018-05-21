@@ -142,7 +142,7 @@ public class nsButton extends JButton{
          * @param sleep
          * @param event
          */
-        public void efectHover(float index, float range, float cont, int sleep,boolean event){
+        public void efectHover(final float index, final float range, final float cont, final int sleep,final boolean event){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -150,7 +150,7 @@ public class nsButton extends JButton{
                         setOpacity(i);
                         try{
                             Thread.sleep(sleep);
-                        }catch(Exception e){
+                        }catch(InterruptedException e){
                             e.printStackTrace();
                         }
                     }

@@ -121,7 +121,7 @@ public class ServerOSD{
      * @param notify
      */
 
-    public synchronized void  send(DesktopNotify notify){
+    public synchronized void  send(final DesktopNotify notify){
 
         try{
 
